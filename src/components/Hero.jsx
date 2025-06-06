@@ -120,7 +120,7 @@ const HeroSection = () => {
     <section
       ref={heroRef}
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0d1224] via-[#1a1a2e] to-[#271c54]"
+      className="relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0d1224] via-[#1a1a2e] to-[#271c54]"
     >
       {/* Enhanced Floating Particles */}
       <div className="absolute inset-0">

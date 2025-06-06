@@ -51,7 +51,7 @@ const AboutSection = () => {
     <section
       ref={sectionRef}
       id="about"
-      className="relative py-20 lg:py-32 overflow-hidden bg-gradient-to-br from-[#0d1224] via-[#1a1a2e] to-[#271c54]"
+      className="relative py-20 lg:py-32 overflow-hidden bg-gradient-to-bl from-[#271c54] via-[#1a1a2e] to-[#0d1224]"
     >
       {/* Background Elements */}
       <div className="absolute inset-0">

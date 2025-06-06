@@ -288,7 +288,7 @@ const Projects = () => {
     <section
       id="projects"
       ref={sectionRef}
-      className="relative min-h-screen py-20 bg-gradient-to-br from-[#0d1224] via-[#1a1a2e] to-[#271c54] overflow-hidden"
+      className="relative py-20 bg-gradient-to-br from-[#0d1224] via-[#1a1a2e] to-[#271c54] overflow-hidden"
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
