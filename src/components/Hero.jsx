@@ -93,10 +93,10 @@ const HeroSection = () => {
   ].filter((link) => link.href);
 
   const stats = [
-    { icon: FaCode, value: "10+", label: "Projects", color: "text-pink-400" },
+    { icon: FaCode, value: "20+", label: "Projects", color: "text-pink-400" },
     {
       icon: FaStar,
-      value: "20+",
+      value: "40+",
       label: "GitHub Stars",
       color: "text-yellow-400",
     },

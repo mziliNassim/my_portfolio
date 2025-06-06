@@ -4,7 +4,7 @@ export const experiences = [
     role: "Junior Full Stack Developer",
     company: {
       name: "WEB4JOBS",
-      link: "https://www.linkedin.com/in/mziliNassim/",
+      link: "https://www.linkedin.com/company/web4jobs/",
     },
     duration: "2025 - 1 Month",
     description:

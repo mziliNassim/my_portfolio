@@ -2,7 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { experiences } from "../utils/data/experience";
 
 import { BsPersonWorkspace } from "react-icons/bs";
-import { FaBuilding, FaCalendarAlt, FaCode, FaRocket } from "react-icons/fa";
+import {
+  FaBuilding,
+  FaCalendarAlt,
+  FaCode,
+  FaExternalLinkAlt,
+  FaRocket,
+} from "react-icons/fa";
 
 function Experience() {
   const [isVisible, setIsVisible] = useState(false);
@@ -149,7 +155,7 @@ function Experience() {
                               <div className="p-3 bg-gradient-to-r from-pink-500/20 to-violet-600/20 rounded-lg border border-pink-500/30">
                                 <IconComponent className="w-6 h-6 text-pink-400" />
                               </div>
-                              <div>
+                              <div className="flex flex-col gap-2">
                                 <h3 className="text-xl font-bold text-white mb-1">
                                   {experience.role}
                                 </h3>
@@ -159,9 +165,10 @@ function Experience() {
                                     href={experience.company.link}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="hover:text-pink-300 transition-colors"
+                                    className="hover:text-pink-300 flex items-center gap-1 transition-colors"
                                   >
-                                    {experience.company.name}
+                                    <span>{experience.company.name}</span>
+                                    <FaExternalLinkAlt className="text-sm" />
                                   </a>
                                 </div>
                               </div>
