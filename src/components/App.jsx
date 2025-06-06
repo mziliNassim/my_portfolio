@@ -7,11 +7,11 @@ import ScrollToTop from "./ScrollToTop.jsx";
 
 import Hero from "./Hero";
 import About from "./About.jsx";
+import Experience from "./Experience.jsx";
 import Skills from "./Skills.jsx";
 import Education from "./Education.jsx";
 import Contact from "./Contact.jsx";
 
-import Experience from "./Experience.jsx";
 import Projects from "./Projects.jsx";
 
 function App() {

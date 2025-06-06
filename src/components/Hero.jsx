@@ -14,6 +14,8 @@ import {
   FaCode,
   FaStar,
   FaEye,
+  FaInstagram,
+  FaEnvelope,
 } from "react-icons/fa";
 
 const HeroSection = () => {
@@ -73,22 +75,28 @@ const HeroSection = () => {
       color: "from-blue-600 to-blue-800",
     },
     {
+      icon: FaEnvelope,
+      href: `mailto:${personalData.email}`,
+      label: "LeetCode",
+      color: "from-orange-500 to-orange-700",
+    },
+    {
       icon: FaFacebook,
       href: personalData.facebook,
       label: "Facebook",
       color: "from-blue-500 to-blue-700",
     },
     {
-      icon: SiLeetcode,
-      href: personalData.leetcode,
-      label: "LeetCode",
-      color: "from-orange-500 to-orange-700",
-    },
-    {
       icon: FaTwitterSquare,
       href: personalData.twitter,
       label: "Twitter",
       color: "from-cyan-400 to-cyan-600",
+    },
+    {
+      icon: FaInstagram,
+      href: personalData.instagram,
+      label: "Instagram",
+      color: "from-red-400 to-red-600",
     },
   ].filter((link) => link.href);
 
@@ -235,8 +243,7 @@ const HeroSection = () => {
 
             {/* Enhanced Social Links */}
             <div className="flex items-center space-x-4">
-              <span className="text-gray-400 font-medium">Follow me:</span>
-              <div className="flex space-x-3">
+              <div className="flex flex-wrap gap-y-3 space-x-3">
                 {socialLinks.map((social, index) => (
                   <a
                     key={social.label}
