@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { experiences } from "../utils/data/experience";
+import { experiences } from "../../utils/data/experience";
 
 import { BsPersonWorkspace } from "react-icons/bs";
 import {

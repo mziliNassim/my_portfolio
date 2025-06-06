@@ -21,7 +21,7 @@ import {
   FaInstagram,
 } from "react-icons/fa";
 
-import { personalData } from "../utils/data/personal-data";
+import { personalData } from "../../utils/data/personal-data";
 
 // Mock contact data
 const contactInfo = [

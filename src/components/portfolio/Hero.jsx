@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import { personalData } from "../utils/data/personal-data";
+import { personalData } from "../../utils/data/personal-data";
 
 import { BsGithub, BsLinkedin } from "react-icons/bs";
 import { MdDownload, MdKeyboardArrowDown } from "react-icons/md";

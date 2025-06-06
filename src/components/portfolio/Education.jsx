@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { educations } from "../utils/data/educations";
+import { educations } from "../../utils/data/educations";
 import { BsPersonWorkspace } from "react-icons/bs";
 import EducationCard from "./EducationCard";
 
