@@ -32,11 +32,6 @@ function Experience() {
     return () => observer.disconnect();
   }, []);
 
-  const getIcon = (index) => {
-    const icons = [FaRocket, FaCode, FaBuilding];
-    return icons[index % icons.length];
-  };
-
   return (
     <section
       id="experience"
@@ -118,7 +113,6 @@ function Experience() {
           {/* Experience Cards */}
           <div className="space-y-12 lg:space-y-24">
             {experiences.map((experience, index) => {
-              const IconComponent = getIcon(index);
               const isEven = index % 2 === 0;
 
               return (
@@ -153,7 +147,11 @@ function Experience() {
                           <div className="flex items-start justify-between mb-4">
                             <div className="flex items-center space-x-4">
                               <div className="p-3 bg-gradient-to-r from-pink-500/20 to-violet-600/20 rounded-lg border border-pink-500/30">
-                                <IconComponent className="w-6 h-6 text-pink-400" />
+                                <img
+                                  src={experience.logo}
+                                  alt={`${experience.company.name} logo`}
+                                  className="w-6 h-6 object-contain rounded"
+                                />
                               </div>
                               <div className="flex flex-col gap-2">
                                 <h3 className="text-xl font-bold text-white mb-1">
