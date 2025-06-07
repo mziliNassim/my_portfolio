@@ -1,8 +1,9 @@
-import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
 
 import ScrollToTop from "./components/layouts/ScrollToTop.jsx";
+import NavBar from "./components/layouts/NavBar.jsx";
+import Footer from "./components/layouts/Footer.jsx";
 
 import Portfolio from "./pages/Portfolio.jsx";
 import Cv from "./pages/Cv";
@@ -16,11 +17,28 @@ function App() {
       <ScrollToTop />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element=<Portfolio /> />
+          <Route
+            path="/"
+            element={
+              <>
+                <NavBar />
+                <Portfolio />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/links"
+            element={
+              <>
+                <NavBar />
+                <Links />
+                <Footer />
+              </>
+            }
+          />
 
-          <Route path="/links" element=<Links /> />
           <Route path="/cv" element=<Cv /> />
-
           <Route path="*" element=<NotFound /> />
         </Routes>
       </BrowserRouter>
