@@ -120,7 +120,7 @@ const HeroSection = () => {
     <section
       ref={heroRef}
       id="home"
-      className="relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0d1224] via-[#1a1a2e] to-[#271c54]"
+      className="relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0d1224] via-[#1a1a2e] to-[#271c54] pt-20 pb-8 lg:py-16 lg:pt-28"
     >
       {/* Enhanced Floating Particles */}
       <div className="absolute inset-0">
@@ -156,7 +156,7 @@ const HeroSection = () => {
           >
             {/* Enhanced Greeting */}
             <div className="space-y-6">
-              <div className="flex items-center space-x-4 group">
+              <div className="flex items-center justify-center lg:justify-start space-x-4 group">
                 <div className="w-16 h-[3px] bg-gradient-to-r from-pink-500 via-violet-500 to-cyan-400 rounded-full group-hover:w-20 transition-all duration-500" />
                 <span className="text-gray-300 text-lg font-medium flex items-center space-x-2">
                   <span>Hello, I'm</span>
@@ -165,7 +165,7 @@ const HeroSection = () => {
               </div>
 
               {/* Enhanced Name with 3D Effect */}
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight">
+              <h1 className="text-5xl sm:text-6xl font-bold leading-tight text-center lg:text-left">
                 <div className="relative">
                   {personalData.name.split(" ").map((word, index) => (
                     <span
@@ -193,7 +193,7 @@ const HeroSection = () => {
               </h1>
 
               {/* Enhanced Role with Better Typography */}
-              <div className="flex items-center space-x-4 text-2xl sm:text-3xl lg:text-4xl">
+              <div className="flex items-center justify-center lg:justify-start space-x-4 text-2xl sm:text-3xl ">
                 <span className="text-gray-300 font-light">I'm a</span>
                 <div className="relative overflow-hidden">
                   <div className="relative bg-gradient-to-r from-[#16f2b3] via-cyan-400 to-blue-400 font-bold px-3 rounded-md">
@@ -242,7 +242,7 @@ const HeroSection = () => {
             </div>
 
             {/* Enhanced Social Links */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center justify-center lg:justify-start space-x-4">
               <div className="flex flex-wrap gap-y-3 space-x-3">
                 {socialLinks.map((social, index) => (
                   <a
@@ -263,7 +263,7 @@ const HeroSection = () => {
             </div>
 
             {/* Enhanced Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-6 pt-4">
+            <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-6 pt-4">
               <a
                 href="#contact"
                 className="group relative overflow-hidden bg-gradient-to-r from-pink-500 to-violet-600 p-[2px] rounded-2xl hover:shadow-2xl hover:shadow-pink-500/25 transition-all duration-500 hover:scale-105"

@@ -5,7 +5,7 @@ export const educations = [
     institution: "Institut Supérieur des Techniques Appliquées",
     duration: "2023 - En cours",
     city: "Tinghir",
-    description: "d",
+    description: "",
     achievements: [
       "Full-Stack developemnt",
       "hardware and software",
@@ -24,7 +24,7 @@ export const educations = [
     institution: 'Faculty of sciences "SEMLALIA"',
     duration: "2019 - 2022",
     city: "Marrakech",
-    description: "d",
+    description: "",
     achievements: [
       "computer hardware and software",
       "algorithms and Problems solving",
