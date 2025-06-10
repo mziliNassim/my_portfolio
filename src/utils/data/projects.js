@@ -1,0 +1,26 @@
+export const projects = [
+  {
+    id: `postman-${Date.now()}`,
+    name: "Postman Clone",
+    poster: "/projects/posters/postman_project.png",
+    gif: "/projects/gif/postman_project.gif",
+    description:
+      "Une application web puissante et intuitive conçue pour tester les requêtes HTTP telles que 'GET', 'POST', 'PUT', et bien d'autres. Développée avec React JS, stylisée avec Bootstrap, et utilisant Redux Toolkit pour la gestion de l'état, cette application offre une expérience fluide aux développeurs pour interagir avec des API. Grâce à Axios pour la gestion des appels API, cet outil simplifie l'envoi de requêtes et l'analyse des réponses, en faisant un outil indispensable pour le débogage et les tests d'API.",
+    tools: ["React JS", "Bootstrap", "Axios", "Redux", "Redux/toolkit"],
+    role: "Front end Developer",
+    code: "https://github.com/mziliNassim/postman-clone-react",
+    demo: "https://postmanclone.nassim.online/",
+  },
+  {
+    id: `wiki-${Date.now()}`,
+    name: "Wiki Search",
+    poster: "/projects/posters/wiki.png",
+    gif: "/projects/gif/wiki.gif",
+    description:
+      "Web Application de recherche simple et intuitif qui permet aux utilisateurs de rechercher des articles et de récupérer des informations pertinentes rapidement et efficacement. Conçue avec React JS, stylisée à l'aide de Bootstrap et alimentée par l'API Wikipedia, l'application offre un moyen simple d'explorer un vaste éventail de connaissances.",
+    tools: ["React JS", "Bootstrap", "Axios"],
+    role: "Front end Developer",
+    code: "tps://github.com/mziliNassim/wiki-react",
+    demo: "https://wikipedia.nassim.online/",
+  },
+];

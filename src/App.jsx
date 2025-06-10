@@ -11,6 +11,8 @@ import Cv from "./pages/Cv";
 import Links from "./pages/Links.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
+import Projects from "./components/portfolio/Projects.jsx";
+
 function App() {
   const [theme] = useState("dark");
   return (
@@ -36,6 +38,16 @@ function App() {
                 <>
                   <NavBar />
                   <Links />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/projects"
+              element={
+                <>
+                  <NavBar />
+                  <Projects page={true} />
                   <Footer />
                 </>
               }

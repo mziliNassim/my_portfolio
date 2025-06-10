@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { projects } from "../../utils/data/projects";
 import {
   FaCode,
   FaExternalLinkAlt,
@@ -10,95 +11,15 @@ import {
   FaUser,
 } from "react-icons/fa";
 
-// Mock project data - replace with your actual projectsData
-const projectsData = [
-  {
-    id: `Calculator-${Date.now()}`,
-    name: "Trading Calculator",
-    poster: "/image/projects/trading_calculator.png",
-    description:
-      "Simple Trading Calculator Web Application is a user-friendly tool designed to help traders efficiently calculate essential trading metrics, ensuring accurate trade planning and effective risk management. Built using React.js for dynamic functionality and Bootstrap for responsive design, this application is both practical and easy to use.",
-    tools: [
-      "React JS",
-      "Bootstrap",
-      "Axios",
-      "Tailwind CSS",
-      "Google Maps",
-      "Express",
-      "MongoDB",
-      "JWT",
-      "Redux",
-    ],
-    role: "Full Stack Developer",
-    code: "https://github.com/mziliNassim/trading-calculator-react",
-    demo: "https://calculatortrading.nassim.online/",
-  },
-  {
-    id: `Portfolio-${Date.now()}`,
-    name: "Portfolio Website",
-    poster: "/image/projects/portfolio.png",
-    description:
-      "A modern, responsive portfolio website built with React and advanced animations. Features dark mode, smooth scrolling, and interactive elements to showcase projects and skills effectively.",
-    tools: [
-      "React JS",
-      "Tailwind CSS",
-      "Framer Motion",
-      "Three.js",
-      "GSAP",
-      "Node.js",
-    ],
-    role: "Frontend Developer",
-    code: "https://github.com/example/portfolio",
-    demo: "https://portfolio.example.com",
-  },
-  {
-    id: `Ecommerce-${Date.now()}`,
-    name: "E-Commerce Platform",
-    poster: "/image/projects/ecommerce.png",
-    description:
-      "Full-stack e-commerce solution with advanced features including real-time inventory management, secure payment processing, and comprehensive admin dashboard for business operations.",
-    tools: [
-      "Next.js",
-      "TypeScript",
-      "Prisma",
-      "PostgreSQL",
-      "Stripe",
-      "Tailwind CSS",
-      "Vercel",
-    ],
-    role: "Full Stack Developer",
-    code: "https://github.com/example/ecommerce",
-    demo: "https://ecommerce.example.com",
-  },
-  {
-    id: `Dashboard-${Date.now()}`,
-    name: "Analytics Dashboard",
-    poster: "/image/projects/dashboard.png",
-    description:
-      "Interactive analytics dashboard with real-time data visualization, customizable widgets, and comprehensive reporting features for business intelligence and data-driven decision making.",
-    tools: [
-      "React JS",
-      "D3.js",
-      "Chart.js",
-      "Material-UI",
-      "Firebase",
-      "Express",
-      "Socket.io",
-    ],
-    role: "Frontend Developer",
-    code: "https://github.com/example/dashboard",
-    demo: "https://dashboard.example.com",
-  },
-];
-
 // ProjectCard Component
 const ProjectCard = ({ project, index, isVisible }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const [hovered, setHovered] = useState(false);
 
   return (
     <div
-      className={`group relative transform transition-all duration-1000 ${
+      className={`group relative transform transition-all duration-1000 h-full flex flex-col ${
         isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
       }`}
       style={{ transitionDelay: `${index * 0.2}s` }}
@@ -109,21 +30,29 @@ const ProjectCard = ({ project, index, isVisible }) => {
       <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-violet-500 to-cyan-500 rounded-2xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
 
       {/* Card Content */}
-      <div className="relative bg-gradient-to-br from-[#0d1224]/90 to-[#1a1a2e]/90 backdrop-blur-sm rounded-2xl border border-gray-700/50 overflow-hidden group-hover:border-pink-500/50 transition-all duration-500">
+      <div className="relative bg-gradient-to-br from-[#0d1224]/90 to-[#1a1a2e]/90 backdrop-blur-sm rounded-2xl border border-gray-700/50 overflow-hidden group-hover:border-pink-500/50 transition-all duration-500 h-full flex flex-col">
         {/* Project Image */}
-        <div className="relative h-64 md:h-80 overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900">
+        <div className="relative h-64 md:h-80 overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900 flex-shrink-0">
           {/* Placeholder gradient while image loads */}
           <div className="absolute inset-0 bg-gradient-to-br from-pink-500/20 via-violet-500/20 to-cyan-500/20 animate-pulse" />
 
           {/* Project Image */}
           <img
-            src={project.poster || "/api/placeholder/600/400"}
+            src={
+              project.gif && !imageError
+                ? project.gif
+                : project.poster || "/api/placeholder/600/400"
+            }
             alt={project.name}
             className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 ${
               imageLoaded ? "opacity-100" : "opacity-0"
             }`}
+            loading="lazy"
             onLoad={() => setImageLoaded(true)}
-            onError={() => setImageLoaded(true)}
+            onError={() => {
+              setImageError(true);
+              setImageLoaded(true);
+            }}
           />
 
           {/* Overlay */}
@@ -162,8 +91,8 @@ const ProjectCard = ({ project, index, isVisible }) => {
           </div>
         </div>
 
-        {/* Card Body */}
-        <div className="p-6 space-y-4">
+        {/* Card Body - Flex grow to fill remaining space */}
+        <div className="p-6 space-y-4 flex-grow flex flex-col">
           {/* Project Header */}
           <div className="flex items-start justify-between">
             <div className="flex-1">
@@ -188,7 +117,7 @@ const ProjectCard = ({ project, index, isVisible }) => {
           </div>
 
           {/* Description */}
-          <p className="text-gray-300 leading-relaxed text-sm line-clamp-4">
+          <p className="text-gray-300 leading-relaxed text-sm line-clamp-4 flex-grow">
             {project.description}
           </p>
 
@@ -218,8 +147,8 @@ const ProjectCard = ({ project, index, isVisible }) => {
             </div>
           </div>
 
-          {/* Action Links */}
-          <div className="flex items-center justify-between pt-4 border-t border-gray-700/30">
+          {/* Action Links - Positioned at bottom */}
+          <div className="flex items-center justify-between pt-4 border-t border-gray-700/30 mt-auto">
             <div className="flex space-x-3">
               {project.demo && (
                 <a
@@ -255,7 +184,7 @@ const ProjectCard = ({ project, index, isVisible }) => {
 };
 
 // Main Projects Component
-const Projects = () => {
+const Projects = ({ page = false }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [activeFilter, setActiveFilter] = useState("All");
   const sectionRef = useRef(null);
@@ -277,9 +206,9 @@ const Projects = () => {
     return () => observer.disconnect();
   }, []);
 
-  const filters = ["All", "Full Stack", "Frontend", "Backend"];
+  const filters = ["All", "Full Stack", "Front end", "Back end"];
 
-  const filteredProjects = projectsData.filter((project) => {
+  const filteredProjects = projects.filter((project) => {
     if (activeFilter === "All") return true;
     return project.role.includes(activeFilter);
   });
@@ -288,7 +217,7 @@ const Projects = () => {
     <section
       id="projects"
       ref={sectionRef}
-      className="relative py-20 bg-gradient-to-br from-[#0d1224] via-[#1a1a2e] to-[#271c54] overflow-hidden"
+      className="relative py-20 bg-gradient-to-br from-[#0d1224] via-[#1a1a2e] to-[#271c54] overflow-hidden pt-20 pb-8 lg:py-16 lg:pt-28"
     >
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -348,50 +277,72 @@ const Projects = () => {
         </div>
 
         {/* Filter Buttons */}
-        <div
-          className={`flex flex-wrap justify-center gap-3 mb-12 transform transition-all duration-1000 delay-300 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
-        >
-          {filters.map((filter) => (
-            <button
-              key={filter}
-              onClick={() => setActiveFilter(filter)}
-              className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
-                activeFilter === filter
-                  ? "bg-gradient-to-r from-pink-500 to-violet-600 text-white shadow-lg"
-                  : "bg-gray-800/50 text-gray-400 border border-gray-700/50 hover:border-pink-500/50 hover:text-pink-300"
-              }`}
-            >
-              {filter}
-            </button>
-          ))}
-        </div>
+        {/* {page && (
+          <div
+            className={`flex flex-wrap justify-center gap-3 mb-12 transform transition-all duration-1000 delay-300 ${
+              isVisible
+                ? "translate-y-0 opacity-100"
+                : "translate-y-10 opacity-0"
+            }`}
+          >
+            {filters.map((filter) => (
+              <button
+                key={filter}
+                onClick={() => setActiveFilter(filter)}
+                className={`px-6 cursor-pointer py-2 rounded-full font-medium transition-all duration-300 ${
+                  activeFilter === filter
+                    ? "bg-gradient-to-r from-pink-500 to-violet-600 text-white shadow-lg"
+                    : "bg-gray-800/50 text-gray-400 border border-gray-700/50 hover:border-pink-500/50 hover:text-pink-300"
+                }`}
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
+        )} */}
 
-        {/* Projects Grid */}
+        {/* Projects Grid - Show only 2 projects */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {filteredProjects.slice(0, 4).map((project, index) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              index={index}
-              isVisible={isVisible}
-            />
-          ))}
+          {page
+            ? filteredProjects.map((project, index) => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  index={index}
+                  isVisible={isVisible}
+                />
+              ))
+            : filteredProjects
+                .slice(0, 2)
+                .map((project, index) => (
+                  <ProjectCard
+                    key={project.id}
+                    project={project}
+                    index={index}
+                    isVisible={isVisible}
+                  />
+                ))}
         </div>
 
-        {/* View More Button */}
-        <div
-          className={`text-center mt-16 transform transition-all duration-1000 delay-700 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
-        >
-          <button className="group relative inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-pink-500/10 to-violet-600/10 rounded-full border border-pink-500/30 hover:border-pink-500/50 transition-all duration-300 hover:scale-105">
-            <span className="text-white font-medium">View All Projects</span>
-            <FaRocket className="w-5 h-5 text-pink-400 group-hover:translate-x-1 transition-transform duration-300" />
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          </button>
-        </div>
+        {/* View More Button - Link to /projects */}
+        {!page && (
+          <div
+            className={`text-center mt-16 transform transition-all duration-1000 delay-700 ${
+              isVisible
+                ? "translate-y-0 opacity-100"
+                : "translate-y-10 opacity-0"
+            }`}
+          >
+            <a
+              href="/projects"
+              className="group relative inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-pink-500/10 to-violet-600/10 rounded-full border border-pink-500/30 hover:border-pink-500/50 transition-all duration-300 hover:scale-105"
+            >
+              <span className="text-white font-medium">View All Projects</span>
+              <FaRocket className="w-5 h-5 text-pink-400 group-hover:translate-x-1 transition-transform duration-300" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </a>
+          </div>
+        )}
       </div>
 
       <style jsx>{`
