@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
 
@@ -15,50 +15,35 @@ import Projects from "./components/portfolio/Projects.jsx";
 
 function App() {
   const [theme] = useState("dark");
-  return (
-    <>
-      <div class={theme}>
-        <Toaster theme={theme} />
-        <ScrollToTop />
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <>
-                  <NavBar />
-                  <Portfolio />
-                  <Footer />
-                </>
-              }
-            />
-            <Route
-              path="/links"
-              element={
-                <>
-                  <NavBar />
-                  <Links />
-                  <Footer />
-                </>
-              }
-            />
-            <Route
-              path="/projects"
-              element={
-                <>
-                  <NavBar />
-                  <Projects page={true} />
-                  <Footer />
-                </>
-              }
-            />
 
-            <Route path="/cv" element=<Cv /> />
-            <Route path="*" element=<NotFound /> />
-          </Routes>
-        </BrowserRouter>
-      </div>
+  // Wrapper layout used inline (not extracted)
+  const withLayout = (Component) => (
+    <>
+      <NavBar />
+      {Component}
+      <Footer />
     </>
+  );
+
+  return (
+    <div className={theme}>
+      <Toaster theme={theme} />
+      <ScrollToTop />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={withLayout(<Portfolio />)} />
+          <Route path="/links" element={withLayout(<Links />)} />
+          <Route path="/cv" element={<Cv />} />
+
+          <Route
+            path="/projects"
+            element={withLayout(<Projects page={true} />)}
+          />
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 
