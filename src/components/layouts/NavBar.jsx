@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -73,7 +74,8 @@ const NavBar = () => {
             <div className="hidden lg:block">
               <div className="flex items-center space-x-1 bg-[#0d1224]/60 backdrop-blur-sm rounded-full px-3 py-2 border border-[#271c54]/50">
                 {navItems.map((item, index) => (
-                  <button
+                  <Link
+                    to={`/${item.href}`}
                     key={item.id}
                     onClick={() => handleNavClick(item.href, item.id)}
                     className={`relative cursor-pointer group px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
@@ -92,7 +94,7 @@ const NavBar = () => {
                     {activeSection === item.id && (
                       <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full animate-pulse" />
                     )}
-                  </button>
+                  </Link>
                 ))}
               </div>
             </div>
