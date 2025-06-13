@@ -41,15 +41,16 @@ const Footer = () => {
     { name: "Home", href: "/#home" },
     { name: "About", href: "/#about" },
     { name: "Experience", href: "/#experience" },
-    // { name: "Projects", href: "/#projects" },
+    { name: "Projects", href: "/#projects" },
     { name: "Skills", href: "/#skills" },
     { name: "Contact", href: "/#contact" },
   ];
 
-  const services = [
+  const routes = [
     { name: "Portfolio", href: "/" },
-    { name: "All My Link", href: "/links" },
+    { name: "All Projects", href: "/projects" },
     { name: 'Resume "CV"', href: "/cv" },
+    { name: "Links", href: "/links" },
   ];
 
   return (
@@ -187,15 +188,15 @@ const Footer = () => {
                     <span>Routes</span>
                   </h4>
                   <ul className="space-y-3">
-                    {services.map((service, index) => (
-                      <li key={service.name}>
+                    {routes.map((route, index) => (
+                      <li key={route.name}>
                         <a
-                          href={service.href}
+                          href={route.href}
                           className="text-gray-400 hover:text-violet-400 transition-colors duration-300 flex items-center space-x-2 group hover:translate-x-2"
                           style={{ animationDelay: `${index * 0.1}s` }}
                         >
                           <span className="w-2 h-2 bg-gradient-to-r from-violet-500 to-cyan-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                          <span>{service.name}</span>
+                          <span>{route.name}</span>
                         </a>
                       </li>
                     ))}

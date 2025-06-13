@@ -1,5 +1,17 @@
 export const projects = [
   {
+    id: `calculator-${Date.now()}`,
+    name: "Trading Calculator",
+    poster: "/projects/posters/tradingcalculator.png",
+    gif: "/projects/gif/tradingcalculator.gif",
+    description:
+      "Web Application Simple Trading Calculator est un outil convivial conçu pour aider les traders à calculer efficacement les indicateurs de trading essentiels, garantissant une planification précise des transactions et une gestion efficace des risques. Conçue à l'aide de React JS pour une fonctionnalité dynamique et de Bootstrap pour une conception réactive, cette application est à la fois pratique et facile à utiliser.",
+    tools: ["React JS", "Bootstrap", "sonner", "bootstrap-icons"],
+    role: "Front end Developer",
+    code: "https://github.com/mziliNassim/trading-calculator-react",
+    demo: "https://calculatortrading.nassim.online/",
+  },
+  {
     id: `wiki-${Date.now()}`,
     name: "Wiki Search",
     poster: "/projects/posters/wiki.png",
@@ -29,17 +41,5 @@ export const projects = [
     role: "Front end Developer",
     code: "https://github.com/mziliNassim/postman-clone-react",
     demo: "https://postmanclone.nassim.online/",
-  },
-  {
-    id: `calculator-${Date.now()}`,
-    name: "Trading Calculator",
-    poster: "/projects/posters/tradingcalculator.png",
-    gif: "/projects/gif/tradingcalculator.gif",
-    description:
-      "Web Application Simple Trading Calculator est un outil convivial conçu pour aider les traders à calculer efficacement les indicateurs de trading essentiels, garantissant une planification précise des transactions et une gestion efficace des risques. Conçue à l'aide de React JS pour une fonctionnalité dynamique et de Bootstrap pour une conception réactive, cette application est à la fois pratique et facile à utiliser.",
-    tools: ["React JS", "Bootstrap"],
-    role: "Front end Developer",
-    code: "https://github.com/mziliNassim/trading-calculator-react",
-    demo: "https://calculatortrading.nassim.online/",
   },
 ];

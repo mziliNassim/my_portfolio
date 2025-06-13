@@ -41,7 +41,7 @@ const ProjectCard = ({ project, index, isVisible }) => {
             src={
               project.gif && !imageError
                 ? project.gif
-                : project.poster || "/api/placeholder/600/400"
+                : project.poster || project.poster
             }
             alt={project.name}
             className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 ${
