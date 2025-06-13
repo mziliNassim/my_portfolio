@@ -9,6 +9,9 @@ import {
   FaStar,
   FaTools,
   FaUser,
+  FaSearch,
+  FaTimes,
+  FaFilter,
 } from "react-icons/fa";
 
 // ProjectCard Component
@@ -187,7 +190,38 @@ const ProjectCard = ({ project, index, isVisible }) => {
 const Projects = ({ page = false }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [activeFilter, setActiveFilter] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredProjects, setFilteredProjects] = useState(projects);
+  const [showMobileFilters, setShowMobileFilters] = useState(true);
   const sectionRef = useRef(null);
+
+  // Get unique roles for filters
+  const uniqueRoles = [
+    "All",
+    ...new Set(projects.map((project) => project.role)),
+  ];
+
+  // Filter projects based on active filter and search query
+  useEffect(() => {
+    let filtered = projects;
+
+    // Filter by role
+    if (activeFilter !== "All") {
+      filtered = filtered.filter((project) => project.role === activeFilter);
+    }
+
+    // Filter by search query (name or tools)
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase().trim();
+      filtered = filtered.filter(
+        (project) =>
+          project.name.toLowerCase().includes(query) ||
+          project.tools.some((tool) => tool.toLowerCase().includes(query))
+      );
+    }
+
+    setFilteredProjects(filtered);
+  }, [activeFilter, searchQuery]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -206,12 +240,13 @@ const Projects = ({ page = false }) => {
     return () => observer.disconnect();
   }, []);
 
-  const filters = ["All", "Full Stack", "Front end", "Back end"];
+  const clearSearch = () => {
+    setSearchQuery("");
+  };
 
-  const filteredProjects = projects.filter((project) => {
-    if (activeFilter === "All") return true;
-    return project.role.includes(activeFilter);
-  });
+  // const toggleMobileFilters = () => {
+  //   setShowMobileFilters(!showMobileFilters);
+  // };
 
   return (
     <section
@@ -276,56 +311,138 @@ const Projects = ({ page = false }) => {
           </p>
         </div>
 
-        {/* Filter Buttons */}
-        {/* {page && (
+        {/* Filters and Search Section */}
+        <div
+          className={`mb-12 transform transition-all duration-1000 delay-300 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+          }`}
+        >
+          {/* Mobile Filter Toggle */}
+          {/* <div className="lg:hidden mb-6">
+            <button
+              onClick={toggleMobileFilters}
+              className="flex items-center cursor-pointer mx-auto w-fit space-x-2 px-4 py-3 bg-gradient-to-r from-pink-500/10 to-violet-600/10 rounded-xl border border-pink-500/30 text-white hover:border-pink-500/50 transition-all duration-300 justify-center"
+            >
+              <FaFilter className="w-4 h-4" />
+              <span>Filters & Search</span>
+            </button>
+          </div> */}
+
+          {/* Filters Container */}
           <div
-            className={`flex flex-wrap justify-center gap-3 mb-12 transform transition-all duration-1000 delay-300 ${
+            className={`lg:flex lg:items-center lg:justify-between lg:space-y-0 space-y-6 ${
+              showMobileFilters ? "block" : "hidden lg:flex"
+            }`}
+          >
+            {/* Left Side - Role Filters */}
+            <div className="flex items-center justify-center lg:justify-start flex-wrap gap-3">
+              {uniqueRoles.map((role) => (
+                <button
+                  key={role}
+                  onClick={() => setActiveFilter(role)}
+                  className={`px-4 cursor-pointer py-2 rounded-full border transition-all duration-300 hover:scale-105 ${
+                    activeFilter === role
+                      ? "bg-gradient-to-r from-pink-500 to-violet-600 border-pink-500/50 text-white shadow-lg shadow-pink-500/25"
+                      : "bg-gradient-to-r from-gray-700/30 to-gray-600/30 border-gray-600/50 text-gray-300 hover:border-pink-500/50 hover:text-pink-300"
+                  }`}
+                >
+                  <span className="text-sm font-medium">{role}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Right Side - Search Bar */}
+            <div className="relative max-w-md w-full lg:w-auto mx-auto lg:mr-0">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <FaSearch className="w-4 h-4 text-gray-400" />
+              </div>
+              <input
+                type="text"
+                placeholder="Search by name or technology..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-12 pr-12 py-3 bg-gradient-to-r from-[#0d1224]/50 to-[#1a1a2e]/50 backdrop-blur-sm border border-gray-600/50 rounded-xl text-white placeholder-gray-400 focus:border-pink-500/50 focus:outline-none focus:ring-2 focus:ring-pink-500/20 transition-all duration-300"
+              />
+              {searchQuery && (
+                <button
+                  onClick={clearSearch}
+                  className="absolute cursor-pointer inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-pink-400 transition-colors duration-300"
+                >
+                  <FaTimes className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Results Counter */}
+          <div className="mt-6 text-center">
+            <span className="text-gray-400 text-sm">
+              Showing{" "}
+              <span className="text-pink-400 font-semibold">
+                {page
+                  ? filteredProjects.length
+                  : filteredProjects.length > 2
+                  ? 2
+                  : filteredProjects.length}
+              </span>{" "}
+              of{" "}
+              <span className="text-violet-400 font-semibold">
+                {projects.length}
+              </span>{" "}
+              projects
+            </span>
+          </div>
+        </div>
+
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2  gap-8">
+          {(page ? filteredProjects : filteredProjects.slice(0, 2)).map(
+            (project, index) => (
+              <ProjectCard
+                key={project.id || index}
+                project={project}
+                index={index}
+                isVisible={isVisible}
+              />
+            )
+          )}
+        </div>
+
+        {/* No Results Message */}
+        {filteredProjects.length === 0 && (
+          <div
+            className={`text-center py-16 transform transition-all duration-1000 delay-500 ${
               isVisible
                 ? "translate-y-0 opacity-100"
                 : "translate-y-10 opacity-0"
             }`}
           >
-            {filters.map((filter) => (
-              <button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
-                className={`px-6 cursor-pointer py-2 rounded-full font-medium transition-all duration-300 ${
-                  activeFilter === filter
-                    ? "bg-gradient-to-r from-pink-500 to-violet-600 text-white shadow-lg"
-                    : "bg-gray-800/50 text-gray-400 border border-gray-700/50 hover:border-pink-500/50 hover:text-pink-300"
-                }`}
-              >
-                {filter}
-              </button>
-            ))}
+            <div className="relative inline-block">
+              <div className="absolute inset-0 bg-gradient-to-r from-pink-500/20 to-violet-600/20 rounded-full blur-xl" />
+              <div className="relative p-8 bg-gradient-to-br from-[#0d1224]/80 to-[#1a1a2e]/80 backdrop-blur-sm rounded-2xl border border-gray-700/50">
+                <FaSearch className="w-12 h-12 text-gray-500 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-white mb-2">
+                  No Projects Found
+                </h3>
+                <p className="text-gray-400 mb-4">
+                  Try adjusting your filters or search terms
+                </p>
+                <button
+                  onClick={() => {
+                    setActiveFilter("All");
+                    setSearchQuery("");
+                  }}
+                  className="px-6 cursor-pointer py-2 bg-gradient-to-r from-pink-500/20 to-violet-600/20 rounded-full border border-pink-500/30 text-pink-400 hover:border-pink-500/50 transition-all duration-300"
+                >
+                  Clear Filters
+                </button>
+              </div>
+            </div>
           </div>
-        )} */}
-
-        {/* Projects Grid - Show only 2 projects */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {page
-            ? filteredProjects.map((project, index) => (
-                <ProjectCard
-                  key={project.id}
-                  project={project}
-                  index={index}
-                  isVisible={isVisible}
-                />
-              ))
-            : filteredProjects
-                .slice(0, 2)
-                .map((project, index) => (
-                  <ProjectCard
-                    key={project.id}
-                    project={project}
-                    index={index}
-                    isVisible={isVisible}
-                  />
-                ))}
-        </div>
+        )}
 
         {/* View More Button - Link to /projects */}
-        {!page && (
+        {!page && filteredProjects.length > 2 && (
           <div
             className={`text-center mt-16 transform transition-all duration-1000 delay-700 ${
               isVisible
