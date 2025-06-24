@@ -14,7 +14,7 @@ import {
   FaFilter,
 } from "react-icons/fa";
 
-// ProjectCard Component
+// ProjectCard Component with Development Badge
 const ProjectCard = ({ project, index, isVisible }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -34,6 +34,23 @@ const ProjectCard = ({ project, index, isVisible }) => {
 
       {/* Card Content */}
       <div className="relative bg-gradient-to-br from-[#0d1224]/90 to-[#1a1a2e]/90 backdrop-blur-sm rounded-2xl border border-gray-700/50 overflow-hidden group-hover:border-pink-500/50 transition-all duration-500 h-full flex flex-col">
+        {/* Development Badge - Only show for first project (index === 0) */}
+        {index === 0 && (
+          <div className="absolute top-4 left-4 z-30">
+            <div className="relative">
+              {/* Animated glow background */}
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 rounded-full blur-md opacity-60 animate-pulse" />
+              {/* Badge content */}
+              <div className="relative flex items-center space-x-2 bg-gradient-to-r from-orange-500 to-red-500 px-3 py-1.5 rounded-full border border-orange-400/50 shadow-lg">
+                <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                <span className="text-white text-xs font-bold tracking-wide">
+                  IN DEVELOPMENT
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Project Image */}
         <div className="relative h-64 md:h-80 overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900 flex-shrink-0">
           {/* Placeholder gradient while image loads */}
@@ -84,14 +101,6 @@ const ProjectCard = ({ project, index, isVisible }) => {
               </a>
             )}
           </div>
-
-          {/* Project Stats */}
-          <div className="absolute bottom-4 left-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0">
-            <div className="flex items-center space-x-1 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1">
-              <FaStar className="w-3 h-3 text-yellow-400" />
-              <span className="text-white text-xs font-medium">Featured</span>
-            </div>
-          </div>
         </div>
 
         {/* Card Body - Flex grow to fill remaining space */}
@@ -99,8 +108,17 @@ const ProjectCard = ({ project, index, isVisible }) => {
           {/* Project Header */}
           <div className="flex items-start justify-between">
             <div className="flex-1">
-              <h3 className="text-xl font-bold text-white mb-2 group-hover:text-pink-300 transition-colors duration-300">
+              <h3 className="flex items-center gap-2 text-xl font-bold text-white mb-2 group-hover:text-pink-300 transition-colors duration-300">
                 {project.name}
+                {/* Additional development indicator in title for first project */}
+                {index === 0 && (
+                  <div className="relative w-fit flex items-center space-x-2 bg-gradient-to-r from-orange-500 to-red-500 px-3 py-1.5 rounded-full border border-orange-400/50 shadow-lg">
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                    <span className="text-white text-xs font-bold tracking-wide">
+                      In Development
+                    </span>
+                  </div>
+                )}
               </h3>
 
               {/* Role Badge */}
