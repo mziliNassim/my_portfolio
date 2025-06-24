@@ -16,10 +16,14 @@ import {
 import { HiSparkles } from "react-icons/hi";
 import { personalData } from "../../utils/data/personal-data";
 import { links } from "../../utils/data/links";
+import { useLocation } from "react-router-dom";
 
 const Footer = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [currentYear] = useState(new Date().getFullYear());
+
+  const location = useLocation();
+  console.log(" Footer ~ location:", location);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -160,26 +164,29 @@ const Footer = () => {
               {/* links && routes */}
               <div className="flex items-start gap-10 justify-evenly w-full">
                 {/* Quick Links */}
-                <div className="space-y-6">
-                  <h4 className="text-xl font-bold text-white flex items-center space-x-2">
-                    <FaRocket className="w-5 h-5 text-pink-400" />
-                    <span>Quick Links</span>
-                  </h4>
-                  <ul className="space-y-3">
-                    {quickLinks.map((link, index) => (
-                      <li key={link.name}>
-                        <a
-                          href={link.href}
-                          className="text-gray-400 hover:text-pink-400 transition-colors duration-300 flex items-center space-x-2 group hover:translate-x-2"
-                          style={{ animationDelay: `${index * 0.1}s` }}
-                        >
-                          <span className="w-2 h-2 bg-gradient-to-r from-pink-500 to-violet-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                          <span>{link.name}</span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {location?.pathname !== "/projects" &&
+                  location?.pathname !== "/links" && (
+                    <div className="space-y-6">
+                      <h4 className="text-xl font-bold text-white flex items-center space-x-2">
+                        <FaRocket className="w-5 h-5 text-pink-400" />
+                        <span>Quick Links</span>
+                      </h4>
+                      <ul className="space-y-3">
+                        {quickLinks.map((link, index) => (
+                          <li key={link.name}>
+                            <a
+                              href={link.href}
+                              className="text-gray-400 hover:text-pink-400 transition-colors duration-300 flex items-center space-x-2 group hover:translate-x-2"
+                              style={{ animationDelay: `${index * 0.1}s` }}
+                            >
+                              <span className="w-2 h-2 bg-gradient-to-r from-pink-500 to-violet-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                              <span>{link.name}</span>
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
 
                 {/* Routes */}
                 <div className="space-y-6">

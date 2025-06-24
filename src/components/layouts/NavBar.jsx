@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
+
+  const location = useLocation();
 
   const navItems = [
     { name: "ABOUT", href: "#about", id: "about" },
@@ -71,48 +73,54 @@ const NavBar = () => {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:block">
-              <div className="flex items-center space-x-1 bg-[#0d1224]/60 backdrop-blur-sm rounded-full px-3 py-2 border border-[#271c54]/50">
-                {navItems.map((item, index) => (
-                  <Link
-                    to={`/${item.href}`}
-                    key={item.id}
-                    onClick={() => handleNavClick(item.href, item.id)}
-                    className={`relative cursor-pointer group px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                      activeSection === item.id
-                        ? "text-white bg-gradient-to-r from-purple-600 to-pink-600 shadow-lg"
-                        : "text-gray-300 hover:text-white hover:bg-[#271c54]/50"
-                    }`}
-                  >
-                    {/* Hover effect background */}
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600/20 to-pink-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            {location?.pathname !== "/projects" &&
+              location?.pathname !== "/links" && (
+                <div className="hidden lg:block">
+                  <div className="flex items-center space-x-1 bg-[#0d1224]/60 backdrop-blur-sm rounded-full px-3 py-2 border border-[#271c54]/50">
+                    {navItems.map((item, index) => (
+                      <Link
+                        to={`/${item.href}`}
+                        key={item.id}
+                        onClick={() => handleNavClick(item.href, item.id)}
+                        className={`relative cursor-pointer group px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                          activeSection === item.id
+                            ? "text-white bg-gradient-to-r from-purple-600 to-pink-600 shadow-lg"
+                            : "text-gray-300 hover:text-white hover:bg-[#271c54]/50"
+                        }`}
+                      >
+                        {/* Hover effect background */}
+                        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600/20 to-pink-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                    {/* Text with animated underline */}
-                    <span className="relative z-10">{item.name}</span>
+                        {/* Text with animated underline */}
+                        <span className="relative z-10">{item.name}</span>
 
-                    {/* Animated dot indicator */}
-                    {activeSection === item.id && (
-                      <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full animate-pulse" />
-                    )}
-                  </Link>
-                ))}
-              </div>
-            </div>
+                        {/* Animated dot indicator */}
+                        {activeSection === item.id && (
+                          <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full animate-pulse" />
+                        )}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
 
             {/* Mobile Menu Button */}
-            <div className="lg:hidden">
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="relative group p-2 rounded-lg bg-[#271c54]/50 border border-[#271c54] text-gray-300 hover:text-white hover:bg-[#271c54] transition-all duration-300"
-              >
-                <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-purple-600/20 to-pink-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                {isMobileMenuOpen ? (
-                  <X className="relative z-10 h-5 w-5 transform rotate-0 transition-transform duration-300" />
-                ) : (
-                  <Menu className="relative z-10 h-5 w-5 transform rotate-0 transition-transform duration-300" />
-                )}
-              </button>
-            </div>
+            {location?.pathname !== "/projects" &&
+              location?.pathname !== "/links" && (
+                <div className="lg:hidden">
+                  <button
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    className="relative group p-2 rounded-lg bg-[#271c54]/50 border border-[#271c54] text-gray-300 hover:text-white hover:bg-[#271c54] transition-all duration-300"
+                  >
+                    <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-purple-600/20 to-pink-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    {isMobileMenuOpen ? (
+                      <X className="relative z-10 h-5 w-5 transform rotate-0 transition-transform duration-300" />
+                    ) : (
+                      <Menu className="relative z-10 h-5 w-5 transform rotate-0 transition-transform duration-300" />
+                    )}
+                  </button>
+                </div>
+              )}
           </div>
 
           {/* Mobile Navigation Menu */}
