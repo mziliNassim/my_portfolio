@@ -126,7 +126,7 @@ const AllLinks = () => {
           </div>
 
           {/* Enhanced Profile Image */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:left-32 xl:left-48 lg:translate-x-0">
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:left-32 xl:left-48 lg:translate-x-0 pt-20 pb-8 lg:py-16 lg:pt-28">
             <div className="relative group">
               {/* Glow Effect */}
               <div className="absolute -inset-4 bg-gradient-to-r from-pink-500 via-violet-500 to-cyan-500 rounded-full blur-2xl opacity-60 group-hover:opacity-80 transition-opacity duration-700 animate-pulse" />
