@@ -3,7 +3,7 @@ export const projects = [
     id: `dbc-${Date.now()}`,
     name: "Digital Business Cards",
     poster: "/projects/posters/digital-business-cards.png",
-    gif: "/projects/gif/digital-business-cards.gif",
+    // gif: "/projects/gif/digital-business-cards.gif",
     description:
       "A modern solution for seamless professional networking, enabling users to create, share, and manage digital business cards effortlessly. The platform offers a 30-day free trial and supports team-based card distribution, making it ideal for businesses and individuals alike. Designed for accessibility, it allows instant connections anywhere, ensuring every interaction leaves a lasting impression. Note: Currently in active development, with features being progressively enhanced.",
     tools: [
@@ -30,6 +30,7 @@ export const projects = [
     role: "Full Stack Developer",
     code: "https://github.com/mziliNassim/Digital-Business-Cards",
     demo: "https://digital-business-cards-client.netlify.app/",
+    inDevelopment: true,
   },
   {
     id: `prtfolio-${Date.now()}`,

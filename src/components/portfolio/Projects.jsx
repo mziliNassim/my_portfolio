@@ -34,8 +34,7 @@ const ProjectCard = ({ project, index, isVisible }) => {
 
       {/* Card Content */}
       <div className="relative bg-gradient-to-br from-[#0d1224]/90 to-[#1a1a2e]/90 backdrop-blur-sm rounded-2xl border border-gray-700/50 overflow-hidden group-hover:border-pink-500/50 transition-all duration-500 h-full flex flex-col">
-        {/* Development Badge - Only show for first project (index === 0) */}
-        {index === 0 && (
+        {project?.inDevelopment && (
           <div className="absolute top-4 left-4 z-30">
             <div className="relative">
               {/* Animated glow background */}
@@ -111,7 +110,7 @@ const ProjectCard = ({ project, index, isVisible }) => {
               <h3 className="flex items-center gap-2 text-xl font-bold text-white mb-2 group-hover:text-pink-300 transition-colors duration-300">
                 {project.name}
                 {/* Additional development indicator in title for first project */}
-                {index === 0 && (
+                {project?.inDevelopment && (
                   <div className="relative w-fit flex items-center space-x-2 bg-gradient-to-r from-orange-500 to-red-500 px-3 py-1.5 rounded-full border border-orange-400/50 shadow-lg">
                     <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
                     <span className="text-white text-xs font-bold tracking-wide">
