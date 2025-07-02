@@ -28,7 +28,7 @@ export const projects = [
       "crypto",
     ],
     role: "Full Stack Developer",
-    code: "https://github.com/mziliNassim/Digital-Business-Cards",
+    code: "https://github.com/mziliNassim/modern-digital-business-card",
     demo: "https://digital-business-cards-client.netlify.app/",
     inDevelopment: true,
   },
