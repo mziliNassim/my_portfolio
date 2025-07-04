@@ -48,10 +48,10 @@ export const links = [
   },
   {
     id: `cv-${Date.now()}`,
-    desc: `https://nassim.online/cv`,
-    title: "CV -- Nassim MZILI",
+    desc: `https://nassim.online/mycv`,
+    title: "Resume - CV",
     Icon: PiReadCvLogoDuotone,
-    url: personalData.resume,
+    url: personalData.fullResume,
     color: "#363636",
     hover: "",
   },
@@ -70,7 +70,7 @@ export const links = [
     title: "Twitter",
     Icon: FaTwitter,
     url: personalData.twitter,
-    color: "#1DA1F2", // Twitter's brand color
+    color: "#1DA1F2",
     hover: "hover:text-cyan-400",
   },
   {

@@ -62,7 +62,7 @@ export const projects = [
     tools: ["React JS", "Bootstrap", "sonner", "bootstrap-icons"],
     role: "Front end Developer",
     code: "https://github.com/mziliNassim/trading-calculator-react",
-    demo: "https://calculatortrading.nassim.online/",
+    demo: "https://nassimtradingcalculator.netlify.app/",
   },
   {
     id: `wiki-${Date.now()}`,
@@ -81,7 +81,7 @@ export const projects = [
     ],
     role: "Front end Developer",
     code: "tps://github.com/mziliNassim/wiki-react",
-    demo: "https://wikipedia.nassim.online/",
+    demo: "https://wikipedia-searching.netlify.app/",
   },
   {
     id: `LibriTech-${Date.now()}`,
@@ -167,6 +167,6 @@ export const projects = [
     tools: ["React JS", "Bootstrap", "Axios", "Redux", "Redux/toolkit", "API"],
     role: "Front end Developer",
     code: "https://github.com/mziliNassim/postman-clone-react",
-    demo: "https://postmanclone.nassim.online/",
+    demo: "https://postman-nassim.netlify.app/",
   },
 ];

@@ -16,7 +16,6 @@ import Projects from "./components/portfolio/Projects.jsx";
 function App() {
   const [theme] = useState("dark");
 
-  // Wrapper layout used inline (not extracted)
   const withLayout = (Component) => (
     <>
       <NavBar />
@@ -34,6 +33,7 @@ function App() {
           <Route path="/" element={withLayout(<Portfolio />)} />
           <Route path="/links" element={withLayout(<Links />)} />
           <Route path="/cv" element={<Cv />} />
+          <Route path="/mycv" element={<Cv full={true} />} />
 
           <Route
             path="/projects"

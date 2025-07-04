@@ -277,7 +277,7 @@ const HeroSection = () => {
               </a>
 
               <a
-                href={personalData.resume}
+                href={personalData.fullResume}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center justify-center space-x-3 bg-transparent border-2 border-gray-600/50 hover:border-[#16f2b3] rounded-2xl px-8 py-4 text-gray-300 hover:text-[#16f2b3] font-bold text-lg transition-all duration-500 hover:shadow-lg hover:shadow-[#16f2b3]/25 hover:scale-105 backdrop-blur-sm"

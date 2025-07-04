@@ -20,6 +20,8 @@ export const personalData = {
   interests: ["Web Development", "Open Source", "Tech Innovation"],
   resume:
     "https://drive.google.com/file/d/1tGt1C4MSChUJkIqziQOv9rtcpOAooJsi/view",
+  fullResume:
+    "https://drive.google.com/file/d/1epugv6uTOMMgdIQuPCSS9_8OFN_8-nbN/view",
   skills: [
     "React",
     "Node JS",
