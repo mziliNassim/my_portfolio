@@ -31,6 +31,7 @@ export const projects = [
     code: "https://github.com/mziliNassim/modern-digital-business-card",
     demo: "https://digital-business-cards-client.netlify.app/",
     inDevelopment: true,
+    collabWith: [{}],
   },
   {
     id: `prtfolio-${Date.now()}`,
@@ -51,6 +52,7 @@ export const projects = [
     role: "Front end Developer",
     code: "",
     demo: "https://nassim.online/",
+    collabWith: [{}],
   },
   {
     id: `calculator-${Date.now()}`,
@@ -63,6 +65,7 @@ export const projects = [
     role: "Front end Developer",
     code: "https://github.com/mziliNassim/trading-calculator-react",
     demo: "https://nassimtradingcalculator.netlify.app/",
+    collabWith: [{}],
   },
   {
     id: `wiki-${Date.now()}`,
@@ -82,6 +85,7 @@ export const projects = [
     role: "Front end Developer",
     code: "tps://github.com/mziliNassim/wiki-react",
     demo: "https://wikipedia-searching.netlify.app/",
+    collabWith: [{}],
   },
   {
     id: `LibriTech-${Date.now()}`,
@@ -117,6 +121,21 @@ export const projects = [
     role: "Full Stack Developer",
     code: "https://github.com/mziliNassim/library-management",
     demo: "https://library-system-pfe.netlify.app/",
+    collabWith: [
+      {
+        name: "EL OUALI Abderrahim",
+        email: "contact@elouali.online",
+        linkedIn: "https://www.linkedin.com/in/abderrahim-el/",
+        github: "https://github.com/abderrahimelouali",
+        Website: "https://elouali.online/",
+        instagram: "https://www.instagram.com/abderrahim_elouali04/",
+        phone: "",
+        address: "",
+        facebook: "",
+        twitter: "",
+        profile: "https://elouali.online/me.jpeg",
+      },
+    ],
   },
   {
     id: `generateur-de-certificats-${Date.now()}`,
@@ -137,6 +156,7 @@ export const projects = [
     role: "Front end Developer",
     code: "",
     demo: "https://web4jobs-formation.netlify.app/generateur-de-certificats",
+    collabWith: [{}],
   },
   {
     id: `planificateur-de-formation-${Date.now()}`,
@@ -156,6 +176,7 @@ export const projects = [
     role: "Front end Developer",
     code: "",
     demo: "https://web4jobs-formation.netlify.app/planificateur-de-Formation",
+    collabWith: [{}],
   },
   {
     id: `postman-${Date.now()}`,
@@ -168,5 +189,6 @@ export const projects = [
     role: "Front end Developer",
     code: "https://github.com/mziliNassim/postman-clone-react",
     demo: "https://postman-nassim.netlify.app/",
+    collabWith: [{}],
   },
 ];
