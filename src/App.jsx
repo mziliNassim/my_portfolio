@@ -32,7 +32,7 @@ function App() {
         <Routes>
           <Route path="/" element={withLayout(<Portfolio />)} />
           <Route path="/links" element={withLayout(<Links />)} />
-          <Route path="/cv" element={<Cv />} />
+          <Route path="/cv" element={<Cv full={true} />} />
           <Route path="/mycv" element={<Cv full={true} />} />
 
           <Route

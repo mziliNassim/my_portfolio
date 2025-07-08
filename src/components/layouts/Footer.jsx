@@ -54,7 +54,6 @@ const Footer = () => {
     { name: "Portfolio", href: "/" },
     { name: "All Projects", href: "/projects" },
     { name: "Resume", href: "/cv" },
-    { name: "Full Resume", href: "/mycv" },
     { name: "Links", href: "/links" },
   ];
 
