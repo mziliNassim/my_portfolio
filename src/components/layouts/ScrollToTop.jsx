@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaArrowUp } from "react-icons/fa";
+import { scrollToTop } from "../../utils/helpers";
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -13,14 +14,7 @@ const ScrollToTop = () => {
     }
   };
 
-  // Set the top cordinate to 0
-  // make scrolling smooth
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+
 
   useEffect(() => {
     window.addEventListener("scroll", toggleVisibility);

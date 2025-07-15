@@ -166,7 +166,7 @@ const EducationCard = ({ education, index, isVisible }) => {
       </div>
 
       {/* Custom Scrollbar Styles */}
-      <style jsx>{`
+      <style>{`
         .custom-scrollbar::-webkit-scrollbar {
           width: 6px;
         }

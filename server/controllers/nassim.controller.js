@@ -21,7 +21,7 @@ const updatePersonalData = async (req, res) => {
       return res.status(404).json({ message: "Profile not found!" });
     }
 
-    res.json(updatedData);
+    res.json({ ...updatedData, message: "Profile update successfuly!" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import { personalData } from "../../utils/data/personal-data";
-
 import { BsGithub, BsLinkedin } from "react-icons/bs";
 import { MdDownload, MdKeyboardArrowDown } from "react-icons/md";
 import { RiContactsFill } from "react-icons/ri";
@@ -18,7 +16,7 @@ import {
   FaEnvelope,
 } from "react-icons/fa";
 
-const HeroSection = () => {
+const HeroSection = ({ personalData }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [textIndex, setTextIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
@@ -32,7 +30,7 @@ const HeroSection = () => {
     const interval = setInterval(() => {
       setIsTyping(false);
       setTimeout(() => {
-        setTextIndex((prev) => (prev + 1) % personalData.designation.length);
+        setTextIndex((prev) => (prev + 1) % personalData?.designation.length);
         setIsTyping(true);
       }, 300);
     }, 3500);
@@ -64,37 +62,37 @@ const HeroSection = () => {
   const socialLinks = [
     {
       icon: BsGithub,
-      href: personalData.github,
+      href: personalData?.github,
       label: "GitHub",
       color: "from-gray-700 to-gray-900",
     },
     {
       icon: BsLinkedin,
-      href: personalData.linkedIn,
+      href: personalData?.linkedIn,
       label: "LinkedIn",
       color: "from-blue-600 to-blue-800",
     },
     {
       icon: FaEnvelope,
-      href: `mailto:${personalData.email}`,
+      href: `mailto:${personalData?.email}`,
       label: "LeetCode",
       color: "from-orange-500 to-orange-700",
     },
     {
       icon: FaFacebook,
-      href: personalData.facebook,
+      href: personalData?.facebook,
       label: "Facebook",
       color: "from-blue-500 to-blue-700",
     },
     {
       icon: FaTwitterSquare,
-      href: personalData.twitter,
+      href: personalData?.twitter,
       label: "Twitter",
       color: "from-cyan-400 to-cyan-600",
     },
     {
       icon: FaInstagram,
-      href: personalData.instagram,
+      href: personalData?.instagram,
       label: "Instagram",
       color: "from-red-400 to-red-600",
     },
@@ -167,7 +165,7 @@ const HeroSection = () => {
               {/* Enhanced Name with 3D Effect */}
               <h1 className="text-5xl sm:text-6xl font-bold leading-tight text-center lg:text-left">
                 <div className="relative">
-                  {personalData.name.split(" ").map((word, index) => (
+                  {personalData?.name.split(" ").map((word, index) => (
                     <span
                       key={index}
                       className="inline-block mr-6 animate-fadeInUp hover:scale-105 transition-transform duration-300 cursor-default"
@@ -204,8 +202,8 @@ const HeroSection = () => {
                           : "-translate-y-2 opacity-80"
                       }`}
                     >
-                      {/* {personalData.designation} */}
-                      {personalData.designation[textIndex]}
+                      {/* {personalData?.designation} */}
+                      {personalData?.designation[textIndex]}
                     </span>
                   </div>
                   <div
@@ -277,7 +275,7 @@ const HeroSection = () => {
               </a>
 
               <a
-                href={personalData.fullResume}
+                href={personalData?.fullResume}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center justify-center space-x-3 bg-transparent border-2 border-gray-600/50 hover:border-[#16f2b3] rounded-2xl px-8 py-4 text-gray-300 hover:text-[#16f2b3] font-bold text-lg transition-all duration-500 hover:shadow-lg hover:shadow-[#16f2b3]/25 hover:scale-105 backdrop-blur-sm"
@@ -343,7 +341,7 @@ const HeroSection = () => {
                           name:
                         </span>
                         <span className="text-amber-300 ml-3 font-medium">
-                          '{personalData.name}'
+                          '{personalData?.name}'
                         </span>
                         <span className="text-gray-400">,</span>
                       </div>
@@ -356,8 +354,8 @@ const HeroSection = () => {
                           role:
                         </span>
                         <span className="text-amber-300 ml-3 font-medium">
-                          ["{personalData.designation[0]}", "
-                          {personalData.designation[1]}"]
+                          ["{personalData?.designation[0]}", "
+                          {personalData?.designation[1]}"]
                         </span>
                         <span className="text-gray-400">,</span>
                       </div>
@@ -479,7 +477,7 @@ const HeroSection = () => {
       </div>
 
       {/* Enhanced Styles */}
-      <style jsx>{`
+      <style>{`
         @keyframes fadeInUp {
           from {
             opacity: 0;

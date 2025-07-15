@@ -7,6 +7,6 @@ const {
 const router = Router();
 
 router.get("/", getPersonalData);
-router.put("/:id", updatePersonalData);
+router.put("/", updatePersonalData);
 
 module.exports = router;

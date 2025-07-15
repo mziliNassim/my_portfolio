@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+
 import { experiences } from "../../utils/data/experience";
 
 import { BsPersonWorkspace } from "react-icons/bs";
@@ -248,7 +249,7 @@ function Experience() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes fadeInUp {
           from {
             opacity: 0;

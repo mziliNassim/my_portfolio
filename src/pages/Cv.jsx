@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { personalData } from "../utils/data/personal-data";
-
-const Cv = ({ full = false }) => {
+const Cv = ({ personalData, full = true }) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (full) window.location.href = personalData?.fullResume;

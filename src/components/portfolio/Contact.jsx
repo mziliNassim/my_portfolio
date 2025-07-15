@@ -21,75 +21,6 @@ import {
   FaInstagram,
 } from "react-icons/fa";
 
-import { personalData } from "../../utils/data/personal-data";
-
-// Mock contact data
-const contactInfo = [
-  {
-    id: 1,
-    icon: FaEnvelope,
-    title: "Email",
-    value: "mzilinassim@gmail.com",
-    link: `mailto:${personalData.email}`,
-    bgColor: "from-pink-500 to-rose-500",
-    description: "Drop me a line anytime",
-  },
-  {
-    id: 2,
-    icon: FaPhone,
-    title: "Phone",
-    value: "+212 6 81930875",
-    link: `tel:${personalData.tele}`,
-    bgColor: "from-green-500 to-emerald-500",
-    description: "Let's have a quick chat",
-  },
-  {
-    id: 4,
-    icon: FaLinkedin,
-    title: "Linkedin",
-    value: "linkedin.com/in/mzilinassim",
-    link: personalData.linkedIn,
-    bgColor: "from-violet-500 to-blue-500",
-    description: "Check out my linkedin",
-  },
-  {
-    id: 4,
-    icon: FaGithub,
-    title: "Github",
-    value: "github.com/mzilinassim",
-    link: personalData.github,
-    bgColor: "from-gray-500 to-purple-500",
-    description: "Check out my portfolio",
-  },
-];
-
-const socialLinks = [
-  {
-    icon: FaGithub,
-    link: personalData.github,
-    name: "GitHub",
-    color: "hover:text-gray-300",
-  },
-  {
-    icon: FaLinkedin,
-    link: personalData.linkedIn,
-    name: "LinkedIn",
-    color: "hover:text-blue-400",
-  },
-  {
-    icon: FaTwitter,
-    link: personalData.twitter,
-    name: "Twitter",
-    color: "hover:text-sky-400",
-  },
-  {
-    icon: FaInstagram,
-    link: personalData.instagram,
-    name: "instagram",
-    color: "hover:text-red-400",
-  },
-];
-
 // Contact Card Component
 const ContactCard = ({ contact, index, isVisible }) => {
   const [hovered, setHovered] = useState(false);
@@ -338,8 +269,6 @@ const ContactForm = ({ isVisible }) => {
 
 // Social Icon Component
 const SocialIcon = ({ social, index }) => {
-  const IconComponent = social.icon;
-
   return (
     <a
       href={social.link}
@@ -349,7 +278,7 @@ const SocialIcon = ({ social, index }) => {
       style={{ animationDelay: `${index * 0.1}s` }}
     >
       <div className="absolute inset-0 bg-gradient-to-r from-pink-500/20 to-violet-600/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      <IconComponent
+      <social.icon
         className={`w-6 h-6 text-gray-400 ${social.color} transition-colors duration-300 relative z-10`}
       />
       <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
@@ -360,9 +289,75 @@ const SocialIcon = ({ social, index }) => {
 };
 
 // Main Contact Component
-function Contact() {
+const Contact = ({ personalData }) => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
+
+  const contactInfo = [
+    {
+      id: 1,
+      icon: FaEnvelope,
+      title: "Email",
+      value: "mzilinassim@gmail.com",
+      link: `mailto:${personalData?.email}`,
+      bgColor: "from-pink-500 to-rose-500",
+      description: "Drop me a line anytime",
+    },
+    {
+      id: 2,
+      icon: FaPhone,
+      title: "Phone",
+      value: "+212 6 81930875",
+      link: `tel:${personalData?.tele}`,
+      bgColor: "from-green-500 to-emerald-500",
+      description: "Let's have a quick chat",
+    },
+    {
+      id: 4,
+      icon: FaLinkedin,
+      title: "Linkedin",
+      value: "linkedin.com/in/mzilinassim",
+      link: personalData?.linkedIn,
+      bgColor: "from-violet-500 to-blue-500",
+      description: "Check out my linkedin",
+    },
+    {
+      id: 4,
+      icon: FaGithub,
+      title: "Github",
+      value: "github.com/mzilinassim",
+      link: personalData?.github,
+      bgColor: "from-gray-500 to-purple-500",
+      description: "Check out my portfolio",
+    },
+  ];
+
+  const socialLinks = [
+    {
+      icon: FaGithub,
+      link: personalData?.github,
+      name: "GitHub",
+      color: "hover:text-gray-300",
+    },
+    {
+      icon: FaLinkedin,
+      link: personalData?.linkedIn,
+      name: "LinkedIn",
+      color: "hover:text-blue-400",
+    },
+    {
+      icon: FaTwitter,
+      link: personalData?.twitter,
+      name: "Twitter",
+      color: "hover:text-sky-400",
+    },
+    {
+      icon: FaInstagram,
+      link: personalData?.instagram,
+      name: "instagram",
+      color: "hover:text-red-400",
+    },
+  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -453,7 +448,7 @@ function Contact() {
         >
           {contactInfo.map((contact, index) => (
             <ContactCard
-              key={contact.id}
+              key={index}
               contact={contact}
               index={index}
               isVisible={isVisible}
@@ -511,7 +506,7 @@ function Contact() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes fadeInUp {
           from {
             opacity: 0;
@@ -530,6 +525,6 @@ function Contact() {
       `}</style>
     </section>
   );
-}
+};
 
 export default Contact;

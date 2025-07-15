@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Hero from "../components/portfolio/Hero";
 import About from "../components/portfolio/About";
@@ -8,16 +8,22 @@ import Education from "../components/portfolio/Education";
 import Projects from "../components/portfolio/Projects";
 import Contact from "../components/portfolio/Contact";
 
-const Portfolio = () => {
+import { scrollToTop } from "../utils/helpers";
+
+const Portfolio = ({ personalData, projects }) => {
+  useEffect(() => {
+    scrollToTop();
+  });
+
   return (
     <>
-      <Hero />
-      <About />
+      <Hero personalData={personalData} />
+      <About personalData={personalData} />
       <Experience />
       <Skills />
-      <Projects />
+      <Projects projects={projects} />
       <Education />
-      <Contact />
+      <Contact personalData={personalData} />
     </>
   );
 };

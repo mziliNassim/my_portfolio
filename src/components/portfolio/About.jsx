@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import { personalData } from "../../utils/data/personal-data";
-
 import {
   ChevronRight,
   Quote,
@@ -12,7 +10,7 @@ import {
   Heart,
 } from "lucide-react";
 
-const AboutSection = () => {
+const AboutSection = ({ personalData }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [activeTab, setActiveTab] = useState("overview");
@@ -134,9 +132,9 @@ const AboutSection = () => {
               <div className="absolute -left-4 top-0 w-1 h-full bg-gradient-to-b from-[#16f2b3] to-purple-500 rounded-full" />
               <p className="text-gray-300 text-base lg:text-lg leading-relaxed mb-8 pl-8">
                 <span className="text-white font-semibold">
-                  {personalData.name}
+                  {personalData?.name}
                 </span>{" "}
-                - {personalData.description}
+                - {personalData?.description}
               </p>
             </div>
 
@@ -184,7 +182,7 @@ const AboutSection = () => {
               {activeTab === "skills" && (
                 <div className="animate-fadeIn">
                   <div className="flex flex-wrap gap-2">
-                    {personalData.skills.map((skill, index) => (
+                    {personalData?.skills.map((skill, index) => (
                       <span
                         key={skill}
                         className="px-3 py-1 bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30 rounded-full text-purple-300 text-sm hover:border-purple-400/50 transition-all duration-300 animate-fadeInUp"
@@ -200,7 +198,7 @@ const AboutSection = () => {
               {activeTab === "interests" && (
                 <div className="animate-fadeIn">
                   <div className="space-y-2">
-                    {personalData.interests.map((interest, index) => (
+                    {personalData?.interests.map((interest, index) => (
                       <div
                         key={interest}
                         className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-800/30 transition-all duration-300 animate-fadeInUp"
@@ -243,7 +241,7 @@ const AboutSection = () => {
                     src={personalData?.profile}
                     width={320}
                     height={320}
-                    alt={personalData.name}
+                    alt={personalData?.name}
                     onLoad={() => setImageLoaded(true)}
                     className={`w-80 h-80 object-cover transition-all duration-700 cursor-pointer ${
                       imageLoaded
@@ -257,7 +255,7 @@ const AboutSection = () => {
                   <div className="absolute bottom-4 left-4 right-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
                     <div className="bg-black/80 backdrop-blur-sm rounded-lg p-3">
                       <p className="text-white font-semibold text-sm">
-                        {personalData.name}
+                        {personalData?.name}
                       </p>
                       <p className="text-[#16f2b3] text-xs">
                         Full Stack Developer
@@ -275,7 +273,7 @@ const AboutSection = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes fadeIn {
           from {
             opacity: 0;

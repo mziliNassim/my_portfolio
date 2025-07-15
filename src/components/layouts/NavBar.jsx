@@ -1,13 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, ChevronRight } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { clearAdmin } from "../../features/adminSlice";
+import { toast } from "sonner";
 
 const NavBar = () => {
+  const { admin } = useSelector((state) => state.admin);
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
 
   const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const excludedPaths = [
+    "/projects",
+    "/links",
+    "/admin/dashboard",
+    "/admin/dashboard/infos",
+    "/admin/dashboard/projects",
+  ];
 
   const navItems = [
     { name: "ABOUT", href: "#about", id: "about" },
@@ -38,6 +54,15 @@ const NavBar = () => {
     }
   };
 
+  const handleLogout = () => {
+    dispatch(clearAdmin());
+    navigate("/admin/auth");
+    toast.success("Logout successfully!", {
+      description: new Date().toUTCString(),
+      action: { label: "✖️" },
+    });
+  };
+
   return (
     <>
       {/* Background overlay for mobile menu */}
@@ -49,7 +74,7 @@ const NavBar = () => {
       )}
 
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out overflow-hidden ${
           isScrolled
             ? "bg-[#0d1224]/80 backdrop-blur-xl border-b border-[#271c54]/30 shadow-2xl"
             : "bg-gradient-to-r from-[#0d1224]/60 to-[#271c54]/40 backdrop-blur-md"
@@ -73,36 +98,50 @@ const NavBar = () => {
             </div>
 
             {/* Desktop Navigation */}
-            {location?.pathname !== "/projects" &&
-              location?.pathname !== "/links" && (
-                <div className="hidden lg:block">
-                  <div className="flex items-center space-x-1 bg-[#0d1224]/60 backdrop-blur-sm rounded-full px-3 py-2 border border-[#271c54]/50">
-                    {navItems.map((item, index) => (
-                      <Link
-                        to={`/${item.href}`}
-                        key={item.id}
-                        onClick={() => handleNavClick(item.href, item.id)}
-                        className={`relative cursor-pointer group px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                          activeSection === item.id
-                            ? "text-white bg-gradient-to-r from-purple-600 to-pink-600 shadow-lg"
-                            : "text-gray-300 hover:text-white hover:bg-[#271c54]/50"
-                        }`}
-                      >
-                        {/* Hover effect background */}
-                        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600/20 to-pink-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="hidden lg:flex items-center space-x-4">
+              {!excludedPaths.includes(location?.pathname) && (
+                <div className="flex items-center space-x-1 bg-[#0d1224]/60 backdrop-blur-sm rounded-full px-3 py-2 border border-[#271c54]/50">
+                  {navItems.map((item, index) => (
+                    <Link
+                      to={`/${item.href}`}
+                      key={item.id}
+                      onClick={() => handleNavClick(item.href, item.id)}
+                      className={`relative cursor-pointer group px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                        activeSection === item.id
+                          ? "text-white bg-gradient-to-r from-purple-600 to-pink-600 shadow-lg"
+                          : "text-gray-300 hover:text-white hover:bg-[#271c54]/50"
+                      }`}
+                    >
+                      {/* Hover effect background */}
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-600/20 to-pink-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                        {/* Text with animated underline */}
-                        <span className="relative z-10">{item.name}</span>
+                      {/* Text with animated underline */}
+                      <span className="relative z-10">{item.name}</span>
 
-                        {/* Animated dot indicator */}
-                        {activeSection === item.id && (
-                          <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full animate-pulse" />
-                        )}
-                      </Link>
-                    ))}
-                  </div>
+                      {/* Animated dot indicator */}
+                      {activeSection === item.id && (
+                        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full animate-pulse" />
+                      )}
+                    </Link>
+                  ))}
                 </div>
               )}
+
+              {/* Dashboard Button */}
+              <button
+                onClick={
+                  admin
+                    ? handleLogout
+                    : () => (window.location.href = "/admin/dashboard")
+                }
+                className="relative cursor-pointer group px-4 py-2 rounded-lg bg-gradient-to-r from-orange-500 to-red-500 text-white text-sm font-medium transition-all duration-300 hover:from-orange-600 hover:to-red-600 hover:scale-105 shadow-lg hover:shadow-orange-500/25"
+              >
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-orange-600/20 to-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="relative z-10">
+                  {admin ? "logout" : "DASHBOARD"}
+                </span>
+              </button>
+            </div>
 
             {/* Mobile Menu Button */}
             {location?.pathname !== "/projects" &&
@@ -158,12 +197,28 @@ const NavBar = () => {
                   />
                 </button>
               ))}
+
+              {/* Mobile Dashboard Button */}
+              <Link
+                to="/admin/dashboard"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="group w-full flex items-center justify-between px-4 py-3 rounded-xl text-left font-medium transition-all duration-300 transform bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg hover:from-orange-600 hover:to-red-600 hover:scale-[1.01]"
+                style={{
+                  animationDelay: `${navItems.length * 100}ms`,
+                  animation: isMobileMenuOpen
+                    ? "slideInFromRight 0.5s ease-out forwards"
+                    : "none",
+                }}
+              >
+                <span className="text-sm">DASHBOARD</span>
+                <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
             </div>
           </div>
         </div>
       </nav>
 
-      <style jsx>{`
+      <style>{`
         @keyframes slideInFromRight {
           from {
             opacity: 0;

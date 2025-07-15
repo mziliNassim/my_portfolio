@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+
 import { educations } from "../../utils/data/educations";
+
 import { BsPersonWorkspace } from "react-icons/bs";
+
 import EducationCard from "./EducationCard";
 
 function Education() {
@@ -134,7 +137,7 @@ function Education() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           {filteredEducations.map((education, index) => (
             <EducationCard
-              key={`${activeTab}-${education.id}`}
+              key={index}
               education={education}
               index={index}
               isVisible={isVisible}
