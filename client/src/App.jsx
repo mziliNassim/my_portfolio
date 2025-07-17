@@ -37,11 +37,85 @@ const App = () => {
 
   const [loadingNassimInfo, setLoadingNassimInfo] = useState(true);
   const [loadingProjects, setLoadingProjects] = useState(true);
+  const [loadingStats, setLoadingStats] = useState(true);
+  const [loadingUpdateStats, setLoadingUpdateStats] = useState(true);
 
   const [infos, setInfos] = useState({});
   const [projects, setProjects] = useState([]);
+  const [stats, setStats] = useState({
+    totalProjects: 0,
+    totalExperiences: 0,
+    totalEducations: 0,
+    totalVisitors: 0,
+    viewsData: [
+      { name: "Aug", views: 0 },
+      { name: "Sep", views: 0 },
+      { name: "Oct", views: 0 },
+      { name: "Nov", views: 0 },
+      { name: "Dec", views: 0 },
+      { name: "Jan", views: 0 },
+      { name: "Feb", views: 0 },
+      { name: "Mar", views: 0 },
+      { name: "Apr", views: 0 },
+      { name: "May", views: 0 },
+      { name: "Jun", views: 0 },
+      { name: "Jul", views: 0 },
+    ],
+    deviceData: [
+      { name: "Desktop", value: 0, color: "#3B82F6" },
+      { name: "Mobile", value: 0, color: "#10B981" },
+      { name: "Tablet", value: 0, color: "#F59E0B" },
+    ],
+  });
 
   const dispatch = useDispatch();
+
+  // incriment visters stats
+  const updateStatsIncrimentVisiters = async () => {
+    setLoadingUpdateStats(true);
+    try {
+      // Determine device type
+      const width = window.innerWidth;
+      let device = "Desktop";
+      if (width <= 768) device = "Mobile";
+      else if (width > 768 && width <= 1024) device = "Tablet";
+
+      // Current month abbreviation "Jul"
+      const currentMonth = new Date().toLocaleString("default", {
+        month: "short",
+      });
+
+      await axios.put(
+        `${import.meta.env.VITE_SERVER_URI}/api/stats/incriment-visiters`,
+        { device, currentMonth }
+      );
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error.message, {
+        description: new Date().toUTCString(),
+        action: { label: "✖️" },
+      });
+    } finally {
+      setLoadingUpdateStats(false);
+    }
+  };
+
+  // Fetch stats
+  const getStats = async () => {
+    setLoadingStats(true);
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER_URI}/api/stats`
+      );
+      setStats(response.data);
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error.message, {
+        description: new Date().toUTCString(),
+        action: { label: "✖️" },
+      });
+    } finally {
+      setLoadingStats(false);
+    }
+  };
 
   // Fech Nassim's infos
   const getNassimInfos = async () => {
@@ -86,11 +160,13 @@ const App = () => {
     else dispatch(clearAdmin());
 
     // Fetch API
+    updateStatsIncrimentVisiters();
+    getStats();
     getNassimInfos();
     getProjects();
   }, []);
 
-  if (loadingNassimInfo || loadingProjects)
+  if (loadingNassimInfo || loadingProjects || loadingStats)
     return (
       <div className="h-screen flex items-center justify-center overflow-hidden">
         <Toaster theme={theme} />
@@ -130,7 +206,15 @@ const App = () => {
               <Route path="projects" element={<DashboardProjects />} />
               <Route path="experiences" element={<DashboardExperiences />} />
               <Route path="educations" element={<DashboardEducations />} />
-              <Route path="analytics" element={<DashboardAnalytics />} />
+              <Route
+                path="analytics"
+                element={
+                  <DashboardAnalytics
+                    stats={stats}
+                    loadingStats={loadingStats}
+                  />
+                }
+              />
 
               <Route path="add-project" element={<DashboardAddProjects />} />
               <Route

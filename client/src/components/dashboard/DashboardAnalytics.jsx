@@ -35,73 +35,20 @@ import Loading from "../styles/Loading";
 import { scrollToTop } from "../../utils/helpers";
 import StatCard from "./StatCard";
 
-const DashboardAnalytics = () => {
+const DashboardAnalytics = ({ stats, loadingStats }) => {
   const { admin } = useSelector((state) => state.admin);
 
-  const [LoadingStats, setLoadingStats] = useState(true);
-  const [LoadingRecentActivities, setLoadingRecentActivities] = useState(true);
-  const [recentActivities, setRecentActivities] = useState([
-    { action: "New project added", time: "2 hours ago", type: "project" },
-    { action: "Portfolio viewed 50+ times", time: "4 hours ago", type: "view" },
-    { action: "Resume downloaded", time: "1 day ago", type: "download" },
-    { action: "Contact form submitted", time: "2 days ago", type: "contact" },
-    { action: "Profile updated", time: "3 days ago", type: "update" },
-  ]);
-  const [stats, setStats] = useState({
-    totalProjects: 0,
-    totalExperiences: 0,
-    totalEducations: 0,
-    totalVisitors: 0,
-    monthlyGrowth: 23.5,
-    activeProjects: 5,
-    viewsData: [
-      { name: "Jan", views: 4000, visitors: 2400 },
-      { name: "Feb", views: 3000, visitors: 1398 },
-      { name: "Mar", views: 2000, visitors: 9800 },
-      { name: "Apr", views: 2780, visitors: 3908 },
-      { name: "May", views: 1890, visitors: 4800 },
-      { name: "Jun", views: 2390, visitors: 3800 },
-      { name: "Jul", views: 3490, visitors: 4300 },
-      { name: "Aug", views: 4200, visitors: 3200 },
-      { name: "Sep", views: 3800, visitors: 2800 },
-      { name: "Oct", views: 4500, visitors: 3500 },
-      { name: "Nov", views: 5200, visitors: 4100 },
-      { name: "Dec", views: 6800, visitors: 5200 },
-      { name: "Jan", views: 4000, visitors: 2400 },
-    ],
-    deviceData: [
-      { name: "Desktop", value: 65, color: "#3B82F6" },
-      { name: "Mobile", value: 25, color: "#10B981" },
-      { name: "Tablet", value: 10, color: "#F59E0B" },
-    ],
-  });
-
-  // fetch Stats data
-  const fetchStats = async () => {
-    setLoadingStats(true);
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URI}/api/stats`
-      );
-      setStats(response.data);
-    } catch (error) {
-      toast.error(error?.response?.data?.message || error.message, {
-        description: new Date().toUTCString(),
-        action: { label: "✖️" },
-      });
-    } finally {
-      setLoadingStats(false);
-    }
-  };
+  const [loadingRecentActivities, setLoadingRecentActivities] = useState(true);
+  const [recentActivities, setRecentActivities] = useState([]);
 
   // fetch Recent Activities
   const fetchRecentActivities = async () => {
     setLoadingRecentActivities(true);
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URI}/api/activities`
-      );
-      setRecentActivities(response.data);
+      // const response = await axios.get(
+      //   `${import.meta.env.VITE_SERVER_URI}/api/activities`
+      // );
+      // setRecentActivities(response.data);
     } catch (error) {
       toast.error(error?.response?.data?.message || error.message, {
         description: new Date().toUTCString(),
@@ -119,7 +66,6 @@ const DashboardAnalytics = () => {
       return;
     }
 
-    fetchStats();
     fetchRecentActivities();
   }, [admin]);
 
@@ -148,7 +94,7 @@ const DashboardAnalytics = () => {
                 </div>
               </div>
 
-              {LoadingStats || LoadingRecentActivities ? (
+              {loadingStats || loadingRecentActivities ? (
                 <Loading />
               ) : (
                 <>
@@ -159,7 +105,6 @@ const DashboardAnalytics = () => {
                       value={stats.totalProjects}
                       icon={FolderOpen}
                       color="cyan"
-                      growth={stats.monthlyGrowth}
                       delay={100}
                     />
                     <StatCard
@@ -181,7 +126,6 @@ const DashboardAnalytics = () => {
                       value={stats.totalVisitors}
                       icon={Eye}
                       color="blue"
-                      growth={18.2}
                       delay={400}
                     />
                   </div>
@@ -249,55 +193,57 @@ const DashboardAnalytics = () => {
                   </div>
 
                   {/* Recent Activity */}
-                  <div className="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-lg p-6">
-                    <h3 className="text-lg font-semibold text-white mb-4">
-                      Recent Activity
-                    </h3>
-                    <div className="space-y-4">
-                      {recentActivities.map((activity, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center space-x-4"
-                        >
+                  {recentActivities.length !== 0 && (
+                    <div className="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-lg p-6">
+                      <h3 className="text-lg font-semibold text-white mb-4">
+                        Recent Activity
+                      </h3>
+                      <div className="space-y-4">
+                        {recentActivities.map((activity, index) => (
                           <div
-                            className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                              activity.type === "project"
-                                ? "bg-blue-500/20"
-                                : activity.type === "view"
-                                ? "bg-green-500/20"
-                                : activity.type === "download"
-                                ? "bg-purple-500/20"
-                                : activity.type === "contact"
-                                ? "bg-orange-500/20"
-                                : "bg-slate-500/20"
-                            }`}
+                            key={index}
+                            className="flex items-center space-x-4"
                           >
-                            {activity.type === "project" && (
-                              <Target className="w-5 h-5 text-blue-400" />
-                            )}
-                            {activity.type === "view" && (
-                              <Eye className="w-5 h-5 text-green-400" />
-                            )}
-                            {activity.type === "download" && (
-                              <Download className="w-5 h-5 text-purple-400" />
-                            )}
-                            {activity.type === "contact" && (
-                              <MessageSquare className="w-5 h-5 text-orange-400" />
-                            )}
-                            {activity.type === "update" && (
-                              <Activity className="w-5 h-5 text-slate-400" />
-                            )}
+                            <div
+                              className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                                activity.type === "project"
+                                  ? "bg-blue-500/20"
+                                  : activity.type === "view"
+                                  ? "bg-green-500/20"
+                                  : activity.type === "download"
+                                  ? "bg-purple-500/20"
+                                  : activity.type === "contact"
+                                  ? "bg-orange-500/20"
+                                  : "bg-slate-500/20"
+                              }`}
+                            >
+                              {activity.type === "project" && (
+                                <Target className="w-5 h-5 text-blue-400" />
+                              )}
+                              {activity.type === "view" && (
+                                <Eye className="w-5 h-5 text-green-400" />
+                              )}
+                              {activity.type === "download" && (
+                                <Download className="w-5 h-5 text-purple-400" />
+                              )}
+                              {activity.type === "contact" && (
+                                <MessageSquare className="w-5 h-5 text-orange-400" />
+                              )}
+                              {activity.type === "update" && (
+                                <Activity className="w-5 h-5 text-slate-400" />
+                              )}
+                            </div>
+                            <div className="flex-1">
+                              <p className="text-white">{activity.action}</p>
+                              <p className="text-slate-400 text-sm">
+                                {activity.time}
+                              </p>
+                            </div>
                           </div>
-                          <div className="flex-1">
-                            <p className="text-white">{activity.action}</p>
-                            <p className="text-slate-400 text-sm">
-                              {activity.time}
-                            </p>
-                          </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </>
               )}
             </div>

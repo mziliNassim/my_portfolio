@@ -23,14 +23,6 @@ const StatCard = ({ title, value, icon: Icon, color, growth, delay }) => {
               className={`w-6 h-6 text-${color}-400 group-hover:text-${color}-300 transition-colors duration-300`}
             />
           </div>
-          {growth && (
-            <div className="flex items-center space-x-1">
-              <TrendingUp className="w-4 h-4 text-green-400" />
-              <span className="text-sm text-green-400 font-medium">
-                +{growth}%
-              </span>
-            </div>
-          )}
         </div>
 
         <div className="space-y-2">
