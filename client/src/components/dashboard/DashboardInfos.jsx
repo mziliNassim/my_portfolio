@@ -55,31 +55,32 @@ const DashboardInfos = () => {
   ];
 
   // Fech Nassim's infos
+  const getNassimInfos = async () => {
+    try {
+      setLoadingNassimInfo(true);
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER_URI}/api/nassim`
+      );
+      setInfos(response.data);
+    } catch (error) {
+      toast.error(error.message, {
+        description: new Date().toUTCString(),
+        action: { label: "✖️" },
+      });
+    } finally {
+      setLoadingNassimInfo(false);
+    }
+  };
+
   useEffect(() => {
+    scrollToTop();
     if (!admin) {
       window.location.href = "/admin/auth";
       return;
     }
-    scrollToTop();
-    const getNassimInfos = async () => {
-      try {
-        setLoadingNassimInfo(true);
-        const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URI}/api/nassim`
-        );
-        setInfos(response.data);
-      } catch (error) {
-        toast.error(error.message, {
-          description: new Date().toUTCString(),
-          action: { label: "✖️" },
-        });
-      } finally {
-        setLoadingNassimInfo(false);
-      }
-    };
 
     getNassimInfos();
-  }, []);
+  }, [admin]);
 
   // Edite, Save, Cancel Events
 

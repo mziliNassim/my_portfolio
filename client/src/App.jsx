@@ -16,8 +16,12 @@ import Cv from "./pages/Cv";
 
 import Projects from "./components/portfolio/Projects.jsx";
 
-import DashboardProjects from "./components/dashboard/DashboardProjects.jsx";
 import DashboardInfos from "./components/dashboard/DashboardInfos.jsx";
+import DashboardProjects from "./components/dashboard/DashboardProjects.jsx";
+import DashboardExperiences from "./components/dashboard/DashboardExperiences.jsx";
+import DashboardEducations from "./components/dashboard/DashboardEducations.jsx";
+import DashboardAnalytics from "./components/dashboard/DashboardAnalytics.jsx";
+
 import DashboardAddProjects from "./components/dashboard/DashboardAddProjects.jsx";
 import DashboardEditProject from "./components/dashboard/DashboardEditProject.jsx";
 
@@ -121,8 +125,13 @@ const App = () => {
 
             <Route path="dashboard">
               <Route path="" element={<Dashboard />} />
+
               <Route path="infos" element={<DashboardInfos />} />
               <Route path="projects" element={<DashboardProjects />} />
+              <Route path="experiences" element={<DashboardExperiences />} />
+              <Route path="educations" element={<DashboardEducations />} />
+              <Route path="analytics" element={<DashboardAnalytics />} />
+
               <Route path="add-project" element={<DashboardAddProjects />} />
               <Route
                 path="edit-project/:id"

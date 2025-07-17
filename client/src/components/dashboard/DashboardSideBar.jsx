@@ -1,10 +1,42 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { useDispatch } from "react-redux";
+import { Loader2, LogOut } from "lucide-react";
+
+import { clearAdmin } from "../../features/adminSlice";
 
 import { managementLinks } from "../../utils/management-links";
 
 const DashboardSideBar = () => {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [loadingLogout, setLoadingLogout] = useState(false);
+
+  const handleLogout = () => {
+    setLoadingLogout(true);
+    try {
+      setTimeout(() => {
+        toast.success("Logout successfully!", {
+          description: new Date().toUTCString(),
+          action: { label: "✖️" },
+        });
+        dispatch(clearAdmin());
+        navigate("/");
+      }, 2000);
+    } catch (error) {
+      toast.error(error.message, {
+        description: new Date().toUTCString(),
+        action: { label: "✖️" },
+      });
+    } finally {
+      setTimeout(() => {
+        setLoadingLogout(false);
+      }, 2000);
+    }
+  };
 
   return (
     <>
@@ -64,6 +96,28 @@ const DashboardSideBar = () => {
                 </Link>
               ))}
             </div>
+
+            <br />
+
+            {/* Logout Button */}
+            <button
+              onClick={handleLogout}
+              disabled={loadingLogout}
+              className="w-full cursor-pointer flex items-center justify-center p-3 rounded-lg hover:bg-red-500/10 transition-colors duration-200 border border-red-500/20 hover:border-red-500/40 mt-4"
+            >
+              {loadingLogout ? (
+                <Loader2 className="animate-spin h-5 w-5" />
+              ) : (
+                <div className="flex items-center  space-x-3">
+                  <div className="p-2 bg-gradient-to-r from-red-500/20 to-red-600/20 rounded-lg">
+                    <LogOut className="w-4 h-4 text-red-400" />
+                  </div>
+                  <span className="text-red-400 text-sm font-medium">
+                    Logout
+                  </span>
+                </div>
+              )}
+            </button>
           </div>
         </div>
       </div>

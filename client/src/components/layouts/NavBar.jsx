@@ -3,9 +3,6 @@ import { Menu, X, ChevronRight } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { clearAdmin } from "../../features/adminSlice";
-import { toast } from "sonner";
-
 const NavBar = () => {
   const { admin } = useSelector((state) => state.admin);
 
@@ -20,9 +17,14 @@ const NavBar = () => {
   const excludedPaths = [
     "/projects",
     "/links",
+    "/admin/auth",
     "/admin/dashboard",
     "/admin/dashboard/infos",
     "/admin/dashboard/projects",
+    "/admin/dashboard/experiences",
+    "/admin/dashboard/educations",
+    "/admin/dashboard/analytics",
+    "/admin/dashboard/add-project",
   ];
 
   const navItems = [
@@ -52,15 +54,6 @@ const NavBar = () => {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
-  };
-
-  const handleLogout = () => {
-    dispatch(clearAdmin());
-    navigate("/admin/auth");
-    toast.success("Logout successfully!", {
-      description: new Date().toUTCString(),
-      action: { label: "✖️" },
-    });
   };
 
   return (
@@ -129,17 +122,15 @@ const NavBar = () => {
 
               {/* Dashboard Button */}
               <button
-                onClick={
-                  admin
-                    ? handleLogout
-                    : () => (window.location.href = "/admin/dashboard")
+                onClick={() =>
+                  (window.location.href = admin
+                    ? "/admin/dashboard"
+                    : "/admin/auth")
                 }
                 className="relative cursor-pointer group px-4 py-2 rounded-lg bg-gradient-to-r from-orange-500 to-red-500 text-white text-sm font-medium transition-all duration-300 hover:from-orange-600 hover:to-red-600 hover:scale-105 shadow-lg hover:shadow-orange-500/25"
               >
                 <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-orange-600/20 to-red-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="relative z-10">
-                  {admin ? "logout" : "DASHBOARD"}
-                </span>
+                <span className="relative z-10">DASHBOARD</span>
               </button>
             </div>
 

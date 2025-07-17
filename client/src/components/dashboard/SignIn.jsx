@@ -40,7 +40,7 @@ const SignIn = () => {
   useEffect(() => {
     setIsVisible(true);
     if (admin) window.location.href = "/admin/dashboard";
-  }, []);
+  }, [admin]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -275,7 +275,8 @@ const SignIn = () => {
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="w-full group relative overflow-hidden bg-gradient-to-r from-pink-500 to-violet-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-pink-600 hover:to-violet-700 focus:outline-none focus:ring-2 focus:ring-pink-500/50 transform transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full group cursor-not relative overflow-hidden bg-gradient-to-r from-pink-500 to-violet-600 text-white font-semibold py-3 px-6 rounded-xl hover:from-pink-600 hover:to-violet-700 focus:outline-none focus:ring-2 focus:ring-pink-500/50 transform transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
+                      style={{ cursor: isLoading ? "not-allowed" : "pointer" }}
                     >
                       <div className="flex items-center justify-center space-x-2">
                         {isLoading ? (

@@ -28,6 +28,23 @@ const DashboardProjects = () => {
   const [loadingProjects, setLoadingProjects] = useState(true);
 
   // Fech Projects
+  const getProjects = async () => {
+    try {
+      setLoadingProjects(true);
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER_URI}/api/projects`
+      );
+      setProjects(response.data.reverse());
+    } catch (error) {
+      toast.error(error.message, {
+        description: new Date().toUTCString(),
+        action: { label: "✖️" },
+      });
+    } finally {
+      setLoadingProjects(false);
+    }
+  };
+
   useEffect(() => {
     if (!admin) {
       window.location.href = "/admin/auth";
@@ -35,23 +52,6 @@ const DashboardProjects = () => {
     }
 
     scrollToTop();
-    const getProjects = async () => {
-      try {
-        setLoadingProjects(true);
-        const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URI}/api/projects`
-        );
-        setProjects(response.data.reverse());
-      } catch (error) {
-        toast.error(error.message, {
-          description: new Date().toUTCString(),
-          action: { label: "✖️" },
-        });
-      } finally {
-        setLoadingProjects(false);
-      }
-    };
-
     getProjects();
   }, []);
 

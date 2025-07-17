@@ -17,9 +17,9 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/nassim", require("./routes/nassim.route"));
-app.use("/api/experience", require("./routes/experience.route"));
+app.use("/api/experiences", require("./routes/experience.route"));
 app.use("/api/projects", require("./routes/projects.route"));
-app.use("/api/education", require("./routes/education.route"));
+app.use("/api/educations", require("./routes/education.route"));
 
 // Start server only after DB connection
 const startServer = async () => {

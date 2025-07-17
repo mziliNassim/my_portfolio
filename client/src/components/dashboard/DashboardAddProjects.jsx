@@ -81,7 +81,7 @@ const DashboardAddProjects = () => {
       window.location.href = "/admin/auth";
       return;
     }
-  }, []);
+  }, [admin]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;

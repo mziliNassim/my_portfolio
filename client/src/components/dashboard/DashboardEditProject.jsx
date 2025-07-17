@@ -134,7 +134,7 @@ const DashboardEditProject = () => {
     };
 
     fetchProject();
-  }, [id, navigate]);
+  }, [id, navigate, admin]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
