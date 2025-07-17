@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Loader2, LogOut } from "lucide-react";
 
 import { clearAdmin } from "../../features/adminSlice";
@@ -9,6 +9,8 @@ import { clearAdmin } from "../../features/adminSlice";
 import { managementLinks } from "../../utils/management-links";
 
 const DashboardSideBar = () => {
+  const { admin } = useSelector((state) => state.admin);
+
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -52,14 +54,21 @@ const DashboardSideBar = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-violet-600 rounded-full blur-lg opacity-30 animate-pulse" />
                 <div className="relative w-full h-full bg-gradient-to-r from-pink-500/20 to-violet-600/20 rounded-full border-2 border-pink-500/30 flex items-center justify-center">
                   {/* <FaUser className="w-10 h-10 text-pink-400" /> */}
-                  <img src="/profile.png" />
+                  <img
+                    src={`https://ui-avatars.com/api/?name=${admin?.data.username}&background=random`}
+                    className="w-full h-full rounded-full"
+                  />
                 </div>
               </div>
 
               {/* Name & Role */}
               <div>
-                <h3 className="text-xl font-bold text-white">Nassim MZILI</h3>
-                <p className="text-gray-400 text-sm">Full Stack Developer</p>
+                <h3 className="text-xl font-bold text-white uppercase">
+                  {admin?.data.username}
+                </h3>
+                <p className="text-gray-400 text-sm capitalize">
+                  role: {admin?.data.role}
+                </p>
               </div>
             </div>
           </div>

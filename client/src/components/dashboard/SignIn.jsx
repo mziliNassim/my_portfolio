@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 import {
   FaUser,
@@ -10,17 +11,14 @@ import {
   FaEyeSlash,
   FaArrowRight,
   FaShieldAlt,
-  FaEnvelope,
-  FaFileAlt,
-  FaChartBar,
-  FaGraduationCap,
-  FaBriefcase,
-  FaProjectDiagram,
 } from "react-icons/fa";
 
 import FloatingParticles from "../styles/FloatingParticles";
 import AnimatedBackgroundElements from "../styles/AnimatedBackgroundElements";
+
 import { setAdmin } from "../../features/adminSlice";
+
+import { managementLinks } from "../../utils/management-links";
 
 const SignIn = () => {
   const { admin } = useSelector((state) => state.admin);
@@ -28,7 +26,6 @@ const SignIn = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [loginType, setLoginType] = useState("email"); // 'email' or 'username'
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -40,7 +37,7 @@ const SignIn = () => {
   useEffect(() => {
     setIsVisible(true);
     if (admin) window.location.href = "/admin/dashboard";
-  }, [admin]);
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -49,67 +46,39 @@ const SignIn = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
-      setIsLoading(true);
-      if (
-        formData.username.toLowerCase() == "nassim" &&
-        formData.password == "123"
-      ) {
-        toast.success("Sign in attempted with: " + formData.username, {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URI}/api/auth`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${admin?.token}`,
+          },
+        }
+      );
+
+      navigate("/admin/dashboard");
+      dispatch(
+        setAdmin({ data: response.data.data, token: response.data.token })
+      );
+      toast.success(
+        response.data.message || `Welcom back ${response.data.data.username}`,
+        {
           description: new Date().toUTCString(),
           action: { label: "✖️" },
-        });
-        navigate("/admin/dashboard");
-        dispatch(setAdmin(formData));
-      } else {
-        toast.warning("Invalid username or password!", {
-          description: new Date().toUTCString(),
-          action: { label: "✖️" },
-        });
-      }
+        }
+      );
     } catch (error) {
-      toast.error(error.message, {
+      toast.error(error?.response?.data?.message || error.message, {
         description: new Date().toUTCString(),
         action: { label: "✖️" },
       });
-      console.log(" handleSubmit ~ error:", error);
     } finally {
       setIsLoading(false);
     }
   };
-
-  const features = [
-    {
-      icon: FaUser,
-      title: "Update Infos",
-      description: "Edit personal information & bio",
-    },
-    {
-      icon: FaProjectDiagram,
-      title: "Manage Projects",
-      description: "Add, edit & organize projects",
-    },
-    {
-      icon: FaBriefcase,
-      title: "Manage Experiences",
-      description: "Update work & education history",
-    },
-    {
-      icon: FaGraduationCap,
-      title: "Manage Educations",
-      description: "Add and update education details",
-    },
-    {
-      icon: FaChartBar,
-      title: "Analytics",
-      description: "View visitor stats & metrics",
-    },
-    {
-      icon: FaFileAlt,
-      title: "CV Settings",
-      description: "Update resume & download settings",
-    },
-  ];
 
   return (
     <section className="min-h-screen relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0d1224] via-[#1a1a2e] to-[#271c54] pt-20 pb-8 lg:py-16 lg:pt-28">
@@ -166,7 +135,7 @@ const SignIn = () => {
 
                   {/* Features Grid */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                    {features.map((feature, index) => (
+                    {managementLinks.map((feature, index) => (
                       <div
                         key={index}
                         className="group p-4 bg-gray-800/30 rounded-xl border border-gray-700/50 hover:border-pink-500/30 transition-all duration-300 hover:bg-gray-800/50"
@@ -212,15 +181,11 @@ const SignIn = () => {
                         htmlFor="username"
                         className="text-sm font-medium text-gray-300"
                       >
-                        {loginType === "email" ? "Email Address" : "Username"}
+                        Username
                       </label>
                       <div className="relative">
                         <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-                          {loginType === "email" ? (
-                            <FaEnvelope className="w-4 h-4 text-gray-400" />
-                          ) : (
-                            <FaUser className="w-4 h-4 text-gray-400" />
-                          )}
+                          <FaUser className="w-4 h-4 text-gray-400" />
                         </div>
                         <input
                           type="text"
