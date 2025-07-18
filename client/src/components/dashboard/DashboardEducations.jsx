@@ -31,31 +31,11 @@ import Loading from "../styles/Loading.jsx";
 
 import { scrollToTop } from "../../utils/helpers.js";
 
-const DashboardEducations = () => {
+const DashboardEducations = ({ educations, loadingEducations }) => {
   const { admin } = useSelector((state) => state.admin);
-  const [educations, setEducations] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterType, setFilterType] = useState("all");
-  const [loadingEducation, setLoadingEducation] = useState(true);
-
-  // Fetch Education
-  const getEducation = async () => {
-    try {
-      setLoadingEducation(true);
-      const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URI}/api/educations`
-      );
-      setEducations(response.data.reverse());
-    } catch (error) {
-      toast.error(error.message || "Failed to fetch education data", {
-        description: new Date().toUTCString(),
-        action: { label: "✖️" },
-      });
-    } finally {
-      setLoadingEducation(false);
-    }
-  };
 
   useEffect(() => {
     scrollToTop();
@@ -63,8 +43,6 @@ const DashboardEducations = () => {
       window.location.href = "/admin/auth";
       return;
     }
-
-    getEducation();
   }, [admin]);
 
   // Delete Education
@@ -281,7 +259,7 @@ const DashboardEducations = () => {
               </div>
 
               {/* Education cards Grid */}
-              {loadingEducation ? (
+              {loadingEducations ? (
                 <Loading size="md" />
               ) : (
                 <>

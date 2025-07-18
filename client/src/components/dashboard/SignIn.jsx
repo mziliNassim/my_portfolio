@@ -3,15 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-
-import {
-  FaUser,
-  FaLock,
-  FaEye,
-  FaEyeSlash,
-  FaArrowRight,
-  FaShieldAlt,
-} from "react-icons/fa";
+import { User, Lock, Eye, EyeOff, ArrowRight, ShieldCheck } from "lucide-react";
 
 import FloatingParticles from "../styles/FloatingParticles";
 import AnimatedBackgroundElements from "../styles/AnimatedBackgroundElements";
@@ -107,7 +99,7 @@ const SignIn = () => {
                       <div className="relative">
                         <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-violet-600 rounded-full blur-md opacity-40 animate-pulse" />
                         <div className="relative p-3 bg-gradient-to-r from-pink-500/20 to-violet-600/20 rounded-full border border-pink-500/30">
-                          <FaShieldAlt className="w-6 h-6 text-pink-400" />
+                          <ShieldCheck className="w-6 h-6 text-pink-400" />
                         </div>
                       </div>
                       <div>
@@ -185,7 +177,7 @@ const SignIn = () => {
                       </label>
                       <div className="relative">
                         <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-                          <FaUser className="w-4 h-4 text-gray-400" />
+                          <User className="w-4 h-4 text-gray-400" />
                         </div>
                         <input
                           type="text"
@@ -210,7 +202,7 @@ const SignIn = () => {
                       </label>
                       <div className="relative">
                         <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-                          <FaLock className="w-4 h-4 text-gray-400" />
+                          <Lock className="w-4 h-4 text-gray-400" />
                         </div>
                         <input
                           type={showPassword ? "text" : "password"}
@@ -228,9 +220,9 @@ const SignIn = () => {
                           className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-pink-400 transition-colors duration-200"
                         >
                           {showPassword ? (
-                            <FaEyeSlash className="w-4 h-4" />
+                            <EyeOff className="w-4 h-4" />
                           ) : (
-                            <FaEye className="w-4 h-4" />
+                            <Eye className="w-4 h-4" />
                           )}
                         </button>
                       </div>
@@ -249,7 +241,7 @@ const SignIn = () => {
                         ) : (
                           <>
                             <span>Access Dashboard</span>
-                            <FaArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                           </>
                         )}
                       </div>

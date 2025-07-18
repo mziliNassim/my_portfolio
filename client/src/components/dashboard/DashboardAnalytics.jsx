@@ -1,29 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "sonner";
-import axios from "axios";
 import { useSelector } from "react-redux";
-import {
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  AreaChart,
-  Area,
-  PieChart,
-  Pie,
-  Cell,
-} from "recharts";
-import {
-  Eye,
-  Download,
-  Activity,
-  MessageSquare,
-  FolderOpen,
-  Briefcase,
-  GraduationCap,
-  Target,
-} from "lucide-react";
+import { XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+import { ResponsiveContainer, AreaChart } from "recharts";
+import { Cell, Area, PieChart, Pie } from "recharts";
+import { Eye, Download, Activity, MessageSquare } from "lucide-react";
+import { FolderOpen, Briefcase, GraduationCap, Target } from "lucide-react";
 
 import DashboardSideBar from "./DashboardSideBar";
 import DashboardHeader from "./DashboardHeader";

@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import { educations } from "../../utils/data/educations";
-
-import { BsPersonWorkspace } from "react-icons/bs";
+import { Briefcase } from "lucide-react";
 
 import EducationCard from "./EducationCard";
+import FloatingParticles from "../styles/FloatingParticles";
+import AnimatedBackgroundElements from "../styles/AnimatedBackgroundElements";
 
-function Education() {
+const Education = ({ educations }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [activeTab, setActiveTab] = useState("All");
-  const [animationKey, setAnimationKey] = useState(0); // For animation reset on tab change
+  const [animationKey, setAnimationKey] = useState(0);
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -50,33 +50,8 @@ function Education() {
       ref={sectionRef}
       className="relative py-20 bg-gradient-to-br from-[#0d1224] via-[#1a1a2e] to-[#271c54] overflow-hidden"
     >
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 right-20 w-80 h-80 bg-violet-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 left-20 w-72 h-72 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div
-          className="absolute top-1/3 right-1/3 w-96 h-96 bg-gradient-to-r from-cyan-500/5 to-purple-500/5 rounded-full blur-3xl animate-spin"
-          style={{ animationDuration: "25s" }}
-        />
-      </div>
-
-      {/* Floating Academic Elements */}
-      <div className="absolute inset-0">
-        {["📚", "🎓", "📖", "🏆", "📝", "🔬"].map((symbol, i) => (
-          <div
-            key={i}
-            className="absolute text-2xl opacity-20 animate-ping"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${4 + Math.random() * 3}s`,
-            }}
-          >
-            {symbol}
-          </div>
-        ))}
-      </div>
+      <AnimatedBackgroundElements />
+      <FloatingParticles />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -111,7 +86,7 @@ function Education() {
         </div>
 
         {/* Filter Tabs */}
-        {/* <div
+        <div
           className={`flex justify-center mb-12 transform transition-all duration-1000 delay-300 ${
             isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}
@@ -131,7 +106,7 @@ function Education() {
               </button>
             ))}
           </div>
-        </div> */}
+        </div>
 
         {/* Education Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
@@ -149,7 +124,7 @@ function Education() {
         {/* Bottom Decoration */}
         <div className="text-center mt-20">
           <div className="inline-flex items-center space-x-4 px-6 py-3 bg-gradient-to-r from-pink-500/10 to-violet-600/10 rounded-full border border-pink-500/20">
-            <BsPersonWorkspace className="w-6 h-6 text-pink-400" />
+            <Briefcase className="w-6 h-6 text-pink-400" />
             <span className="text-gray-300 font-medium">
               Committed to lifelong learning and professional growth
             </span>
@@ -158,6 +133,6 @@ function Education() {
       </div>
     </section>
   );
-}
+};
 
 export default Education;

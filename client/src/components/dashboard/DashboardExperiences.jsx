@@ -3,21 +3,8 @@ import { toast } from "sonner";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {
-  Code,
-  Plus,
-  Search,
-  Clock,
-  CheckCircle,
-  Edit,
-  Trash2,
-  ExternalLink,
-  Calendar,
-  MapPin,
-  Users,
-  Building,
-  Timer,
-} from "lucide-react";
+import { Code, Plus, Search, Clock, CheckCircle, Edit } from "lucide-react";
+import { Trash2, ExternalLink, Calendar, Building, Timer } from "lucide-react";
 
 import DashboardSideBar from "./DashboardSideBar.jsx";
 import DashboardHeader from "./DashboardHeader.jsx";
@@ -28,31 +15,10 @@ import Loading from "../styles/Loading.jsx";
 
 import { scrollToTop } from "../../utils/helpers.js";
 
-const DashboardExperiences = () => {
+const DashboardExperiences = ({ experiences, loadingExperiences }) => {
   const { admin } = useSelector((state) => state.admin);
-  const [experiences, setExperiences] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterStatus, setFilterStatus] = useState("all");
   const [filterType, setFilterType] = useState("all");
-  const [loadingExperiences, setLoadingExperiences] = useState(true);
-
-  // Fetch Experiences
-  const getExperiences = async () => {
-    try {
-      setLoadingExperiences(true);
-      const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URI}/api/experiences`
-      );
-      setExperiences(response.data.reverse());
-    } catch (error) {
-      toast.error(error.message || "Failed to fetch experiences", {
-        description: new Date().toUTCString(),
-        action: { label: "✖️" },
-      });
-    } finally {
-      setLoadingExperiences(false);
-    }
-  };
 
   useEffect(() => {
     scrollToTop();
@@ -60,8 +26,6 @@ const DashboardExperiences = () => {
       window.location.href = "/admin/auth";
       return;
     }
-
-    getExperiences();
   }, [admin]);
 
   // Delete Experience

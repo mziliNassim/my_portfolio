@@ -1,6 +1,5 @@
 import React from "react";
-
-import { FaCog } from "react-icons/fa";
+import { Settings } from "lucide-react";
 
 const DashboardHeader = () => {
   return (
@@ -11,7 +10,7 @@ const DashboardHeader = () => {
         <div className="relative">
           <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-violet-600 rounded-full blur-xl opacity-30 animate-pulse" />
           <div className="relative p-6 bg-gradient-to-r from-pink-500/20 to-violet-600/20 rounded-full border border-pink-500/30">
-            <FaCog
+            <Settings
               className="w-8 h-8 text-pink-400 animate-spin"
               style={{ animationDuration: "3s" }}
             />

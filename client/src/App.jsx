@@ -36,43 +36,21 @@ const App = () => {
   const [theme] = useState("dark");
 
   const [loadingNassimInfo, setLoadingNassimInfo] = useState(true);
+  const [loadingExperiences, setLoadingExperiences] = useState(true);
   const [loadingProjects, setLoadingProjects] = useState(true);
+  const [loadingEducations, setLoadingEducations] = useState(true);
   const [loadingStats, setLoadingStats] = useState(true);
-  const [loadingUpdateStats, setLoadingUpdateStats] = useState(true);
 
   const [infos, setInfos] = useState({});
+  const [experiences, setExperiences] = useState([]);
   const [projects, setProjects] = useState([]);
-  const [stats, setStats] = useState({
-    totalProjects: 0,
-    totalExperiences: 0,
-    totalEducations: 0,
-    totalVisitors: 0,
-    viewsData: [
-      { name: "Aug", views: 0 },
-      { name: "Sep", views: 0 },
-      { name: "Oct", views: 0 },
-      { name: "Nov", views: 0 },
-      { name: "Dec", views: 0 },
-      { name: "Jan", views: 0 },
-      { name: "Feb", views: 0 },
-      { name: "Mar", views: 0 },
-      { name: "Apr", views: 0 },
-      { name: "May", views: 0 },
-      { name: "Jun", views: 0 },
-      { name: "Jul", views: 0 },
-    ],
-    deviceData: [
-      { name: "Desktop", value: 0, color: "#3B82F6" },
-      { name: "Mobile", value: 0, color: "#10B981" },
-      { name: "Tablet", value: 0, color: "#F59E0B" },
-    ],
-  });
+  const [educations, setEducations] = useState([]);
+  const [stats, setStats] = useState({});
 
   const dispatch = useDispatch();
 
   // incriment visters stats
   const updateStatsIncrimentVisiters = async () => {
-    setLoadingUpdateStats(true);
     try {
       // Determine device type
       const width = window.innerWidth;
@@ -94,8 +72,78 @@ const App = () => {
         description: new Date().toUTCString(),
         action: { label: "✖️" },
       });
+    }
+  };
+
+  // Fech Nassim's infos
+  const getNassimInfos = async () => {
+    try {
+      setLoadingNassimInfo(true);
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER_URI}/api/nassim`
+      );
+      setInfos(response.data);
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error.message, {
+        description: new Date().toUTCString(),
+        action: { label: "✖️" },
+      });
     } finally {
-      setLoadingUpdateStats(false);
+      setLoadingNassimInfo(false);
+    }
+  };
+
+  // Fetch Experiences
+  const getExperiences = async () => {
+    try {
+      setLoadingExperiences(true);
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER_URI}/api/experiences`
+      );
+      setExperiences(response.data.reverse());
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error.message, {
+        description: new Date().toUTCString(),
+        action: { label: "✖️" },
+      });
+    } finally {
+      setLoadingExperiences(false);
+    }
+  };
+
+  // Fech Projects
+  const getProjects = async () => {
+    try {
+      setLoadingProjects(true);
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER_URI}/api/projects`
+      );
+      setProjects(response.data.reverse());
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error.message, {
+        description: new Date().toUTCString(),
+        action: { label: "✖️" },
+      });
+    } finally {
+      setLoadingProjects(false);
+    }
+  };
+
+  // Fech Education
+  const getEducations = async () => {
+    try {
+      setLoadingEducations(true);
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER_URI}/api/educations`
+      );
+      setEducations(response.data.reverse());
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error.message, {
+        description: new Date().toUTCString(),
+        action: { label: "✖️" },
+      });
+    } finally {
+      setLoadingEducations(false);
     }
   };
 
@@ -117,42 +165,6 @@ const App = () => {
     }
   };
 
-  // Fech Nassim's infos
-  const getNassimInfos = async () => {
-    try {
-      setLoadingNassimInfo(true);
-      const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URI}/api/nassim`
-      );
-      setInfos(response.data);
-    } catch (error) {
-      toast.error(error.message, {
-        description: new Date().toUTCString(),
-        action: { label: "✖️" },
-      });
-    } finally {
-      setLoadingNassimInfo(false);
-    }
-  };
-
-  // Fech Projects
-  const getProjects = async () => {
-    try {
-      setLoadingProjects(true);
-      const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URI}/api/projects`
-      );
-      setProjects(response.data.reverse());
-    } catch (error) {
-      toast.error(error.message, {
-        description: new Date().toUTCString(),
-        action: { label: "✖️" },
-      });
-    } finally {
-      setLoadingProjects(false);
-    }
-  };
-
   useEffect(() => {
     // check admin localStorage
     const adminStorage = JSON.parse(localStorage.getItem("admin"));
@@ -164,9 +176,17 @@ const App = () => {
     getStats();
     getNassimInfos();
     getProjects();
+    getEducations();
+    getExperiences();
   }, []);
 
-  if (loadingNassimInfo || loadingProjects || loadingStats)
+  if (
+    loadingNassimInfo ||
+    loadingExperiences ||
+    loadingProjects ||
+    loadingEducations ||
+    loadingStats
+  )
     return (
       <div className="h-screen flex items-center justify-center overflow-hidden">
         <Toaster theme={theme} />
@@ -183,7 +203,14 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={<Portfolio personalData={infos} projects={projects} />}
+            element={
+              <Portfolio
+                personalData={infos}
+                experiences={experiences}
+                projects={projects}
+                educations={educations}
+              />
+            }
           />
           <Route path="/cv" element={<Cv personalData={infos} />} />
           <Route path="/mycv" element={<Cv personalData={infos} />} />
@@ -201,11 +228,43 @@ const App = () => {
 
             <Route path="dashboard">
               <Route path="" element={<Dashboard />} />
-
-              <Route path="infos" element={<DashboardInfos />} />
-              <Route path="projects" element={<DashboardProjects />} />
-              <Route path="experiences" element={<DashboardExperiences />} />
-              <Route path="educations" element={<DashboardEducations />} />
+              <Route
+                path="infos"
+                element={
+                  <DashboardInfos
+                    infos={infos}
+                    setInfos={setInfos}
+                    loadingNassimInfo={loadingProjects}
+                  />
+                }
+              />
+              <Route
+                path="projects"
+                element={
+                  <DashboardProjects
+                    projects={projects}
+                    loadingProjects={loadingProjects}
+                  />
+                }
+              />
+              <Route
+                path="experiences"
+                element={
+                  <DashboardExperiences
+                    experiences={experiences}
+                    loadingExperiences={loadingExperiences}
+                  />
+                }
+              />
+              <Route
+                path="educations"
+                element={
+                  <DashboardEducations
+                    educations={educations}
+                    loadingEducations={loadingEducations}
+                  />
+                }
+              />
               <Route
                 path="analytics"
                 element={
@@ -215,7 +274,6 @@ const App = () => {
                   />
                 }
               />
-
               <Route path="add-project" element={<DashboardAddProjects />} />
               <Route
                 path="edit-project/:id"

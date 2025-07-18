@@ -4,34 +4,9 @@ import axios from "axios";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import {
-  FaGithub,
-  FaExternalLinkAlt,
-  FaUsers,
-  FaCode,
-  FaEye,
-  FaEdit,
-  FaTrash,
-  FaPlus,
-  FaFilter,
-  FaSearch,
-  FaImage,
-  FaLink,
-  FaUpload,
-  FaTimes,
-  FaRocket,
-  FaTools,
-  FaUser,
-  FaEnvelope,
-  FaLinkedin,
-  FaArrowLeft,
-} from "react-icons/fa";
-
-import {
-  HiOutlineSparkles,
-  HiOutlineClock,
-  HiOutlineCheckCircle,
-} from "react-icons/hi";
+import { Github, ExternalLink, Code, Edit, Trash } from "lucide-react";
+import { Plus, Upload, X, Rocket, User } from "lucide-react";
+import { ArrowLeft, Sparkles, Clock, Wrench } from "lucide-react";
 
 import DashboardSideBar from "./DashboardSideBar.jsx";
 import DashboardHeader from "./DashboardHeader.jsx";
@@ -39,7 +14,6 @@ import DashboardHeader from "./DashboardHeader.jsx";
 import FloatingParticles from "../styles/FloatingParticles.jsx";
 import AnimatedBackgroundElements from "../styles/AnimatedBackgroundElements.jsx";
 
-import Loading from "../styles/Loading.jsx";
 import { scrollToTop } from "../../utils/helpers.js";
 
 const DashboardEditProject = () => {
@@ -276,7 +250,7 @@ const DashboardEditProject = () => {
                   to="/admin/dashboard/projects"
                   className="flex items-center cursor-pointer space-x-2 px-4 py-2 bg-gradient-to-r from-gray-500 to-gray-600 text-white rounded-lg hover:from-gray-600 hover:to-gray-700 transition-all duration-200 shadow-lg hover:shadow-xl"
                 >
-                  <FaArrowLeft className="w-4 h-4" />
+                  <ArrowLeft className="w-4 h-4" />
                   <span>Back to Projects</span>
                 </Link>
               </div>
@@ -292,7 +266,7 @@ const DashboardEditProject = () => {
                   <div className="relative z-10">
                     <div className="flex items-center space-x-3 mb-4">
                       <div className="p-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl">
-                        <FaRocket className="w-6 h-6 text-white" />
+                        <Rocket className="w-6 h-6 text-white" />
                       </div>
                       <div>
                         <h2 className="text-2xl font-bold text-white">
@@ -302,46 +276,6 @@ const DashboardEditProject = () => {
                           Update your awesome project
                         </p>
                       </div>
-                    </div>
-
-                    {/* Progress Steps */}
-                    <div className="flex items-center space-x-4 mt-6">
-                      {[
-                        { step: 1, label: "Basic Info", icon: FaCode },
-                        { step: 2, label: "Details", icon: FaTools },
-                        { step: 3, label: "Collaborators", icon: FaUsers },
-                        { step: 4, label: "Media", icon: FaImage },
-                      ].map(({ step, label, icon: Icon }) => (
-                        <div key={step} className="flex items-center space-x-2">
-                          <div
-                            className={`p-2 rounded-full transition-all duration-300 ${
-                              activeStep >= step
-                                ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white"
-                                : "bg-white/10 text-slate-400"
-                            }`}
-                          >
-                            <Icon className="w-4 h-4" />
-                          </div>
-                          <span
-                            className={`text-sm font-medium ${
-                              activeStep >= step
-                                ? "text-white"
-                                : "text-slate-400"
-                            }`}
-                          >
-                            {label}
-                          </span>
-                          {step < 4 && (
-                            <div
-                              className={`w-8 h-0.5 transition-all duration-300 ${
-                                activeStep > step
-                                  ? "bg-gradient-to-r from-blue-500 to-purple-600"
-                                  : "bg-white/20"
-                              }`}
-                            ></div>
-                          )}
-                        </div>
-                      ))}
                     </div>
                   </div>
                 </div>
@@ -360,7 +294,7 @@ const DashboardEditProject = () => {
                     {/* Project Name */}
                     <div className="group">
                       <label className=" text-sm font-medium text-slate-300 mb-2 flex items-center space-x-2">
-                        <FaCode className="w-4 h-4" />
+                        <Code className="w-4 h-4" />
                         <span>Project Name</span>
                       </label>
                       <div className="relative">
@@ -379,7 +313,7 @@ const DashboardEditProject = () => {
                     {/* Description */}
                     <div className="group">
                       <label className=" text-sm font-medium text-slate-300 mb-2 flex items-center space-x-2">
-                        <FaEdit className="w-4 h-4" />
+                        <Edit className="w-4 h-4" />
                         <span>Description</span>
                       </label>
                       <div className="relative">
@@ -398,7 +332,7 @@ const DashboardEditProject = () => {
                     {/* Tools Section */}
                     <div className="group">
                       <label className=" text-sm font-medium text-slate-300 mb-2 flex items-center space-x-2">
-                        <FaTools className="w-4 h-4" />
+                        <Wrench className="w-4 h-4" />
                         <span>Tech Stack</span>
                       </label>
                       <div className="flex gap-3 mb-4">
@@ -416,7 +350,7 @@ const DashboardEditProject = () => {
                           onClick={addTool}
                           className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center space-x-2"
                         >
-                          <FaPlus className="w-4 h-4" />
+                          <Plus className="w-4 h-4" />
                           <span>Add</span>
                         </button>
                       </div>
@@ -432,7 +366,7 @@ const DashboardEditProject = () => {
                               onClick={() => removeTool(index)}
                               className="w-5 h-5 flex items-center justify-center bg-red-500/20 hover:bg-red-500/40 rounded-full transition-all duration-200"
                             >
-                              <FaTimes className="w-3 h-3 text-red-400" />
+                              <X className="w-3 h-3 text-red-400" />
                             </button>
                           </div>
                         ))}
@@ -443,7 +377,7 @@ const DashboardEditProject = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       <div className="group">
                         <label className=" text-sm font-medium text-slate-300 mb-2 flex items-center space-x-2">
-                          <FaUser className="w-4 h-4" />
+                          <User className="w-4 h-4" />
                           <span>Your Role</span>
                         </label>
                         <div className="relative">
@@ -459,7 +393,7 @@ const DashboardEditProject = () => {
                       </div>
                       <div className="group">
                         <label className=" text-sm font-medium text-slate-300 mb-2 flex items-center space-x-2">
-                          <FaGithub className="w-4 h-4" />
+                          <Github className="w-4 h-4" />
                           <span>GitHub Repo</span>
                         </label>
                         <div className="relative">
@@ -475,7 +409,7 @@ const DashboardEditProject = () => {
                       </div>
                       <div className="group">
                         <label className=" text-sm font-medium text-slate-300 mb-2 flex items-center space-x-2">
-                          <FaExternalLinkAlt className="w-4 h-4" />
+                          <ExternalLink className="w-4 h-4" />
                           <span>Live Demo</span>
                         </label>
                         <div className="relative">
@@ -506,13 +440,13 @@ const DashboardEditProject = () => {
                           htmlFor="inDevelopment"
                           className="text-slate-300 font-medium flex items-center space-x-2"
                         >
-                          <HiOutlineClock className="w-5 h-5" />
+                          <Clock className="w-5 h-5" />
                           <span>Project in Development</span>
                         </label>
                       </div>
                       {projectData.inDevelopment && (
                         <div className="flex items-center space-x-2 px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full">
-                          <HiOutlineSparkles className="w-4 h-4" />
+                          <Sparkles className="w-4 h-4" />
                           <span className="text-sm">Work in Progress</span>
                         </div>
                       )}
@@ -532,7 +466,7 @@ const DashboardEditProject = () => {
                         onClick={addCollaborator}
                         className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
                       >
-                        <FaPlus className="w-4 h-4" />
+                        <Plus className="w-4 h-4" />
                         <span>Add Collaborator</span>
                       </button>
                     </div>
@@ -546,7 +480,7 @@ const DashboardEditProject = () => {
                             onClick={() => removeCollaborator(idx)}
                             className="p-2 text-red-400 hover:text-red-300 hover:bg-red-500/20 rounded-lg transition-all duration-200"
                           >
-                            <FaTrash className="w-4 h-4" />
+                            <Trash className="w-4 h-4" />
                           </button>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pr-12">
@@ -634,7 +568,7 @@ const DashboardEditProject = () => {
                             : "bg-white/5 text-slate-300 border border-white/20 hover:bg-white/10"
                         }`}
                       >
-                        <FaLink className="w-4 h-4" />
+                        <Link className="w-4 h-4" />
                         <span>Image URL</span>
                       </button>
                       <button
@@ -646,7 +580,7 @@ const DashboardEditProject = () => {
                             : "bg-white/5 text-slate-300 border border-white/20 hover:bg-white/10"
                         }`}
                       >
-                        <FaUpload className="w-4 h-4" />
+                        <Upload className="w-4 h-4" />
                         <span>Upload File</span>
                       </button>
                     </div>
@@ -727,7 +661,7 @@ const DashboardEditProject = () => {
                       </div>
                     ) : (
                       <div className="flex items-center justify-center space-x-2">
-                        <FaRocket className="w-5 h-5" />
+                        <Rocket className="w-5 h-5" />
                         <span>Save Changes</span>
                       </div>
                     )}

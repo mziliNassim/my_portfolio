@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { FaArrowUp } from "react-icons/fa";
 import { scrollToTop } from "../../utils/helpers";
+import { ArrowUp } from "lucide-react";
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -13,8 +13,6 @@ const ScrollToTop = () => {
       setIsVisible(false);
     }
   };
-
-
 
   useEffect(() => {
     window.addEventListener("scroll", toggleVisibility);
@@ -29,7 +27,7 @@ const ScrollToTop = () => {
           className="bg-gradient-to-r cursor-pointer from-pink-500 to-violet-600 hover:from-pink-600 hover:to-violet-700 text-white p-4 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 focus:outline-none"
           aria-label="Scroll to top"
         >
-          <FaArrowUp className="w-5 h-5" />
+          <ArrowUp className="w-5 h-5" />
         </button>
       )}
     </div>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-
-import { FaRocket, FaSearch, FaTimes } from "react-icons/fa";
+import { Rocket, Search, X } from "lucide-react";
 
 import ProjectCard from "./ProjectCard";
+
 import { scrollToTop } from "../../utils/helpers";
 
 const Projects = ({ page = false, projects }) => {
@@ -115,7 +115,6 @@ const Projects = ({ page = false, projects }) => {
             </div>
             <div className="w-16 h-[2px] bg-gradient-to-l from-transparent to-violet-500 rounded-full" />
           </div>
-
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Featured{" "}
             <span className="bg-gradient-to-r from-[#16f2b3] to-cyan-400 bg-clip-text text-transparent">
@@ -139,17 +138,13 @@ const Projects = ({ page = false, projects }) => {
               onClick={toggleMobileFilters}
               className="flex items-center cursor-pointer mx-auto w-fit space-x-2 px-4 py-3 bg-gradient-to-r from-pink-500/10 to-violet-600/10 rounded-xl border border-pink-500/30 text-white hover:border-pink-500/50 transition-all duration-300 justify-center"
             >
-              <FaFilter className="w-4 h-4" />
+              <Filter className="w-4 h-4" />
               <span>Filters & Search</span>
             </button>
           </div> */}
 
           {/* Filters Container */}
-          <div
-            className={`lg:flex lg:items-center lg:justify-between lg:space-y-0 space-y-6 ${
-              showMobileFilters ? "block" : "hidden lg:flex"
-            }`}
-          >
+          <div className="lg:flex lg:items-center lg:justify-between lg:space-y-0 space-y-6 block">
             {/* Left Side - Role Filters */}
             <div className="flex items-center justify-center lg:justify-start flex-wrap gap-3">
               {uniqueRoles.map((role) => (
@@ -170,7 +165,7 @@ const Projects = ({ page = false, projects }) => {
             {/* Right Side - Search Bar */}
             <div className="relative max-w-md w-full lg:w-auto mx-auto lg:mr-0">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <FaSearch className="w-4 h-4 text-gray-400" />
+                <Search className="w-4 h-4 text-gray-400" />
               </div>
               <input
                 type="text"
@@ -184,7 +179,7 @@ const Projects = ({ page = false, projects }) => {
                   onClick={clearSearch}
                   className="absolute cursor-pointer inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-pink-400 transition-colors duration-300"
                 >
-                  <FaTimes className="w-4 h-4" />
+                  <X className="w-4 h-4" />
                 </button>
               )}
             </div>
@@ -245,7 +240,7 @@ const Projects = ({ page = false, projects }) => {
             <div className="relative inline-block">
               <div className="absolute inset-0 bg-gradient-to-r from-pink-500/20 to-violet-600/20 rounded-full blur-xl" />
               <div className="relative p-8 bg-gradient-to-br from-[#0d1224]/80 to-[#1a1a2e]/80 backdrop-blur-sm rounded-2xl border border-gray-700/50">
-                <FaSearch className="w-12 h-12 text-gray-500 mx-auto mb-4" />
+                <Search className="w-12 h-12 text-gray-500 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-white mb-2">
                   No Projects Found
                 </h3>
@@ -280,7 +275,7 @@ const Projects = ({ page = false, projects }) => {
               className="group relative inline-flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-pink-500/10 to-violet-600/10 rounded-full border border-pink-500/30 hover:border-pink-500/50 transition-all duration-300 hover:scale-105"
             >
               <span className="text-white font-medium">View All Projects</span>
-              <FaRocket className="w-5 h-5 text-pink-400 group-hover:translate-x-1 transition-transform duration-300" />
+              <Rocket className="w-5 h-5 text-pink-400 group-hover:translate-x-1 transition-transform duration-300" />
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-pink-500/20 to-violet-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </a>
           </div>
@@ -294,7 +289,6 @@ const Projects = ({ page = false, projects }) => {
           -webkit-box-orient: vertical;
           overflow: hidden;
         }
-
         @keyframes fadeInUp {
           from {
             opacity: 0;
@@ -305,7 +299,6 @@ const Projects = ({ page = false, projects }) => {
             transform: translateY(0);
           }
         }
-
         .animate-fadeInUp {
           animation: fadeInUp 0.8s ease-out forwards;
           opacity: 0;

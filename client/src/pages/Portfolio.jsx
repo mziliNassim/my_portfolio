@@ -10,7 +10,7 @@ import Contact from "../components/portfolio/Contact";
 
 import { scrollToTop } from "../utils/helpers";
 
-const Portfolio = ({ personalData, projects }) => {
+const Portfolio = ({ personalData, experiences, projects, educations }) => {
   useEffect(() => {
     scrollToTop();
   });
@@ -19,10 +19,10 @@ const Portfolio = ({ personalData, projects }) => {
     <>
       <Hero personalData={personalData} />
       <About personalData={personalData} />
-      <Experience />
+      <Experience experiences={experiences} />
       <Skills />
       <Projects projects={projects} />
-      <Education />
+      <Education educations={educations} />
       <Contact personalData={personalData} />
     </>
   );

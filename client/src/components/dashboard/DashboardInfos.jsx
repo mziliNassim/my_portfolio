@@ -3,33 +3,10 @@ import { toast } from "sonner";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-import {
-  FaBriefcase,
-  FaChartBar,
-  FaCheck,
-  FaCode,
-  FaEdit,
-  FaFacebook,
-  FaFileAlt,
-  FaFileDownload,
-  FaGithub,
-  FaGlobe,
-  FaGraduationCap,
-  FaInstagram,
-  FaLink,
-  FaLinkedin,
-  FaPlus,
-  FaProjectDiagram,
-  FaStackOverflow,
-  FaStar,
-  FaTelegram,
-  FaTimes,
-  FaTools,
-  FaTrash,
-  FaTwitter,
-  FaUser,
-} from "react-icons/fa";
-import { HiSparkles } from "react-icons/hi";
+import { Briefcase, Check, Code, Facebook, DownloadCloud } from "lucide-react";
+import { Github, Globe, Instagram, Link, Edit } from "lucide-react";
+import { Linkedin, Plus, MessageSquareCode, Send, X } from "lucide-react";
+import { Wrench, Trash2, Twitter, User, Sparkles } from "lucide-react";
 
 import DashboardSideBar from "./DashboardSideBar";
 import DashboardHeader from "./DashboardHeader.jsx";
@@ -37,40 +14,22 @@ import DashboardHeader from "./DashboardHeader.jsx";
 import FloatingParticles from "../styles/FloatingParticles";
 import AnimatedBackgroundElements from "../styles/AnimatedBackgroundElements";
 import Loading from "../styles/Loading.jsx";
+
 import { scrollToTop } from "../../utils/helpers.js";
 
-const DashboardInfos = () => {
+const DashboardInfos = ({ infos, setInfos, loadingNassimInfo }) => {
   const { admin } = useSelector((state) => state.admin);
 
   const [activeTab, setActiveTab] = useState("basic");
-  const [loadingNassimInfo, setLoadingNassimInfo] = useState(true);
+  const [loadingSave, setLoadingSave] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [infos, setInfos] = useState({});
   const [tempInfos, setTempInfos] = useState({ ...infos });
   const tabs = [
-    { id: "basic", label: "Basic Info", icon: FaUser },
-    { id: "social", label: "Social Links", icon: FaLink },
-    { id: "professional", label: "Professional", icon: FaBriefcase },
-    { id: "skills", label: "Skills & Interests", icon: FaTools },
+    { id: "basic", label: "Basic Info", icon: User },
+    { id: "social", label: "Social Links", icon: Link },
+    { id: "professional", label: "Professional", icon: Briefcase },
+    { id: "skills", label: "Skills & Interests", icon: Wrench },
   ];
-
-  // Fech Nassim's infos
-  const getNassimInfos = async () => {
-    try {
-      setLoadingNassimInfo(true);
-      const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URI}/api/nassim`
-      );
-      setInfos(response.data);
-    } catch (error) {
-      toast.error(error.message, {
-        description: new Date().toUTCString(),
-        action: { label: "✖️" },
-      });
-    } finally {
-      setLoadingNassimInfo(false);
-    }
-  };
 
   useEffect(() => {
     scrollToTop();
@@ -78,8 +37,6 @@ const DashboardInfos = () => {
       window.location.href = "/admin/auth";
       return;
     }
-
-    getNassimInfos();
   }, [admin]);
 
   // Edite, Save, Cancel Events
@@ -96,7 +53,7 @@ const DashboardInfos = () => {
 
   const handleSave = async () => {
     try {
-      setLoadingNassimInfo(true);
+      setLoadingSave(true);
       setInfos({ ...tempInfos });
       const response = await axios.put(
         `${import.meta.env.VITE_SERVER_URI}/api/nassim/`,
@@ -113,7 +70,7 @@ const DashboardInfos = () => {
         action: { label: "✖️" },
       });
     } finally {
-      setLoadingNassimInfo(false);
+      setLoadingSave(false);
       setIsEditing(false);
     }
   };
@@ -256,7 +213,7 @@ const DashboardInfos = () => {
                       onClick={() => removeArrayItem("designation", index)}
                       className="p-2 text-red-400 hover:text-red-300 transition-colors"
                     >
-                      <FaTrash />
+                      <Trash2 />
                     </button>
                   )}
                 </div>
@@ -277,7 +234,7 @@ const DashboardInfos = () => {
                       onClick={() => removeArrayItem("designation", index)}
                       className="p-2 text-red-400 hover:text-red-300 transition-colors"
                     >
-                      <FaTrash />
+                      <Trash2 />
                     </button>
                   )}
                 </div>
@@ -287,7 +244,7 @@ const DashboardInfos = () => {
               onClick={() => addArrayItem("designation")}
               className="flex items-center gap-2 px-4 py-2 bg-pink-500/20 border border-pink-500/50 rounded-lg text-pink-400 hover:bg-pink-500/30 transition-colors"
             >
-              <FaPlus /> Add Designation
+              <Plus /> Add Designation
             </button>
           )}
         </div>
@@ -300,7 +257,7 @@ const DashboardInfos = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="flex items-center gap-2 text-sm font-medium text-gray-300 mb-2">
-            <FaGithub className="text-gray-400" /> GitHub
+            <Github className="text-gray-400" /> GitHub
           </label>
           <input
             type="url"
@@ -313,7 +270,7 @@ const DashboardInfos = () => {
 
         <div>
           <label className="flex items-center gap-2 text-sm font-medium text-gray-300 mb-2">
-            <FaLinkedin className="text-blue-400" /> LinkedIn
+            <Linkedin className="text-blue-400" /> LinkedIn
           </label>
           <input
             type="url"
@@ -326,7 +283,7 @@ const DashboardInfos = () => {
 
         <div>
           <label className="flex items-center gap-2 text-sm font-medium text-gray-300 mb-2">
-            <FaTwitter className="text-blue-400" /> Twitter
+            <Twitter className="text-blue-400" /> Twitter
           </label>
           <input
             type="url"
@@ -339,7 +296,7 @@ const DashboardInfos = () => {
 
         <div>
           <label className="flex items-center gap-2 text-sm font-medium text-gray-300 mb-2">
-            <FaInstagram className="text-pink-400" /> Instagram
+            <Instagram className="text-pink-400" /> Instagram
           </label>
           <input
             type="url"
@@ -352,7 +309,7 @@ const DashboardInfos = () => {
 
         <div>
           <label className="flex items-center gap-2 text-sm font-medium text-gray-300 mb-2">
-            <FaFacebook className="text-blue-600" /> Facebook
+            <Facebook className="text-blue-600" /> Facebook
           </label>
           <input
             type="url"
@@ -365,7 +322,7 @@ const DashboardInfos = () => {
 
         <div>
           <label className="flex items-center gap-2 text-sm font-medium text-gray-300 mb-2">
-            <FaGlobe className="text-green-400" /> Website
+            <Globe className="text-green-400" /> Website
           </label>
           <input
             type="url"
@@ -378,7 +335,7 @@ const DashboardInfos = () => {
 
         <div>
           <label className="flex items-center gap-2 text-sm font-medium text-gray-300 mb-2">
-            <FaTelegram className="text-blue-400" /> Telegram
+            <Send className="text-blue-400" /> Telegram
           </label>
           <input
             type="text"
@@ -391,7 +348,7 @@ const DashboardInfos = () => {
 
         <div>
           <label className="flex items-center gap-2 text-sm font-medium text-gray-300 mb-2">
-            <FaStackOverflow className="text-orange-400" /> Stack Overflow
+            <MessageSquareCode className="text-orange-400" /> Stack Overflow
           </label>
           <input
             type="url"
@@ -404,7 +361,7 @@ const DashboardInfos = () => {
 
         <div>
           <label className="flex items-center gap-2 text-sm font-medium text-gray-300 mb-2">
-            <FaCode className="text-yellow-400" /> LeetCode
+            <Code className="text-yellow-400" /> LeetCode
           </label>
           <input
             type="url"
@@ -477,7 +434,7 @@ const DashboardInfos = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="flex items-center gap-2 text-sm font-medium text-gray-300 mb-2">
-            <FaFileDownload className="text-blue-400" /> Resume
+            <DownloadCloud className="text-blue-400" /> Resume
           </label>
           <input
             type="url"
@@ -490,7 +447,7 @@ const DashboardInfos = () => {
 
         <div>
           <label className="flex items-center gap-2 text-sm font-medium text-gray-300 mb-2">
-            <FaFileDownload className="text-green-400" /> Full Resume
+            <DownloadCloud className="text-green-400" /> Full Resume
           </label>
           <input
             type="url"
@@ -528,7 +485,7 @@ const DashboardInfos = () => {
                     onClick={() => removeArrayItem("skills", index)}
                     className="p-1 text-red-400 hover:text-red-300 transition-colors"
                   >
-                    <FaTrash className="w-3 h-3" />
+                    <Trash2 className="w-3 h-3" />
                   </button>
                 )}
               </div>
@@ -539,7 +496,7 @@ const DashboardInfos = () => {
               onClick={() => addArrayItem("skills")}
               className="flex items-center justify-center gap-2 px-3 py-2 bg-pink-500/20 border border-pink-500/50 rounded-lg text-pink-400 hover:bg-pink-500/30 transition-colors text-sm"
             >
-              <FaPlus className="w-3 h-3" /> Add
+              <Plus className="w-3 h-3" /> Add
             </button>
           )}
         </div>
@@ -567,7 +524,7 @@ const DashboardInfos = () => {
                     onClick={() => removeArrayItem("interests", index)}
                     className="p-2 text-red-400 hover:text-red-300 transition-colors"
                   >
-                    <FaTrash />
+                    <Trash2 />
                   </button>
                 )}
               </div>
@@ -578,7 +535,7 @@ const DashboardInfos = () => {
               onClick={() => addArrayItem("interests")}
               className="flex items-center gap-2 px-4 py-2 bg-pink-500/20 border border-pink-500/50 rounded-lg text-pink-400 hover:bg-pink-500/30 transition-colors"
             >
-              <FaPlus /> Add Interest
+              <Plus /> Add Interest
             </button>
           )}
         </div>
@@ -618,7 +575,7 @@ const DashboardInfos = () => {
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
                 <div className="flex items-center gap-3 mb-4 sm:mb-0">
                   <div className="p-3 bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-xl">
-                    <HiSparkles className="w-6 h-6 text-pink-400" />
+                    <Sparkles className="w-6 h-6 text-pink-400" />
                   </div>
                   <div>
                     <h2 className="text-2xl font-bold text-white">
@@ -638,14 +595,14 @@ const DashboardInfos = () => {
                           onClick={handleSave}
                           className="flex cursor-pointer items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg text-white hover:from-green-600 hover:to-emerald-600 transition-all duration-200 font-medium"
                         >
-                          <FaCheck className="w-4 h-4" />
+                          <Check className="w-4 h-4" />
                           Save
                         </button>
                         <button
                           onClick={handleCancel}
                           className="flex cursor-pointer items-center gap-2 px-4 py-2 bg-gray-700 rounded-lg text-white hover:bg-gray-600 transition-colors font-medium"
                         >
-                          <FaTimes className="w-4 h-4" />
+                          <X className="w-4 h-4" />
                           Cancel
                         </button>
                       </>
@@ -654,7 +611,7 @@ const DashboardInfos = () => {
                         onClick={handleEdit}
                         className="flex cursor-pointer items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-500 to-purple-500 rounded-lg text-white hover:from-pink-600 hover:to-purple-600 transition-all duration-200 font-medium"
                       >
-                        <FaEdit className="w-4 h-4" />
+                        <Edit className="w-4 h-4" />
                         Edit Profile
                       </button>
                     )}
@@ -662,7 +619,7 @@ const DashboardInfos = () => {
                 )}
               </div>
 
-              {loadingNassimInfo ? (
+              {loadingSave ? (
                 <div className="h-full flex items-center justify-center">
                   <Loading size="md" />
                 </div>

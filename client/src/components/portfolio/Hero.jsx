@@ -1,20 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
-
-import { BsGithub, BsLinkedin } from "react-icons/bs";
-import { MdDownload, MdKeyboardArrowDown } from "react-icons/md";
-import { RiContactsFill } from "react-icons/ri";
-import { SiLeetcode } from "react-icons/si";
-import { HiSparkles } from "react-icons/hi";
 import {
-  FaFacebook,
-  FaTwitterSquare,
-  FaRocket,
-  FaCode,
-  FaStar,
-  FaEye,
-  FaInstagram,
-  FaEnvelope,
-} from "react-icons/fa";
+  Github,
+  Linkedin,
+  Download,
+  ChevronDown,
+  Contact,
+  Code,
+  Facebook,
+  Twitter,
+  Rocket,
+  Star,
+  Eye,
+  Instagram,
+  Mail,
+  Sparkles,
+} from "lucide-react";
+
+import FloatingParticles from "../styles/FloatingParticles";
 
 const HeroSection = ({ personalData }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -47,9 +49,7 @@ const HeroSection = ({ personalData }) => {
     };
 
     const heroElement = heroRef.current;
-    if (heroElement) {
-      heroElement.addEventListener("mousemove", handleMouseMove);
-    }
+    if (heroElement) heroElement.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       clearInterval(interval);
@@ -61,37 +61,37 @@ const HeroSection = ({ personalData }) => {
 
   const socialLinks = [
     {
-      icon: BsGithub,
+      icon: Github,
       href: personalData?.github,
       label: "GitHub",
       color: "from-gray-700 to-gray-900",
     },
     {
-      icon: BsLinkedin,
+      icon: Linkedin,
       href: personalData?.linkedIn,
       label: "LinkedIn",
       color: "from-blue-600 to-blue-800",
     },
     {
-      icon: FaEnvelope,
+      icon: Mail,
       href: `mailto:${personalData?.email}`,
-      label: "LeetCode",
+      label: "Email",
       color: "from-orange-500 to-orange-700",
     },
     {
-      icon: FaFacebook,
+      icon: Facebook,
       href: personalData?.facebook,
       label: "Facebook",
       color: "from-blue-500 to-blue-700",
     },
     {
-      icon: FaTwitterSquare,
+      icon: Twitter,
       href: personalData?.twitter,
       label: "Twitter",
       color: "from-cyan-400 to-cyan-600",
     },
     {
-      icon: FaInstagram,
+      icon: Instagram,
       href: personalData?.instagram,
       label: "Instagram",
       color: "from-red-400 to-red-600",
@@ -99,15 +99,15 @@ const HeroSection = ({ personalData }) => {
   ].filter((link) => link.href);
 
   const stats = [
-    { icon: FaCode, value: "20+", label: "Projects", color: "text-pink-400" },
+    { icon: Code, value: "20+", label: "Projects", color: "text-pink-400" },
     {
-      icon: FaStar,
+      icon: Star,
       value: "40+",
       label: "GitHub Stars",
       color: "text-yellow-400",
     },
     {
-      icon: FaEye,
+      icon: Eye,
       value: "100+",
       label: "Profile Views",
       color: "text-cyan-400",
@@ -121,26 +121,7 @@ const HeroSection = ({ personalData }) => {
       className="relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0d1224] via-[#1a1a2e] to-[#271c54] pt-20 pb-8 lg:py-16 lg:pt-28"
     >
       {/* Enhanced Floating Particles */}
-      <div className="absolute inset-0">
-        {[...Array(30)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute animate-ping"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 4}s`,
-              animationDuration: `${3 + Math.random() * 3}s`,
-            }}
-          >
-            {i % 3 === 0 ? (
-              <HiSparkles className="w-2 h-2 text-pink-400/40" />
-            ) : (
-              <div className="w-1 h-1 bg-white/20 rounded-full" />
-            )}
-          </div>
-        ))}
-      </div>
+      <FloatingParticles />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
@@ -158,7 +139,7 @@ const HeroSection = ({ personalData }) => {
                 <div className="w-16 h-[3px] bg-gradient-to-r from-pink-500 via-violet-500 to-cyan-400 rounded-full group-hover:w-20 transition-all duration-500" />
                 <span className="text-gray-300 text-lg font-medium flex items-center space-x-2">
                   <span>Hello, I'm</span>
-                  <HiSparkles className="w-5 h-5 text-pink-400 animate-pulse" />
+                  <Sparkles className="w-5 h-5 text-pink-400 animate-pulse" />
                 </span>
               </div>
 
@@ -202,7 +183,6 @@ const HeroSection = ({ personalData }) => {
                           : "-translate-y-2 opacity-80"
                       }`}
                     >
-                      {/* {personalData?.designation} */}
                       {personalData?.designation[textIndex]}
                     </span>
                   </div>
@@ -269,11 +249,10 @@ const HeroSection = ({ personalData }) => {
                 <div className="bg-[#0d1224] rounded-2xl px-8 py-4 group-hover:bg-transparent transition-all duration-500">
                   <div className="flex items-center justify-center space-x-3 text-white font-bold text-lg">
                     <span>Let's Connect</span>
-                    <RiContactsFill className="w-6 h-6 group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300" />
+                    <Contact className="w-6 h-6 group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300" />
                   </div>
                 </div>
               </a>
-
               <a
                 href={personalData?.fullResume}
                 target="_blank"
@@ -281,7 +260,7 @@ const HeroSection = ({ personalData }) => {
                 className="group flex items-center justify-center space-x-3 bg-transparent border-2 border-gray-600/50 hover:border-[#16f2b3] rounded-2xl px-8 py-4 text-gray-300 hover:text-[#16f2b3] font-bold text-lg transition-all duration-500 hover:shadow-lg hover:shadow-[#16f2b3]/25 hover:scale-105 backdrop-blur-sm"
               >
                 <span>Download CV</span>
-                <MdDownload className="w-6 h-6 group-hover:translate-y-1 group-hover:scale-110 transition-all duration-300" />
+                <Download className="w-6 h-6 group-hover:translate-y-1 group-hover:scale-110 transition-all duration-300" />
               </a>
             </div>
           </div>
@@ -309,12 +288,12 @@ const HeroSection = ({ personalData }) => {
                       <div className="w-4 h-4 rounded-full bg-gradient-to-r from-green-400 to-green-600 hover:scale-110 transition-transform cursor-pointer shadow-lg" />
                     </div>
                     <span className="text-gray-300 font-mono font-semibold flex items-center space-x-2">
-                      <FaCode className="w-4 h-4 text-pink-400" />
+                      <Code className="w-4 h-4 text-pink-400" />
                       <span>developer-profile.js</span>
                     </span>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <FaRocket className="w-5 h-5 text-pink-400 animate-pulse" />
+                    <Rocket className="w-5 h-5 text-pink-400 animate-pulse" />
                   </div>
                 </div>
 
@@ -331,7 +310,6 @@ const HeroSection = ({ personalData }) => {
                       <span className="text-pink-400 mr-3 font-bold">=</span>
                       <span className="text-gray-400">{"{"}</span>
                     </div>
-
                     <div className="ml-6 space-y-2">
                       <div
                         className="animate-fadeInUp"
@@ -345,7 +323,6 @@ const HeroSection = ({ personalData }) => {
                         </span>
                         <span className="text-gray-400">,</span>
                       </div>
-
                       <div
                         className="animate-fadeInUp"
                         style={{ animationDelay: "0.4s" }}
@@ -359,7 +336,6 @@ const HeroSection = ({ personalData }) => {
                         </span>
                         <span className="text-gray-400">,</span>
                       </div>
-
                       <div
                         className="animate-fadeInUp"
                         style={{ animationDelay: "0.6s" }}
@@ -390,7 +366,6 @@ const HeroSection = ({ personalData }) => {
                         </div>
                         <span className="text-gray-400">],</span>
                       </div>
-
                       {[
                         { key: "passionate", value: "true", delay: "1.8s" },
                         { key: "creative", value: "true", delay: "2.0s" },
@@ -410,7 +385,6 @@ const HeroSection = ({ personalData }) => {
                           <span className="text-gray-400">,</span>
                         </div>
                       ))}
-
                       <div
                         className="animate-fadeInUp"
                         style={{ animationDelay: "2.4s" }}
@@ -450,7 +424,6 @@ const HeroSection = ({ personalData }) => {
                         <span className="text-gray-400">{"}"}</span>
                       </div>
                     </div>
-
                     <div
                       className="animate-fadeInUp"
                       style={{ animationDelay: "2.6s" }}
@@ -471,7 +444,7 @@ const HeroSection = ({ personalData }) => {
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
           <div className="flex flex-col items-center space-y-2 text-gray-400 hover:text-pink-400 transition-colors duration-300 cursor-pointer">
             <span className="text-sm font-medium">Scroll Down</span>
-            <MdKeyboardArrowDown className="w-6 h-6" />
+            <ChevronDown className="w-6 h-6" />
           </div>
         </div>
       </div>
@@ -488,7 +461,6 @@ const HeroSection = ({ personalData }) => {
             transform: translateY(0);
           }
         }
-
         @keyframes blink {
           0%,
           50% {
@@ -499,7 +471,6 @@ const HeroSection = ({ personalData }) => {
             opacity: 0;
           }
         }
-
         @keyframes float {
           0%,
           100% {
@@ -509,16 +480,13 @@ const HeroSection = ({ personalData }) => {
             transform: translateY(-20px) rotate(180deg);
           }
         }
-
         .animate-fadeInUp {
           animation: fadeInUp 1s ease-out forwards;
           opacity: 0;
         }
-
         .animate-blink {
           animation: blink 1.2s infinite;
         }
-
         .animate-float {
           animation: float 6s ease-in-out infinite;
         }

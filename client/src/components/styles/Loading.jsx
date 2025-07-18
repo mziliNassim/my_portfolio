@@ -1,5 +1,5 @@
 import React from "react";
-import { HiSparkles } from "react-icons/hi";
+import { Sparkles } from "lucide-react";
 
 const Loading = ({ size = "md" }) => {
   // Size configurations
@@ -93,9 +93,7 @@ const Loading = ({ size = "md" }) => {
                 }}
               >
                 {i % 3 === 0 ? (
-                  <HiSparkles
-                    className={`${config.sparkles} text-pink-400/60`}
-                  />
+                  <Sparkles className={`${config.sparkles} text-pink-400/60`} />
                 ) : (
                   <div
                     className={`${config.dots} bg-cyan-400/40 rounded-full`}

@@ -1,19 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
+import { User, Building, Calendar } from "lucide-react";
+import { Code, ExternalLink, Rocket } from "lucide-react";
 
-import { experiences } from "../../utils/data/experience";
+import AnimatedBackgroundElements from "../styles/AnimatedBackgroundElements";
+import FloatingParticles from "../styles/FloatingParticles";
 
-import { BsPersonWorkspace } from "react-icons/bs";
-import {
-  FaBuilding,
-  FaCalendarAlt,
-  FaCode,
-  FaExternalLinkAlt,
-  FaRocket,
-} from "react-icons/fa";
-
-function Experience() {
+const Experience = ({ experiences }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeCard, setActiveCard] = useState(null);
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -25,11 +18,7 @@ function Experience() {
       },
       { threshold: 0.1 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
@@ -39,31 +28,8 @@ function Experience() {
       ref={sectionRef}
       className="relative py-20 overflow-hidden bg-gradient-to-br from-[#0d1224] via-[#1a1a2e] to-[#271c54]"
     >
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 right-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 left-20 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div
-          className="absolute top-1/3 left-1/3 w-96 h-96 bg-gradient-to-r from-violet-500/5 to-cyan-500/5 rounded-full blur-3xl animate-spin"
-          style={{ animationDuration: "25s" }}
-        />
-      </div>
-
-      {/* Floating Particles */}
-      <div className="absolute inset-0">
-        {[...Array(15)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-cyan-400/30 rounded-full animate-ping"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 4}s`,
-              animationDuration: `${3 + Math.random() * 2}s`,
-            }}
-          />
-        ))}
-      </div>
+      <AnimatedBackgroundElements />
+      <FloatingParticles />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -84,7 +50,6 @@ function Experience() {
             </div>
             <div className="w-16 h-[2px] bg-gradient-to-l from-transparent to-violet-500 rounded-full" />
           </div>
-
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Professional{" "}
             <span className="bg-gradient-to-r from-[#16f2b3] to-cyan-400 bg-clip-text text-transparent">
@@ -115,10 +80,9 @@ function Experience() {
           <div className="space-y-12 lg:space-y-24">
             {experiences.map((experience, index) => {
               const isEven = index % 2 === 0;
-
               return (
                 <div
-                  key={experience.id}
+                  key={index}
                   className={`relative flex items-center ${
                     isEven ? "lg:flex-row" : "lg:flex-row-reverse"
                   } flex-col lg:gap-16`}
@@ -134,13 +98,10 @@ function Experience() {
                         : "translate-y-10 opacity-0"
                     }`}
                     style={{ transitionDelay: `${index * 0.2}s` }}
-                    onMouseEnter={() => setActiveCard(experience.id)}
-                    onMouseLeave={() => setActiveCard(null)}
                   >
                     <div className="group relative">
                       {/* Glow Effect */}
                       <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 via-violet-500 to-cyan-500 rounded-2xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
-
                       {/* Card Content */}
                       <div className="relative bg-gradient-to-br from-[#0d1224]/90 to-[#1a1a2e]/90 backdrop-blur-sm rounded-2xl border border-gray-700/50 overflow-hidden">
                         {/* Card Header */}
@@ -159,7 +120,7 @@ function Experience() {
                                   {experience.role}
                                 </h3>
                                 <div className="flex items-center space-x-2 text-gray-400">
-                                  <FaBuilding className="w-4 h-4" />
+                                  <Building className="w-4 h-4" />
                                   <a
                                     href={experience.company.link}
                                     target="_blank"
@@ -167,15 +128,14 @@ function Experience() {
                                     className="hover:text-pink-300 flex items-center gap-1 transition-colors"
                                   >
                                     <span>{experience.company.name}</span>
-                                    <FaExternalLinkAlt className="text-sm" />
+                                    <ExternalLink className="text-sm" />
                                   </a>
                                 </div>
                               </div>
                             </div>
-
                             <div className="text-right space-y-2">
                               <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-[#16f2b3]/20 to-cyan-400/20 px-3 py-1 rounded-full border border-[#16f2b3]/30">
-                                <FaCalendarAlt className="w-3 h-3 text-[#16f2b3]" />
+                                <Calendar className="w-3 h-3 text-[#16f2b3]" />
                                 <span className="text-[#16f2b3] text-sm font-medium">
                                   {experience.duration}
                                 </span>
@@ -193,17 +153,15 @@ function Experience() {
                             </div>
                           </div>
                         </div>
-
                         {/* Card Body */}
                         <div className="p-6">
                           <p className="text-gray-300 mb-6 leading-relaxed">
                             {experience.description}
                           </p>
-
                           {/* Technologies */}
                           <div className="space-y-3">
                             <h4 className="text-white font-semibold flex items-center space-x-2">
-                              <FaCode className="w-4 h-4 text-cyan-400" />
+                              <Code className="w-4 h-4 text-cyan-400" />
                               <span>Technologies Used</span>
                             </h4>
                             <div className="flex flex-wrap gap-2">
@@ -223,13 +181,11 @@ function Experience() {
                             </div>
                           </div>
                         </div>
-
                         {/* Hover Animation Line */}
                         <div className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-pink-500 to-violet-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                       </div>
                     </div>
                   </div>
-
                   {/* Spacer for mobile */}
                   <div className="lg:w-1/2 lg:h-px" />
                 </div>
@@ -241,7 +197,7 @@ function Experience() {
         {/* Bottom Decoration */}
         <div className="text-center mt-20">
           <div className="inline-flex items-center space-x-4 px-6 py-3 bg-gradient-to-r from-pink-500/10 to-violet-600/10 rounded-full border border-pink-500/20">
-            <BsPersonWorkspace className="w-6 h-6 text-pink-400" />
+            <User className="w-6 h-6 text-pink-400" />
             <span className="text-gray-300 font-medium">
               Ready for new challenges and opportunities
             </span>
@@ -260,7 +216,6 @@ function Experience() {
             transform: translateY(0);
           }
         }
-
         .animate-fadeInUp {
           animation: fadeInUp 0.8s ease-out forwards;
           opacity: 0;
@@ -268,6 +223,5 @@ function Experience() {
       `}</style>
     </section>
   );
-}
-
+};
 export default Experience;

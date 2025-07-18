@@ -3,56 +3,31 @@ import { toast } from "sonner";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-
-import { FaCode, FaPlus, FaSearch } from "react-icons/fa";
-import { HiOutlineClock, HiOutlineCheckCircle } from "react-icons/hi";
+import { Code, Plus, Search, Clock, CheckCircle } from "lucide-react";
 
 import DashboardSideBar from "./DashboardSideBar.jsx";
 import DashboardHeader from "./DashboardHeader.jsx";
 
 import FloatingParticles from "../styles/FloatingParticles.jsx";
 import AnimatedBackgroundElements from "../styles/AnimatedBackgroundElements.jsx";
+import Loading from "../styles/Loading.jsx";
 
 import ProjectCard from "../portfolio/ProjectCard.jsx";
 
-import Loading from "../styles/Loading.jsx";
 import { scrollToTop } from "../../utils/helpers.js";
 
-const DashboardProjects = () => {
+const DashboardProjects = ({ projects, loadingProjects }) => {
   const { admin } = useSelector((state) => state.admin);
-
-  const [projects, setProjects] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
-  const [loadingProjects, setLoadingProjects] = useState(true);
-
-  // Fech Projects
-  const getProjects = async () => {
-    try {
-      setLoadingProjects(true);
-      const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URI}/api/projects`
-      );
-      setProjects(response.data.reverse());
-    } catch (error) {
-      toast.error(error.message, {
-        description: new Date().toUTCString(),
-        action: { label: "✖️" },
-      });
-    } finally {
-      setLoadingProjects(false);
-    }
-  };
 
   useEffect(() => {
     if (!admin) {
       window.location.href = "/admin/auth";
       return;
     }
-
     scrollToTop();
-    getProjects();
   }, []);
 
   // Delete Project
@@ -116,7 +91,7 @@ const DashboardProjects = () => {
                   to="/admin/dashboard/add-project"
                   className="flex items-center cursor-pointer space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
                 >
-                  <FaPlus className="w-4 h-4" />
+                  <Plus className="w-4 h-4" />
                   <span>Add Project</span>
                 </Link>
               </div>
@@ -124,7 +99,7 @@ const DashboardProjects = () => {
               {/* Search and Filter */}
               <div className="flex flex-col sm:flex-row gap-4 mb-6">
                 <div className="relative flex-1">
-                  <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" />
                   <input
                     type="text"
                     placeholder="Search projects..."
@@ -152,7 +127,7 @@ const DashboardProjects = () => {
                 <div className="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-lg p-4">
                   <div className="flex items-center space-x-3">
                     <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                      <FaCode className="text-blue-400" />
+                      <Code className="text-blue-400" />
                     </div>
                     <div>
                       <p className="text-2xl font-bold text-white">
@@ -166,7 +141,7 @@ const DashboardProjects = () => {
                 <div className="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-lg p-4">
                   <div className="flex items-center space-x-3">
                     <div className="w-10 h-10 bg-yellow-500/20 rounded-lg flex items-center justify-center">
-                      <HiOutlineClock className="text-yellow-400" />
+                      <Clock className="text-yellow-400" />
                     </div>
                     <div>
                       <p className="text-2xl font-bold text-white">
@@ -180,7 +155,7 @@ const DashboardProjects = () => {
                 <div className="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-lg p-4">
                   <div className="flex items-center space-x-3">
                     <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
-                      <HiOutlineCheckCircle className="text-green-400" />
+                      <CheckCircle className="text-green-400" />
                     </div>
                     <div>
                       <p className="text-2xl font-bold text-white">
@@ -213,7 +188,7 @@ const DashboardProjects = () => {
                 {filteredProjects.length === 0 && (
                   <div className="text-center py-12">
                     <div className="w-20 h-20 bg-slate-700/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <FaSearch className="text-slate-400 text-2xl" />
+                      <Search className="text-slate-400 text-2xl" />
                     </div>
                     <h3 className="text-xl font-semibold text-white mb-2">
                       No projects found

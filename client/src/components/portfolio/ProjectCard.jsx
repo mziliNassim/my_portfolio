@@ -360,27 +360,6 @@ const ProjectCard = ({
               )}
             </div>
           </div>
-
-          {/* CRUD buttons (update and delete) */}
-          {admin && (
-            <div className="flex space-x-3  pt-4 border-t border-gray-700/30">
-              <Link
-                to={`/admin/dashboard/edit-project/${project._id}`}
-                className="flex items-center justify-center w-full px-3 py-2 text-sm font-medium text-white bg-gradient-to-r from-violet-500 to-indigo-600 rounded-md hover:from-violet-600 hover:to-indigo-700 transition-colors"
-              >
-                <FaEdit className="w-4 h-4 mr-1" />
-                Edit
-              </Link>
-
-              <button
-                onClick={() => onDeleteProject(project._id)}
-                className="flex items-center justify-center w-full px-3 py-2 text-sm font-medium text-white bg-gradient-to-r from-red-500 to-pink-600 rounded-md hover:from-red-600 hover:to-pink-700 transition-colors"
-              >
-                <FaTrash className="w-4 h-4 mr-1" />
-                Delete
-              </button>
-            </div>
-          )}
         </div>
 
         {/* Hover Animation Line */}

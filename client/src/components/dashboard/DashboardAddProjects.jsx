@@ -4,33 +4,9 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import {
-  FaGithub,
-  FaExternalLinkAlt,
-  FaUsers,
-  FaCode,
-  FaEye,
-  FaEdit,
-  FaTrash,
-  FaPlus,
-  FaFilter,
-  FaSearch,
-  FaImage,
-  FaLink,
-  FaUpload,
-  FaTimes,
-  FaRocket,
-  FaTools,
-  FaUser,
-  FaEnvelope,
-  FaLinkedin,
-  FaArrowLeft,
-} from "react-icons/fa";
-import {
-  HiOutlineSparkles,
-  HiOutlineClock,
-  HiOutlineCheckCircle,
-} from "react-icons/hi";
+import { Github, ExternalLink, Code, UploadCloud, Edit } from "lucide-react";
+import { Trash2, Plus, Wrench, X, Rocket, Sparkles } from "lucide-react";
+import { User, ArrowLeft, Link2, Clock } from "lucide-react";
 
 import DashboardSideBar from "./DashboardSideBar.jsx";
 import DashboardHeader from "./DashboardHeader.jsx";
@@ -192,10 +168,12 @@ const DashboardAddProjects = () => {
     <section className="min-h-screen relative bg-gradient-to-br from-[#0d1224] via-[#1a1a2e] to-[#271c54] py-20 pt-20 pb-8 lg:py-16 lg:pt-28">
       <AnimatedBackgroundElements />
       <FloatingParticles />
+
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <DashboardHeader />
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <DashboardSideBar />
+
           <div className="lg:col-span-3">
             {/* Header Section */}
             <div className="mb-8">
@@ -212,23 +190,22 @@ const DashboardAddProjects = () => {
                   to="/admin/dashboard/projects"
                   className="flex items-center cursor-pointer space-x-2 px-4 py-2 bg-gradient-to-r from-gray-500 to-gray-600 text-white rounded-lg hover:from-gray-600 hover:to-gray-700 transition-all duration-200 shadow-lg hover:shadow-xl"
                 >
-                  <FaArrowLeft className="w-4 h-4" />
+                  <ArrowLeft className="w-4 h-4" />
                   <span>Back to Projects</span>
                 </Link>
               </div>
             </div>
 
-            {/* Modern Creative Form */}
+            {/*  Form */}
             <div className="relative">
-              {/* Glassmorphism Container */}
               <div className="backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 rounded-3xl border border-white/20 shadow-2xl overflow-hidden">
                 {/* Form Header with Gradient */}
                 <div className="relative bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20 p-8 border-b border-white/10">
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10"></div>
                   <div className="relative z-10">
-                    <div className="flex items-center space-x-3 mb-4">
+                    <div className="flex items-center space-x-3">
                       <div className="p-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl">
-                        <FaRocket className="w-6 h-6 text-white" />
+                        <Rocket className="w-6 h-6 text-white" />
                       </div>
                       <div>
                         <h2 className="text-2xl font-bold text-white">
@@ -238,46 +215,6 @@ const DashboardAddProjects = () => {
                           Bring your ideas to life
                         </p>
                       </div>
-                    </div>
-
-                    {/* Progress Steps */}
-                    <div className="flex items-center space-x-4 mt-6">
-                      {[
-                        { step: 1, label: "Basic Info", icon: FaCode },
-                        { step: 2, label: "Details", icon: FaTools },
-                        { step: 3, label: "Collaborators", icon: FaUsers },
-                        { step: 4, label: "Media", icon: FaImage },
-                      ].map(({ step, label, icon: Icon }) => (
-                        <div key={step} className="flex items-center space-x-2">
-                          <div
-                            className={`p-2 rounded-full transition-all duration-300 ${
-                              activeStep >= step
-                                ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white"
-                                : "bg-white/10 text-slate-400"
-                            }`}
-                          >
-                            <Icon className="w-4 h-4" />
-                          </div>
-                          <span
-                            className={`text-sm font-medium ${
-                              activeStep >= step
-                                ? "text-white"
-                                : "text-slate-400"
-                            }`}
-                          >
-                            {label}
-                          </span>
-                          {step < 4 && (
-                            <div
-                              className={`w-8 h-0.5 transition-all duration-300 ${
-                                activeStep > step
-                                  ? "bg-gradient-to-r from-blue-500 to-purple-600"
-                                  : "bg-white/20"
-                              }`}
-                            ></div>
-                          )}
-                        </div>
-                      ))}
                     </div>
                   </div>
                 </div>
@@ -296,7 +233,7 @@ const DashboardAddProjects = () => {
                     {/* Project Name */}
                     <div className="group">
                       <label className=" text-sm font-medium text-slate-300 mb-2 flex items-center space-x-2">
-                        <FaCode className="w-4 h-4" />
+                        <Code className="w-4 h-4" />
                         <span>Project Name</span>
                       </label>
                       <div className="relative">
@@ -315,7 +252,7 @@ const DashboardAddProjects = () => {
                     {/* Description */}
                     <div className="group">
                       <label className=" text-sm font-medium text-slate-300 mb-2 flex items-center space-x-2">
-                        <FaEdit className="w-4 h-4" />
+                        <Edit className="w-4 h-4" />
                         <span>Description</span>
                       </label>
                       <div className="relative">
@@ -334,7 +271,7 @@ const DashboardAddProjects = () => {
                     {/* Tools Section */}
                     <div className="group">
                       <label className=" text-sm font-medium text-slate-300 mb-2 flex items-center space-x-2">
-                        <FaTools className="w-4 h-4" />
+                        <Wrench className="w-4 h-4" />
                         <span>Tech Stack</span>
                       </label>
                       <div className="flex gap-3 mb-4">
@@ -352,7 +289,7 @@ const DashboardAddProjects = () => {
                           onClick={addTool}
                           className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center space-x-2"
                         >
-                          <FaPlus className="w-4 h-4" />
+                          <Plus className="w-4 h-4" />
                           <span>Add</span>
                         </button>
                       </div>
@@ -369,7 +306,7 @@ const DashboardAddProjects = () => {
                               onClick={() => removeTool(index)}
                               className="w-5 h-5 flex items-center justify-center bg-red-500/20 hover:bg-red-500/40 rounded-full transition-all duration-200"
                             >
-                              <FaTimes className="w-3 h-3 text-red-400" />
+                              <X className="w-3 h-3 text-red-400" />
                             </button>
                           </div>
                         ))}
@@ -380,7 +317,7 @@ const DashboardAddProjects = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       <div className="group">
                         <label className=" text-sm font-medium text-slate-300 mb-2 flex items-center space-x-2">
-                          <FaUser className="w-4 h-4" />
+                          <User className="w-4 h-4" />
                           <span>Your Role</span>
                         </label>
                         <div className="relative">
@@ -397,7 +334,7 @@ const DashboardAddProjects = () => {
 
                       <div className="group">
                         <label className=" text-sm font-medium text-slate-300 mb-2 flex items-center space-x-2">
-                          <FaGithub className="w-4 h-4" />
+                          <Github className="w-4 h-4" />
                           <span>GitHub Repo</span>
                         </label>
                         <div className="relative">
@@ -414,7 +351,7 @@ const DashboardAddProjects = () => {
 
                       <div className="group">
                         <label className=" text-sm font-medium text-slate-300 mb-2 flex items-center space-x-2">
-                          <FaExternalLinkAlt className="w-4 h-4" />
+                          <ExternalLink className="w-4 h-4" />
                           <span>Live Demo</span>
                         </label>
                         <div className="relative">
@@ -445,13 +382,13 @@ const DashboardAddProjects = () => {
                           htmlFor="inDevelopment"
                           className="text-slate-300 font-medium flex items-center space-x-2"
                         >
-                          <HiOutlineClock className="w-5 h-5" />
+                          <Clock className="w-5 h-5" />
                           <span>Project in Development</span>
                         </label>
                       </div>
                       {projectData.inDevelopment && (
                         <div className="flex items-center space-x-2 px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full">
-                          <HiOutlineSparkles className="w-4 h-4" />
+                          <Sparkles className="w-4 h-4" />
                           <span className="text-sm">Work in Progress</span>
                         </div>
                       )}
@@ -471,7 +408,7 @@ const DashboardAddProjects = () => {
                         onClick={addCollaborator}
                         className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl"
                       >
-                        <FaPlus className="w-4 h-4" />
+                        <Plus className="w-4 h-4" />
                         <span>Add Collaborator</span>
                       </button>
                     </div>
@@ -486,7 +423,7 @@ const DashboardAddProjects = () => {
                             onClick={() => removeCollaborator(idx)}
                             className="p-2 text-red-400 hover:text-red-300 hover:bg-red-500/20 rounded-lg transition-all duration-200"
                           >
-                            <FaTrash className="w-4 h-4" />
+                            <Trash2 className="w-4 h-4" />
                           </button>
                         </div>
 
@@ -576,7 +513,7 @@ const DashboardAddProjects = () => {
                             : "bg-white/5 text-slate-300 border border-white/20 hover:bg-white/10"
                         }`}
                       >
-                        <FaLink className="w-4 h-4" />
+                        <Link2 className="w-4 h-4" />
                         <span>Image URL</span>
                       </button>
                       <button
@@ -588,7 +525,7 @@ const DashboardAddProjects = () => {
                             : "bg-white/5 text-slate-300 border border-white/20 hover:bg-white/10"
                         }`}
                       >
-                        <FaUpload className="w-4 h-4" />
+                        <UploadCloud className="w-4 h-4" />
                         <span>Upload File</span>
                       </button>
                     </div>
@@ -671,7 +608,7 @@ const DashboardAddProjects = () => {
                       </div>
                     ) : (
                       <div className="flex items-center justify-center space-x-2">
-                        <FaRocket className="w-5 h-5" />
+                        <Rocket className="w-5 h-5" />
                         <span>Launch Project</span>
                       </div>
                     )}
