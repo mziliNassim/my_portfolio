@@ -1,27 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { toast } from "sonner";
 import emailjs from "@emailjs/browser";
+import { MessageCircleMore, Mail, Phone, Github } from "lucide-react";
+import { Linkedin, Twitter, Send, User, Instagram } from "lucide-react";
+import { MessageSquare, Heart, Rocket } from "lucide-react";
 
-import { BsChatDots } from "react-icons/bs";
-import {
-  FaMapMarkerAlt,
-  FaEnvelope,
-  FaPhone,
-  FaGithub,
-  FaLinkedin,
-  FaTwitter,
-  FaDiscord,
-  FaPaperPlane,
-  FaUser,
-  FaComment,
-  FaHeart,
-  FaRocket,
-  FaStar,
-  FaGlobe,
-  FaInstagram,
-} from "react-icons/fa";
-
-// Contact Card Component
 const ContactCard = ({ contact, index, isVisible }) => {
   const [hovered, setHovered] = useState(false);
   const IconComponent = contact.icon;
@@ -177,7 +160,7 @@ const ContactForm = ({ isVisible }) => {
       >
         <div className="flex items-center space-x-3 mb-6">
           <div className="p-3 bg-gradient-to-r from-pink-500/20 to-violet-600/20 rounded-xl border border-pink-500/30">
-            <BsChatDots className="w-6 h-6 text-pink-400" />
+            <MessageCircleMore className="w-6 h-6 text-pink-400" />
           </div>
           <h3 className="text-2xl font-bold text-white">Send Me a Message</h3>
         </div>
@@ -186,7 +169,7 @@ const ContactForm = ({ isVisible }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className="text-gray-300 text-sm font-medium flex items-center space-x-2">
-                <FaUser className="w-4 h-4 text-pink-400" />
+                <User className="w-4 h-4 text-pink-400" />
                 <span>Name</span>
               </label>
               <input
@@ -201,7 +184,7 @@ const ContactForm = ({ isVisible }) => {
             </div>
             <div className="space-y-2">
               <label className="text-gray-300 text-sm font-medium flex items-center space-x-2">
-                <FaEnvelope className="w-4 h-4 text-violet-400" />
+                <Mail className="w-4 h-4 text-violet-400" />
                 <span>Email</span>
               </label>
               <input
@@ -218,7 +201,7 @@ const ContactForm = ({ isVisible }) => {
 
           <div className="space-y-2">
             <label className="text-gray-300 text-sm font-medium flex items-center space-x-2">
-              <FaComment className="w-4 h-4 text-green-400" />
+              <MessageSquare className="w-4 h-4 text-green-400" />
               <span>Message</span>
             </label>
             <textarea
@@ -250,12 +233,12 @@ const ContactForm = ({ isVisible }) => {
                 </>
               ) : submitted ? (
                 <>
-                  <FaHeart className="w-5 h-5 text-red-300 animate-pulse" />
+                  <Heart className="w-5 h-5 text-red-300 animate-pulse" />
                   <span>Message Sent!</span>
                 </>
               ) : (
                 <>
-                  <FaPaperPlane className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                  <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
                   <span>Send Message</span>
                 </>
               )}
@@ -296,7 +279,7 @@ const Contact = ({ personalData }) => {
   const contactInfo = [
     {
       id: 1,
-      icon: FaEnvelope,
+      icon: Mail,
       title: "Email",
       value: "mzilinassim@gmail.com",
       link: `mailto:${personalData?.email}`,
@@ -305,7 +288,7 @@ const Contact = ({ personalData }) => {
     },
     {
       id: 2,
-      icon: FaPhone,
+      icon: Phone,
       title: "Phone",
       value: "+212 6 81930875",
       link: `tel:${personalData?.tele}`,
@@ -314,7 +297,7 @@ const Contact = ({ personalData }) => {
     },
     {
       id: 4,
-      icon: FaLinkedin,
+      icon: Linkedin,
       title: "Linkedin",
       value: "linkedin.com/in/mzilinassim",
       link: personalData?.linkedIn,
@@ -323,7 +306,7 @@ const Contact = ({ personalData }) => {
     },
     {
       id: 4,
-      icon: FaGithub,
+      icon: Github,
       title: "Github",
       value: "github.com/mzilinassim",
       link: personalData?.github,
@@ -334,25 +317,25 @@ const Contact = ({ personalData }) => {
 
   const socialLinks = [
     {
-      icon: FaGithub,
+      icon: Github,
       link: personalData?.github,
       name: "GitHub",
       color: "hover:text-gray-300",
     },
     {
-      icon: FaLinkedin,
+      icon: Linkedin,
       link: personalData?.linkedIn,
       name: "LinkedIn",
       color: "hover:text-blue-400",
     },
     {
-      icon: FaTwitter,
+      icon: Twitter,
       link: personalData?.twitter,
       name: "Twitter",
       color: "hover:text-sky-400",
     },
     {
-      icon: FaInstagram,
+      icon: Instagram,
       link: personalData?.instagram,
       name: "instagram",
       color: "hover:text-red-400",
@@ -487,7 +470,7 @@ const Contact = ({ personalData }) => {
             <div className="absolute -inset-2 bg-gradient-to-r from-pink-500/20 to-violet-600/20 rounded-full blur-md" />
             <div className="relative bg-gradient-to-r from-[#0d1224]/90 to-[#1a1a2e]/90 backdrop-blur-sm rounded-full border border-gray-700/50 px-8 py-4">
               <div className="flex items-center space-x-4">
-                <FaRocket className="w-6 h-6 text-pink-400" />
+                <Rocket className="w-6 h-6 text-pink-400" />
                 <span className="text-white font-medium text-lg">
                   Let's build something amazing together!
                 </span>

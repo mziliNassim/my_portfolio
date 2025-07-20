@@ -1,7 +1,5 @@
 import React from "react";
-
-import { FaStar } from "react-icons/fa";
-import { HiSparkles } from "react-icons/hi";
+import { Sparkles, Star } from "lucide-react";
 
 const FloatingParticles = () => {
   return (
@@ -18,9 +16,9 @@ const FloatingParticles = () => {
           }}
         >
           {i % 4 === 0 ? (
-            <HiSparkles className="w-2 h-2 text-pink-400/40" />
+            <Sparkles className="w-2 h-2 text-pink-400/40" />
           ) : i % 4 === 1 ? (
-            <FaStar className="w-1 h-1 text-violet-400/40" />
+            <Star className="w-1 h-1 text-violet-400/40" />
           ) : (
             <div className="w-1 h-1 bg-cyan-400/30 rounded-full" />
           )}

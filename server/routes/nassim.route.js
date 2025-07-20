@@ -7,6 +7,11 @@ const { getPersonalData } = require("../controllers/nassim.controller");
 const { updatePersonalData } = require("../controllers/nassim.controller");
 
 router.get("/", getPersonalData);
-router.put("/", authenticate, authorize(["admin"]), updatePersonalData);
+router.put(
+  "/",
+  authenticate,
+  authorize(["admin", "tester"]),
+  updatePersonalData
+);
 
 module.exports = router;

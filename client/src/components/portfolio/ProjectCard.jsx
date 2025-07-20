@@ -1,32 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
-import {
-  FaCode,
-  FaExternalLinkAlt,
-  FaGithub,
-  FaRocket,
-  FaEye,
-  FaTools,
-  FaUser,
-  FaUsers,
-  FaLinkedin,
-  FaGlobe,
-  FaEnvelope,
-  FaTwitter,
-  FaInstagram,
-  FaEdit,
-  FaTrash,
-} from "react-icons/fa";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 
-const ProjectCard = ({
-  project,
-  index,
-  isVisible = true,
-  desc = true,
-  onDeleteProject,
-}) => {
-  const { admin } = useSelector((state) => state.admin);
+import { Code, ExternalLink, Rocket, Wrench } from "lucide-react";
+import { User, Users, Linkedin, Globe, Mail } from "lucide-react";
+import { Instagram, Twitter, Github, Eye } from "lucide-react";
+
+const ProjectCard = ({ project, index, isVisible = true, desc = true }) => {
+  // const { admin } = useSelector((state) => state.admin);
 
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
@@ -105,7 +84,7 @@ const ProjectCard = ({
                 rel="noopener noreferrer"
                 className="p-3 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full text-white hover:scale-110 transition-transform duration-300 shadow-lg"
               >
-                <FaExternalLinkAlt className="w-4 h-4" />
+                <ExternalLink className="w-4 h-4" />
               </a>
             )}
             {project.code && (
@@ -115,7 +94,7 @@ const ProjectCard = ({
                 rel="noopener noreferrer"
                 className="p-3 bg-gradient-to-r from-violet-500 to-purple-500 rounded-full text-white hover:scale-110 transition-transform duration-300 shadow-lg"
               >
-                <FaGithub className="w-4 h-4" />
+                <Github className="w-4 h-4" />
               </a>
             )}
           </div>
@@ -142,7 +121,7 @@ const ProjectCard = ({
               {/* Role Badge */}
               <div className="flex items-center space-x-2 mb-3">
                 <div className="flex items-center space-x-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 px-3 py-1 rounded-full border border-cyan-500/30">
-                  <FaUser className="w-3 h-3 text-cyan-400" />
+                  <User className="w-3 h-3 text-cyan-400" />
                   <span className="text-cyan-400 text-sm font-medium">
                     {project.role}
                   </span>
@@ -151,7 +130,7 @@ const ProjectCard = ({
             </div>
 
             <div className="p-3 bg-gradient-to-r from-pink-500/20 to-violet-600/20 rounded-lg border border-pink-500/30">
-              <FaRocket className="w-5 h-5 text-pink-400" />
+              <Rocket className="w-5 h-5 text-pink-400" />
             </div>
           </div>
 
@@ -165,7 +144,7 @@ const ProjectCard = ({
           {/* Technologies */}
           <div className="space-y-3">
             <h4 className="text-white font-semibold flex items-center space-x-2 group-hover:text-pink-300 transition-colors duration-300">
-              <FaTools className="w-4 h-4 text-violet-400" />
+              <Wrench className="w-4 h-4 text-violet-400" />
               <span>Technologies</span>
             </h4>
             <div className="flex flex-wrap gap-2">
@@ -192,7 +171,7 @@ const ProjectCard = ({
           {validCollabs.length > 0 && (
             <div className="space-y-3">
               <h4 className="text-white font-semibold flex items-center space-x-2 group-hover:text-pink-300 transition-colors duration-300">
-                <FaUsers className="w-4 h-4 text-emerald-400" />
+                <Users className="w-4 h-4 text-emerald-400" />
                 <span>Collaborators</span>
               </h4>
               <div className="flex flex-wrap gap-3">
@@ -217,7 +196,7 @@ const ProjectCard = ({
                         />
                         {/* Fallback Avatar */}
                         <div className="hidden w-6 h-6 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 items-center justify-center">
-                          <FaUser className="w-3 h-3 text-white" />
+                          <User className="w-3 h-3 text-white" />
                         </div>
                       </div>
                       <span className="text-emerald-400 text-sm font-medium">
@@ -245,7 +224,7 @@ const ProjectCard = ({
                             />
                             {/* Fallback Avatar */}
                             <div className="hidden w-10 h-10 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 items-center justify-center border-2 border-emerald-400/50">
-                              <FaUser className="w-4 h-4 text-white" />
+                              <User className="w-4 h-4 text-white" />
                             </div>
                             <div>
                               <h5 className="text-white font-semibold text-sm">
@@ -265,7 +244,7 @@ const ProjectCard = ({
                                 className="flex items-center justify-center p-2 bg-gradient-to-r from-gray-700/50 to-gray-600/50 rounded-lg hover:from-red-500/20 hover:to-red-600/20 hover:border-red-500/30 border border-gray-600/50 transition-all duration-300 group"
                                 title="Email"
                               >
-                                <FaEnvelope className="w-4 h-4 text-gray-400 group-hover:text-red-400" />
+                                <Mail className="w-4 h-4 text-gray-400 group-hover:text-red-400" />
                               </a>
                             )}
                             {collab.linkedIn && (
@@ -276,7 +255,7 @@ const ProjectCard = ({
                                 className="flex items-center justify-center p-2 bg-gradient-to-r from-gray-700/50 to-gray-600/50 rounded-lg hover:from-blue-500/20 hover:to-blue-600/20 hover:border-blue-500/30 border border-gray-600/50 transition-all duration-300 group"
                                 title="LinkedIn"
                               >
-                                <FaLinkedin className="w-4 h-4 text-gray-400 group-hover:text-blue-400" />
+                                <Linkedin className="w-4 h-4 text-gray-400 group-hover:text-blue-400" />
                               </a>
                             )}
                             {collab.github && (
@@ -287,7 +266,7 @@ const ProjectCard = ({
                                 className="flex items-center justify-center p-2 bg-gradient-to-r from-gray-700/50 to-gray-600/50 rounded-lg hover:from-violet-500/20 hover:to-violet-600/20 hover:border-violet-500/30 border border-gray-600/50 transition-all duration-300 group"
                                 title="GitHub"
                               >
-                                <FaGithub className="w-4 h-4 text-gray-400 group-hover:text-violet-400" />
+                                <Github className="w-4 h-4 text-gray-400 group-hover:text-violet-400" />
                               </a>
                             )}
                             {collab.Website && (
@@ -298,7 +277,7 @@ const ProjectCard = ({
                                 className="flex items-center justify-center p-2 bg-gradient-to-r from-gray-700/50 to-gray-600/50 rounded-lg hover:from-green-500/20 hover:to-green-600/20 hover:border-green-500/30 border border-gray-600/50 transition-all duration-300 group"
                                 title="Website"
                               >
-                                <FaGlobe className="w-4 h-4 text-gray-400 group-hover:text-green-400" />
+                                <Globe className="w-4 h-4 text-gray-400 group-hover:text-green-400" />
                               </a>
                             )}
                             {collab.instagram && (
@@ -309,7 +288,7 @@ const ProjectCard = ({
                                 className="flex items-center justify-center p-2 bg-gradient-to-r from-gray-700/50 to-gray-600/50 rounded-lg hover:from-pink-500/20 hover:to-pink-600/20 hover:border-pink-500/30 border border-gray-600/50 transition-all duration-300 group"
                                 title="Instagram"
                               >
-                                <FaInstagram className="w-4 h-4 text-gray-400 group-hover:text-pink-400" />
+                                <Instagram className="w-4 h-4 text-gray-400 group-hover:text-pink-400" />
                               </a>
                             )}
                             {collab.twitter && (
@@ -320,7 +299,7 @@ const ProjectCard = ({
                                 className="flex items-center justify-center p-2 bg-gradient-to-r from-gray-700/50 to-gray-600/50 rounded-lg hover:from-sky-500/20 hover:to-sky-600/20 hover:border-sky-500/30 border border-gray-600/50 transition-all duration-300 group"
                                 title="Twitter"
                               >
-                                <FaTwitter className="w-4 h-4 text-gray-400 group-hover:text-sky-400" />
+                                <Twitter className="w-4 h-4 text-gray-400 group-hover:text-sky-400" />
                               </a>
                             )}
                           </div>
@@ -343,7 +322,7 @@ const ProjectCard = ({
                   rel="noopener noreferrer"
                   className="flex items-center space-x-2 text-pink-400 hover:text-pink-300 transition-colors duration-300 text-sm font-medium"
                 >
-                  <FaEye className="w-4 h-4" />
+                  <Eye className="w-4 h-4" />
                   <span>Live Demo</span>
                 </a>
               )}
@@ -354,7 +333,7 @@ const ProjectCard = ({
                   rel="noopener noreferrer"
                   className="flex items-center space-x-2 text-violet-400 hover:text-violet-300 transition-colors duration-300 text-sm font-medium"
                 >
-                  <FaCode className="w-4 h-4" />
+                  <Code className="w-4 h-4" />
                   <span>Source Code</span>
                 </a>
               )}

@@ -36,7 +36,7 @@ const projects = [
     code: "https://github.com/mziliNassim/modern-digital-business-card",
     demo: "https://digital-business-cards-client.netlify.app/",
     inDevelopment: true,
-    collabWith: [{}],
+    collabWith: [],
   },
   {
     id: `prtfolio-${Date.now()}`,
@@ -57,7 +57,7 @@ const projects = [
     role: "Front end Developer",
     code: "",
     demo: "https://nassim.online/",
-    collabWith: [{}],
+    collabWith: [],
   },
   {
     id: `calculator-${Date.now()}`,
@@ -70,7 +70,7 @@ const projects = [
     role: "Front end Developer",
     code: "https://github.com/mziliNassim/trading-calculator-react",
     demo: "https://nassimtradingcalculator.netlify.app/",
-    collabWith: [{}],
+    collabWith: [],
   },
   {
     id: `wiki-${Date.now()}`,
@@ -88,9 +88,9 @@ const projects = [
       "Lucide React",
     ],
     role: "Front end Developer",
-    code: "tps://github.com/mziliNassim/wiki-react",
+    code: "https://github.com/mziliNassim/wiki-react",
     demo: "https://wikipedia-searching.netlify.app/",
-    collabWith: [{}],
+    collabWith: [],
   },
   {
     id: `LibriTech-${Date.now()}`,
@@ -161,7 +161,7 @@ const projects = [
     role: "Front end Developer",
     code: "",
     demo: "https://web4jobs-formation.netlify.app/generateur-de-certificats",
-    collabWith: [{}],
+    collabWith: [],
   },
   {
     id: `planificateur-de-formation-${Date.now()}`,
@@ -181,7 +181,7 @@ const projects = [
     role: "Front end Developer",
     code: "",
     demo: "https://web4jobs-formation.netlify.app/planificateur-de-Formation",
-    collabWith: [{}],
+    collabWith: [],
   },
   {
     id: `postman-${Date.now()}`,
@@ -194,7 +194,7 @@ const projects = [
     role: "Front end Developer",
     code: "https://github.com/mziliNassim/postman-clone-react",
     demo: "https://postman-nassim.netlify.app/",
-    collabWith: [{}],
+    collabWith: [],
   },
 ];
 

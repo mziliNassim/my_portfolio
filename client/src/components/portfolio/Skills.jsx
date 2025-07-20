@@ -1,36 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-
-import {
-  FaCode,
-  FaDatabase,
-  FaServer,
-  FaMobile,
-  FaCloud,
-  FaPalette,
-} from "react-icons/fa";
-import {
-  SiReact,
-  SiJavascript,
-  SiHtml5,
-  SiCss3,
-  SiNodedotjs,
-  SiMongodb,
-  SiExpress,
-  SiNextdotjs,
-  SiBootstrap,
-  SiFigma,
-  SiVite,
-  SiRedux,
-  SiPython,
-  SiPhp,
-  SiMysql,
-  SiMarkdown,
-  SiCanva,
-  SiTailwindcss,
-} from "react-icons/si";
+import { Code, Database, Server, Cloud } from "lucide-react";
+import { SiReact, SiJavascript, SiHtml5, SiCss3 } from "react-icons/si";
+import { SiNodedotjs, SiMongodb, SiExpress, SiBootstrap } from "react-icons/si";
+import { SiFigma, SiVite, SiRedux, SiPython, SiPhp } from "react-icons/si";
+import { SiMysql, SiMarkdown, SiCanva, SiTailwindcss } from "react-icons/si";
 import { TfiMicrosoftAlt } from "react-icons/tfi";
 
-// Mock skills data - replace with your actual skillsData and skillsImage
 const skillsData = [
   "React",
   "Node JS",
@@ -56,7 +31,7 @@ const skillsData = [
 const skillCategories = [
   {
     name: "Frontend",
-    icon: FaCode,
+    icon: Code,
     color: "from-pink-500 to-rose-500",
     skills: [
       "React",
@@ -72,19 +47,19 @@ const skillCategories = [
   },
   {
     name: "Backend",
-    icon: FaServer,
+    icon: Server,
     color: "from-violet-500 to-purple-500",
     skills: ["Node JS", "Express", "Python", "PHP"],
   },
   {
     name: "Database",
-    icon: FaDatabase,
+    icon: Database,
     color: "from-cyan-500 to-blue-500",
     skills: ["MongoDB", "MySQL"],
   },
   {
     name: "Tools",
-    icon: FaCloud,
+    icon: Cloud,
     color: "from-emerald-500 to-teal-500",
     skills: ["Docker", "Markdown", "Microsoft Office", "Git", "Canva"],
   },
@@ -113,8 +88,8 @@ const skillIcons = {
   Markdown: SiMarkdown,
   "Microsoft Office": TfiMicrosoftAlt,
   Canva: SiCanva,
-  Git: FaCode,
-  Docker: FaCloud,
+  Git: Code,
+  Docker: Cloud,
 };
 
 // Skill colors
@@ -183,7 +158,7 @@ function Skills() {
       style={{ animationDuration: `${(40 / speed) * skillsData.length}s` }}
     >
       {skillsData.concat(skillsData).map((skill, index) => {
-        const IconComponent = skillIcons[skill] || FaCode;
+        const IconComponent = skillIcons[skill] || Code;
         return (
           <div
             key={`${skill}-${index}`}
@@ -333,7 +308,7 @@ function Skills() {
 
           <div className="flex flex-wrap justify-center items-center gap-4 max-w-4xl mx-auto">
             {skillCategories[activeCategory].skills.map((skill, index) => {
-              const IconComponent = skillIcons[skill] || FaCode;
+              const IconComponent = skillIcons[skill] || Code;
               return (
                 <div
                   key={skill}

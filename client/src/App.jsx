@@ -9,12 +9,11 @@ import NavBar from "./components/layouts/NavBar.jsx";
 import Footer from "./components/layouts/Footer.jsx";
 
 import Portfolio from "./pages/Portfolio.jsx";
+import Projects from "./components/portfolio/Projects.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Links from "./pages/Links.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Cv from "./pages/Cv";
-
-import Projects from "./components/portfolio/Projects.jsx";
 
 import DashboardInfos from "./components/dashboard/DashboardInfos.jsx";
 import DashboardProjects from "./components/dashboard/DashboardProjects.jsx";
@@ -245,6 +244,8 @@ const App = () => {
 
             <Route path="dashboard">
               <Route path="" element={<Dashboard />} />
+
+              {/* Infos */}
               <Route
                 path="infos"
                 element={
@@ -255,15 +256,28 @@ const App = () => {
                   />
                 }
               />
+
+              {/* Projects */}
               <Route
                 path="projects"
                 element={
                   <DashboardProjects
+                    setProjects={setProjects}
                     projects={projects}
                     loadingProjects={loadingProjects}
                   />
                 }
               />
+              <Route
+                path="add-project"
+                element={<DashboardAddProjects setProjects={setProjects} />}
+              />
+              <Route
+                path="edit-project/:id"
+                element={<DashboardEditProject />}
+              />
+
+              {/* Experiences */}
               <Route
                 path="experiences"
                 element={
@@ -273,6 +287,8 @@ const App = () => {
                   />
                 }
               />
+
+              {/* Educations */}
               <Route
                 path="educations"
                 element={
@@ -282,6 +298,8 @@ const App = () => {
                   />
                 }
               />
+
+              {/* Analytics */}
               <Route
                 path="analytics"
                 element={
@@ -290,11 +308,6 @@ const App = () => {
                     loadingStats={loadingStats}
                   />
                 }
-              />
-              <Route path="add-project" element={<DashboardAddProjects />} />
-              <Route
-                path="edit-project/:id"
-                element={<DashboardEditProject />}
               />
             </Route>
           </Route>

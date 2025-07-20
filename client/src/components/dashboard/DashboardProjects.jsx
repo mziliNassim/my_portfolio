@@ -7,16 +7,16 @@ import { Code, Plus, Search, Clock, CheckCircle } from "lucide-react";
 
 import DashboardSideBar from "./DashboardSideBar.jsx";
 import DashboardHeader from "./DashboardHeader.jsx";
+import DashboardProjectCard from "./DashboardProjectCard.jsx";
 
 import FloatingParticles from "../styles/FloatingParticles.jsx";
 import AnimatedBackgroundElements from "../styles/AnimatedBackgroundElements.jsx";
-import Loading from "../styles/Loading.jsx";
 
-import ProjectCard from "../portfolio/ProjectCard.jsx";
+import Loading from "../styles/Loading.jsx";
 
 import { scrollToTop } from "../../utils/helpers.js";
 
-const DashboardProjects = ({ projects, loadingProjects }) => {
+const DashboardProjects = ({ projects, setProjects, loadingProjects }) => {
   const { admin } = useSelector((state) => state.admin);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -37,15 +37,21 @@ const DashboardProjects = ({ projects, loadingProjects }) => {
 
     try {
       const response = await axios.delete(
-        `${import.meta.env.VITE_SERVER_URI}/api/projects/${projectId}`
+        `${import.meta.env.VITE_SERVER_URI}/api/projects/${projectId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${admin?.token}`,
+          },
+        }
       );
       toast.success(response.data.message || "Project deleted successfully!", {
         description: new Date().toUTCString(),
         action: { label: "✖️" },
       });
-      setProjects(projects.filter((p) => p._id !== projectId));
+      if (admin?.data?.role === "admin")
+        setProjects(projects.filter((p) => p._id !== projectId));
     } catch (error) {
-      console.error("Error deleting project:", error);
       toast.error(error.response?.data?.message || error.message, {
         description: new Date().toUTCString(),
         action: { label: "✖️" },
@@ -55,8 +61,8 @@ const DashboardProjects = ({ projects, loadingProjects }) => {
 
   const filteredProjects = projects.filter((project) => {
     const matchesSearch =
-      project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      project.description.toLowerCase().includes(searchTerm.toLowerCase());
+      project.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.description?.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesFilter =
       filterStatus === "all" ||
       (filterStatus === "development" && project.inDevelopment) ||
@@ -174,13 +180,12 @@ const DashboardProjects = ({ projects, loadingProjects }) => {
             ) : (
               <>
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-                  {filteredProjects.map((project, i) => (
-                    <ProjectCard
-                      key={i}
-                      index={i}
+                  {filteredProjects.map((project) => (
+                    <DashboardProjectCard
+                      key={project._id}
                       project={project}
-                      desc={false}
-                      onDeleteProject={deleteProject}
+                      showActions
+                      onDelete={() => deleteProject(project._id)}
                     />
                   ))}
                 </div>

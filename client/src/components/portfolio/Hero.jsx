@@ -17,25 +17,16 @@ import {
 } from "lucide-react";
 
 import FloatingParticles from "../styles/FloatingParticles";
+import { TypeAnimation } from "react-type-animation";
 
 const HeroSection = ({ personalData }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [textIndex, setTextIndex] = useState(0);
-  const [isTyping, setIsTyping] = useState(true);
+  const [isTyping] = useState(true);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const heroRef = useRef(null);
 
   useEffect(() => {
     setIsVisible(true);
-
-    // Enhanced typing animation
-    const interval = setInterval(() => {
-      setIsTyping(false);
-      setTimeout(() => {
-        setTextIndex((prev) => (prev + 1) % personalData?.designation.length);
-        setIsTyping(true);
-      }, 300);
-    }, 3500);
 
     // Mouse movement tracking
     const handleMouseMove = (e) => {
@@ -120,12 +111,11 @@ const HeroSection = ({ personalData }) => {
       id="home"
       className="relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#0d1224] via-[#1a1a2e] to-[#271c54] pt-20 pb-8 lg:py-16 lg:pt-28"
     >
-      {/* Enhanced Floating Particles */}
       <FloatingParticles />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20 items-center">
-          {/* Left Content - Enhanced */}
+          {/* Left Content  */}
           <div
             className={`space-y-10 transform transition-all duration-1000 ${
               isVisible
@@ -133,7 +123,7 @@ const HeroSection = ({ personalData }) => {
                 : "-translate-x-10 opacity-0"
             }`}
           >
-            {/* Enhanced Greeting */}
+            {/* Greeting */}
             <div className="space-y-6">
               <div className="flex items-center justify-center lg:justify-start space-x-4 group">
                 <div className="w-16 h-[3px] bg-gradient-to-r from-pink-500 via-violet-500 to-cyan-400 rounded-full group-hover:w-20 transition-all duration-500" />
@@ -143,7 +133,7 @@ const HeroSection = ({ personalData }) => {
                 </span>
               </div>
 
-              {/* Enhanced Name with 3D Effect */}
+              {/* Name */}
               <h1 className="text-5xl sm:text-6xl font-bold leading-tight text-center lg:text-left">
                 <div className="relative">
                   {personalData?.name.split(" ").map((word, index) => (
@@ -171,31 +161,25 @@ const HeroSection = ({ personalData }) => {
                 </div>
               </h1>
 
-              {/* Enhanced Role with Better Typography */}
+              {/* TypeAnimation */}
               <div className="flex items-center justify-center lg:justify-start space-x-4 text-2xl sm:text-3xl ">
                 <span className="text-gray-300 font-light">I'm a</span>
+
                 <div className="relative overflow-hidden">
                   <div className="relative bg-gradient-to-r from-[#16f2b3] via-cyan-400 to-blue-400 font-bold px-3 rounded-md">
-                    <span
-                      className={`block transition-all duration-700 ${
-                        isTyping
-                          ? "translate-y-0 opacity-100"
-                          : "-translate-y-2 opacity-80"
-                      }`}
-                    >
-                      {personalData?.designation[textIndex]}
-                    </span>
+                    <TypeAnimation
+                      sequence={personalData?.designation}
+                      wrapper="p"
+                      cursor
+                      repeat={Infinity}
+                      className="type-designation"
+                    />
                   </div>
-                  <div
-                    className={`absolute right-0 top-0 w-[3px] h-full bg-gradient-to-b from-[#16f2b3] to-cyan-400 animate-blink ${
-                      isTyping ? "opacity-100" : "opacity-0"
-                    }`}
-                  />
                 </div>
               </div>
             </div>
 
-            {/* Enhanced Stats Section */}
+            {/* Stats  */}
             <div className="grid grid-cols-3 gap-6">
               {stats.map((stat, index) => (
                 <div
@@ -219,7 +203,7 @@ const HeroSection = ({ personalData }) => {
               ))}
             </div>
 
-            {/* Enhanced Social Links */}
+            {/* Social Links */}
             <div className="flex items-center justify-center lg:justify-start space-x-4">
               <div className="flex flex-wrap gap-y-3 space-x-3">
                 {socialLinks.map((social, index) => (
@@ -240,7 +224,7 @@ const HeroSection = ({ personalData }) => {
               </div>
             </div>
 
-            {/* Enhanced Action Buttons */}
+            {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-6 pt-4">
               <a
                 href="#contact"
@@ -265,7 +249,7 @@ const HeroSection = ({ personalData }) => {
             </div>
           </div>
 
-          {/* Right Content - Enhanced Terminal */}
+          {/* Right Content - IDE */}
           <div
             className={`transform transition-all duration-1000 delay-500 ${
               isVisible
@@ -274,12 +258,11 @@ const HeroSection = ({ personalData }) => {
             }`}
           >
             <div className="relative group">
-              {/* Enhanced Glow Effect */}
+              {/* Glow Effect */}
               <div className="absolute -inset-2 bg-gradient-to-r from-pink-500 via-purple-500 to-violet-600 rounded-3xl blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-700 animate-pulse" />
 
-              {/* Terminal Window */}
               <div className="relative bg-gradient-to-br from-[#0d1224]/95 to-[#1a1a2e]/95 rounded-3xl border border-gray-700/50 backdrop-blur-lg overflow-hidden shadow-2xl">
-                {/* Enhanced Terminal Header */}
+                {/* IDE Header */}
                 <div className="flex items-center justify-between p-6 border-b border-gray-700/50 bg-gradient-to-r from-gray-800/30 to-gray-700/30">
                   <div className="flex items-center space-x-4">
                     <div className="flex space-x-2">
@@ -297,7 +280,7 @@ const HeroSection = ({ personalData }) => {
                   </div>
                 </div>
 
-                {/* Enhanced Code Content */}
+                {/* Code Content */}
                 <div className="p-8 font-mono text-sm overflow-hidden">
                   <div className="space-y-3">
                     <div className="flex items-center animate-fadeInUp">
@@ -449,7 +432,7 @@ const HeroSection = ({ personalData }) => {
         </div>
       </div>
 
-      {/* Enhanced Styles */}
+      {/* Styles */}
       <style>{`
         @keyframes fadeInUp {
           from {

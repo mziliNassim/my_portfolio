@@ -12,18 +12,26 @@ const getPersonalData = async (req, res) => {
 
 const updatePersonalData = async (req, res) => {
   try {
-    const updatedData = await Nassim.findOneAndUpdate({}, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    if (req.admin.role === "admin") {
+      const updatedData = await Nassim.findOneAndUpdate({}, req.body, {
+        new: true,
+        runValidators: true,
+      });
 
-    if (!updatedData) {
-      return res.status(404).json({ message: "Profile not found!" });
+      if (!updatedData) {
+        return res.status(404).json({ message: "Profile not found!" });
+      }
+      return res.status(200).json({
+        ...updatedData,
+        message: "Profile update successfuly!",
+      });
+    } else if (req.admin.role === "tester") {
+      return res.status(200).json({
+        message: "Testing Account : Cannot update profile!",
+      });
     }
-
-    res.json({ ...updatedData, message: "Profile update successfuly!" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 

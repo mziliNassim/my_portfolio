@@ -45,7 +45,6 @@ const DashboardExperiences = ({ experiences, loadingExperiences }) => {
       );
       setExperiences(experiences.filter((exp) => exp._id !== experienceId));
     } catch (error) {
-      console.error("Error deleting experience:", error);
       toast.error(error.response?.data?.message || error.message, {
         description: new Date().toUTCString(),
         action: { label: "✖️" },

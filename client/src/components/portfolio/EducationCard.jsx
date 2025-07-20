@@ -1,14 +1,6 @@
 import React, { useState } from "react";
-import {
-  FaGraduationCap,
-  FaUniversity,
-  FaCalendarAlt,
-  FaMedal,
-  FaBook,
-  FaStar,
-  FaAward,
-  FaCertificate,
-} from "react-icons/fa";
+import { GraduationCap, Landmark, CalendarDays, Medal } from "lucide-react";
+import { Book, Star, Trophy, BadgeCheck } from "lucide-react";
 
 const EducationCard = ({ education, index, isVisible }) => {
   const [hovered, setHovered] = useState(false);
@@ -16,15 +8,15 @@ const EducationCard = ({ education, index, isVisible }) => {
   const getIcon = (type) => {
     switch (type) {
       case "Master's Degree":
-        return FaGraduationCap;
+        return GraduationCap;
       case "Bachelor's Degree":
-        return FaUniversity;
+        return Landmark;
       case "Certification":
-        return FaCertificate;
+        return BadgeCheck;
       case "Professional Certification":
-        return FaAward;
+        return Trophy;
       default:
-        return FaBook;
+        return Book;
     }
   };
 
@@ -68,7 +60,7 @@ const EducationCard = ({ education, index, isVisible }) => {
                   {education.title}
                 </h3>
                 <p className="text-gray-400 flex items-center space-x-2">
-                  <FaUniversity className="w-4 h-4" />
+                  <Landmark className="w-4 h-4" />
                   <span>{education.institution}</span>
                 </p>
               </div>
@@ -81,7 +73,7 @@ const EducationCard = ({ education, index, isVisible }) => {
                   education.status
                 )}/20 px-3 py-1 rounded-full border border-current/30`}
               >
-                <FaMedal className="w-3 h-3" />
+                <Medal className="w-3 h-3" />
                 <span className="text-sm font-medium">{education.status}</span>
               </div>
             </div>
@@ -90,14 +82,14 @@ const EducationCard = ({ education, index, isVisible }) => {
           {/* Duration and city */}
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 bg-gradient-to-r from-[#16f2b3]/20 to-cyan-400/20 px-3 py-1 rounded-full border border-[#16f2b3]/30">
-              <FaCalendarAlt className="w-3 h-3 text-[#16f2b3]" />
+              <CalendarDays className="w-3 h-3 text-[#16f2b3]" />
               <span className="text-[#16f2b3] text-sm font-medium">
                 {education.duration}
               </span>
             </div>
             {education.city && (
               <div className="flex items-center space-x-2 bg-gradient-to-r from-violet-500/20 to-purple-500/20 px-3 py-1 rounded-full border border-violet-500/30">
-                <FaStar className="w-3 h-3 text-violet-400" />
+                <Star className="w-3 h-3 text-violet-400" />
                 <span className="text-violet-400 text-sm font-medium">
                   {education.city}
                 </span>
@@ -119,7 +111,7 @@ const EducationCard = ({ education, index, isVisible }) => {
             {education.achievements && education.achievements.length > 0 && (
               <div className="space-y-3">
                 <h4 className="text-white font-semibold flex items-center space-x-2">
-                  <FaAward className="w-4 h-4 text-yellow-400" />
+                  <Trophy className="w-4 h-4 text-yellow-400" />
                   <span>Key Achievements</span>
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -144,7 +136,7 @@ const EducationCard = ({ education, index, isVisible }) => {
           <div className="p-6 border-t border-gray-700/30 mt-auto">
             <div className="flex items-center justify-between pt-4">
               <div className="flex items-center space-x-2">
-                <FaBook className="w-4 h-4 text-cyan-400" />
+                <Book className="w-4 h-4 text-cyan-400" />
                 <span className="text-cyan-400 text-sm font-medium">
                   {education.type}
                 </span>

@@ -1,33 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { TypeAnimation } from "react-type-animation";
 
-import { BsBrowserChrome } from "react-icons/bs";
-import { PiReadCvLogoDuotone } from "react-icons/pi";
-import { HiSparkles } from "react-icons/hi";
-import {
-  FaEnvelope,
-  FaGithub,
-  FaLinkedinIn,
-  FaSquareInstagram,
-} from "react-icons/fa6";
-import {
-  FaExternalLinkAlt,
-  FaUser,
-  FaStar,
-  FaRocket,
-  FaCode,
-  FaHeart,
-  FaDiscord,
-  FaFacebook,
-  FaTwitter,
-} from "react-icons/fa";
+import { Globe, FileText, Sparkles, Twitter, Facebook } from "lucide-react";
+import { Mail, Github, Linkedin, Instagram, ExternalLink } from "lucide-react";
+import { Code, User, Star, Rocket, Heart } from "lucide-react";
+import { FaDiscord } from "react-icons/fa";
+
+import FloatingParticles from "../components/styles/FloatingParticles";
+import AnimatedBackgroundElements from "../components/styles/AnimatedBackgroundElements";
 
 import { scrollToTop } from "../utils/helpers";
 
 const AllLinks = ({ personalData }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeLink, setActiveLink] = useState(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const sectionRef = useRef(null);
 
   const links = [
@@ -35,7 +21,7 @@ const AllLinks = ({ personalData }) => {
       id: `linkedin-${Date.now()}`,
       desc: `linkedin.com/in/mzilinassim/`,
       title: "LinkedIn",
-      Icon: FaLinkedinIn,
+      Icon: Linkedin,
       url: personalData?.linkedIn,
       color: "#0077b5",
       hover: "hover:text-blue-400",
@@ -44,7 +30,7 @@ const AllLinks = ({ personalData }) => {
       id: `github-${Date.now()}`,
       desc: `github.com/mziliNassim/`,
       title: "github",
-      Icon: FaGithub,
+      Icon: Github,
       url: "https://github.com/mziliNassim",
       color: "#16181f",
       hover: "hover:text-gray-300",
@@ -53,7 +39,7 @@ const AllLinks = ({ personalData }) => {
       id: `Instagram-${Date.now()}`,
       desc: `instagram.com/nassim__dev/`,
       title: "Instagram",
-      Icon: FaSquareInstagram,
+      Icon: Instagram,
       url: personalData?.instagram,
       color: "#b60cbc",
       hover: "hover:text-pink-400",
@@ -62,7 +48,7 @@ const AllLinks = ({ personalData }) => {
       id: `mail-${Date.now()}`,
       desc: `mzilinassim@gmail.com`,
       title: "Email",
-      Icon: FaEnvelope,
+      Icon: Mail,
       url: "mailto:mzilinassim@gmail.com",
       color: "#5f98d1",
       hover: "hover:text-green-400",
@@ -71,7 +57,7 @@ const AllLinks = ({ personalData }) => {
       id: `cv-${Date.now()}`,
       desc: `https://nassim.online/mycv`,
       title: "Resume - CV",
-      Icon: PiReadCvLogoDuotone,
+      Icon: FileText,
       url: personalData?.fullResume,
       color: "#363636",
       hover: "",
@@ -80,7 +66,7 @@ const AllLinks = ({ personalData }) => {
       id: `portfolio-${Date.now()}`,
       desc: `https://nassim.online/`,
       title: "Portfolio",
-      Icon: BsBrowserChrome,
+      Icon: Globe,
       url: personalData?.Website,
       color: "#1b1b31",
       hover: "",
@@ -89,7 +75,7 @@ const AllLinks = ({ personalData }) => {
       id: `twitter-${Date.now()}`,
       desc: `twitter.com/nassim__dev`,
       title: "Twitter",
-      Icon: FaTwitter,
+      Icon: Twitter,
       url: personalData?.twitter,
       color: "#1DA1F2",
       hover: "hover:text-cyan-400",
@@ -98,7 +84,7 @@ const AllLinks = ({ personalData }) => {
       id: `fb-${Date.now()}`,
       desc: `facebook.com/mziliNassim/`,
       title: "Facebook",
-      Icon: FaFacebook,
+      Icon: Facebook,
       url: personalData?.facebook,
       color: "#1877F2", // Facebook's brand color
       hover: "hover:text-blue-500",
@@ -116,41 +102,7 @@ const AllLinks = ({ personalData }) => {
 
   useEffect(() => {
     scrollToTop();
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    // Mouse movement tracking
-    const handleMouseMove = (e) => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect();
-        setMousePosition({
-          x: ((e.clientX - rect.left) / rect.width) * 100,
-          y: ((e.clientY - rect.top) / rect.height) * 100,
-        });
-      }
-    };
-
-    const sectionElement = sectionRef.current;
-    if (sectionElement) {
-      sectionElement.addEventListener("mousemove", handleMouseMove);
-    }
-
-    return () => {
-      observer.disconnect();
-      if (sectionElement) {
-        sectionElement.removeEventListener("mousemove", handleMouseMove);
-      }
-    };
+    setIsVisible(true);
   }, []);
 
   return (
@@ -159,42 +111,11 @@ const AllLinks = ({ personalData }) => {
       ref={sectionRef}
       className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#0d1224] via-[#1a1a2e] to-[#271c54]"
     >
-      {/* Enhanced Floating Particles */}
-      <div className="absolute inset-0">
-        {[...Array(25)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute animate-ping"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 4}s`,
-              animationDuration: `${3 + Math.random() * 3}s`,
-            }}
-          >
-            {i % 4 === 0 ? (
-              <HiSparkles className="w-2 h-2 text-pink-400/40" />
-            ) : (
-              <div className="w-1 h-1 bg-white/20 rounded-full" />
-            )}
-          </div>
-        ))}
-      </div>
-
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 right-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 left-20 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
-        <div
-          className="absolute top-1/3 left-1/3 w-96 h-96 bg-gradient-to-r from-violet-500/5 to-cyan-500/5 rounded-full blur-3xl animate-spin"
-          style={{ animationDuration: "25s" }}
-        />
-      </div>
+      <FloatingParticles />
+      <AnimatedBackgroundElements />
 
       <div className="relative z-10 w-full min-h-screen pb-28">
-        {/* Enhanced Hero Section */}
         <div className="relative w-full overflow-hidden">
-          {/* Hero Background with Gradient Overlay */}
           <div className="relative h-[40vh] md:h-[50vh]">
             {/* Animated Background */}
             <div className="absolute inset-0 bg-gradient-to-br from-pink-500/20 via-violet-600/20 to-cyan-500/20 backdrop-blur-sm" />
@@ -202,7 +123,7 @@ const AllLinks = ({ personalData }) => {
 
             {/* Floating Icons */}
             <div className="absolute inset-0">
-              {[FaCode, FaRocket, FaStar, FaHeart].map((Icon, index) => (
+              {[Code, Rocket, Star, Heart].map((Icon, index) => (
                 <Icon
                   key={index}
                   className="absolute text-white/10 animate-float"
@@ -218,7 +139,7 @@ const AllLinks = ({ personalData }) => {
             </div>
           </div>
 
-          {/* Enhanced Profile Image */}
+          {/* Profile Image */}
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 lg:left-32 xl:left-48 lg:translate-x-0 pt-20 pb-8 lg:py-16 lg:pt-28">
             <div className="relative group">
               {/* Glow Effect */}
@@ -243,9 +164,9 @@ const AllLinks = ({ personalData }) => {
           </div>
         </div>
 
-        {/* Enhanced Content Grid */}
+        {/*  Grid */}
         <div className="grid w-full max-w-7xl grid-cols-1 mx-auto -mt-20 min-h-[70vh] gap-8 lg:grid-cols-2 px-4 sm:px-6 lg:px-8">
-          {/* Left Panel - Enhanced Profile Info */}
+          {/* Left Panel - Profile Info */}
           <div
             className={`w-full mt-7 lg:mt-20 transform transition-all duration-1000 ${
               isVisible
@@ -258,11 +179,10 @@ const AllLinks = ({ personalData }) => {
               <div className="absolute -inset-2 bg-gradient-to-r from-pink-500/20 via-violet-500/20 to-cyan-500/20 rounded-3xl blur-xl opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
 
               <div className="relative bg-gradient-to-br from-[#0d1224]/90 to-[#1a1a2e]/90 backdrop-blur-sm rounded-3xl border border-gray-700/50 p-8 lg:p-10">
-                {/* Name with Enhanced Typography */}
                 <div className="space-y-6">
                   <div className="flex items-center space-x-4 group">
                     <div className="w-12 h-[3px] bg-gradient-to-r from-pink-500 via-violet-500 to-cyan-400 rounded-full group-hover:w-16 transition-all duration-500" />
-                    <FaUser className="w-6 h-6 text-pink-400 animate-pulse" />
+                    <User className="w-6 h-6 text-pink-400 animate-pulse" />
                   </div>
 
                   <h2 className="text-center lg:text-left">
@@ -281,21 +201,24 @@ const AllLinks = ({ personalData }) => {
                     </span>
                   </h2>
 
-                  {/* Enhanced Role Typography */}
+                  {/* TypeAnimation */}
                   <div className="text-center lg:text-left">
                     <div className="inline-flex items-center space-x-3 text-xl md:text-2xl lg:text-3xl">
                       <span className="text-gray-300 font-light">I'm a</span>
                       <div className="relative bg-gradient-to-r from-[#16f2b3] via-cyan-400 to-blue-400 font-bold px-4 py-2 rounded-lg">
-                        {/* <HeroTypeWritter
-                          words={["Full-Stack Web Developer..."]}
-                          speed={100}
-                        /> */}
+                        <TypeAnimation
+                          sequence={personalData?.designation}
+                          wrapper="p"
+                          cursor
+                          repeat={Infinity}
+                          className="type-designation"
+                        />
                       </div>
                     </div>
                   </div>
                 </div>
 
-                {/* Enhanced Description */}
+                {/* Description */}
                 <div className="mt-8 space-y-6">
                   <p className="text-gray-300 text-lg leading-relaxed">
                     Développeur Web Full-Stack en devenir et étudiant motivé,
@@ -305,25 +228,25 @@ const AllLinks = ({ personalData }) => {
                     innovantes.
                   </p>
 
-                  {/* Enhanced Contact Button */}
-                  {/* <Link
+                  {/* Contact Button */}
+                  <Link
                     to="/#contact"
                     className="group relative overflow-hidden bg-gradient-to-r from-pink-500 to-violet-600 p-[2px] rounded-2xl hover:shadow-2xl hover:shadow-pink-500/25 transition-all duration-500 hover:scale-105 inline-flex"
                   >
                     <div className="bg-[#0d1224] rounded-2xl px-8 py-4 group-hover:bg-transparent transition-all duration-500">
                       <div className="flex items-center justify-center space-x-3 text-white font-bold text-lg">
-                        <FaEnvelope className="w-5 h-5" />
+                        <Mail className="w-5 h-5" />
                         <span>Contacter</span>
-                        <FaExternalLinkAlt className="w-4 h-4 group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300" />
+                        <ExternalLink className="w-4 h-4 group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300" />
                       </div>
                     </div>
-                  </Link> */}
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Panel - Enhanced Links */}
+          {/* Right Panel - Links */}
           <div
             className={`w-full transform transition-all duration-1000 delay-300 ${
               isVisible
@@ -343,7 +266,7 @@ const AllLinks = ({ personalData }) => {
                 <p className="text-gray-400">Find me on these platforms</p>
               </div>
 
-              {/* Enhanced Links Grid */}
+              {/* Links */}
               <div className="space-y-4">
                 {links?.map((link, index) => (
                   <Link
@@ -352,8 +275,6 @@ const AllLinks = ({ personalData }) => {
                     target="_blank"
                     className="group relative block transform transition-all duration-500 hover:scale-[1.02] hover:-translate-y-2"
                     style={{ animationDelay: `${index * 0.1}s` }}
-                    onMouseEnter={() => setActiveLink(link.id)}
-                    onMouseLeave={() => setActiveLink(null)}
                   >
                     {/* Glow Effect */}
                     <div className="absolute -inset-1 bg-gradient-to-r from-pink-500/20 via-violet-500/20 to-cyan-500/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -366,7 +287,7 @@ const AllLinks = ({ personalData }) => {
                       </div>
 
                       <div className="relative flex items-center gap-6">
-                        {/* Enhanced Icon */}
+                        {/* Icon */}
                         <div className="relative">
                           <div
                             className="w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg"
@@ -382,13 +303,13 @@ const AllLinks = ({ personalData }) => {
                           />
                         </div>
 
-                        {/* Enhanced Content */}
+                        {/* Content */}
                         <div className="flex-1 space-y-2">
                           <div className="flex items-center justify-between">
                             <h4 className="text-xl md:text-2xl font-bold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-pink-400 group-hover:to-violet-400 group-hover:bg-clip-text transition-all duration-300">
                               {link.title}
                             </h4>
-                            <FaExternalLinkAlt className="w-5 h-5 text-gray-400 group-hover:text-pink-400 group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300" />
+                            <ExternalLink className="w-5 h-5 text-gray-400 group-hover:text-pink-400 group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300" />
                           </div>
 
                           <p className="text-blue-400 text-lg md:text-xl group-hover:text-cyan-300 transition-colors duration-300">
@@ -410,7 +331,7 @@ const AllLinks = ({ personalData }) => {
               {/* Bottom Decoration */}
               <div className="text-center mt-12">
                 <div className="inline-flex items-center space-x-4 px-6 py-3 bg-gradient-to-r from-pink-500/10 to-violet-600/10 rounded-full border border-pink-500/20">
-                  <HiSparkles className="w-6 h-6 text-pink-400 animate-pulse" />
+                  <Sparkles className="w-6 h-6 text-pink-400 animate-pulse" />
                   <span className="text-gray-300 font-medium">
                     Let's build something amazing together
                   </span>
@@ -421,8 +342,8 @@ const AllLinks = ({ personalData }) => {
         </div>
       </div>
 
-      {/* Enhanced Styles */}
-      <style jsx>{`
+      {/* Styles */}
+      <style>{`
         @keyframes fadeInUp {
           from {
             opacity: 0;

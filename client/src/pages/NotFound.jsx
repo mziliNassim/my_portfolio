@@ -1,15 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  FaHome,
-  FaFileDownload,
-  FaLink,
-  FaRocket,
-  FaCode,
-  FaArrowLeft,
-  FaExclamationTriangle,
-  FaStar,
-} from "react-icons/fa";
-import { HiSparkles } from "react-icons/hi";
+import { Home, Download, Link, Rocket, Code, ArrowLeft } from "lucide-react";
+import { AlertTriangle, Star, Sparkles } from "lucide-react";
 
 const NotFound = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -49,7 +40,7 @@ const NotFound = () => {
       title: "Portfolio",
       description: "View my work & projects",
       href: "/",
-      icon: FaHome,
+      icon: Home,
       gradient: "from-pink-500 to-violet-600",
       glowColor: "pink-500/30",
     },
@@ -57,7 +48,7 @@ const NotFound = () => {
       title: "Download CV",
       description: "Get my resume & credentials",
       href: "/cv",
-      icon: FaFileDownload,
+      icon: Download,
       gradient: "from-[#16f2b3] to-cyan-400",
       glowColor: "[#16f2b3]/30",
     },
@@ -65,7 +56,7 @@ const NotFound = () => {
       title: "All Links",
       description: "Connect with me everywhere",
       href: "/links",
-      icon: FaLink,
+      icon: Link,
       gradient: "from-violet-500 to-purple-600",
       glowColor: "violet-500/30",
     },
@@ -97,9 +88,9 @@ const NotFound = () => {
             }}
           >
             {i % 4 === 0 ? (
-              <HiSparkles className="w-2 h-2 text-pink-400/40" />
+              <Sparkles className="w-2 h-2 text-pink-400/40" />
             ) : i % 4 === 1 ? (
-              <FaStar className="w-1 h-1 text-violet-400/40" />
+              <Star className="w-1 h-1 text-violet-400/40" />
             ) : (
               <div className="w-1 h-1 bg-cyan-400/30 rounded-full" />
             )}
@@ -122,7 +113,7 @@ const NotFound = () => {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 rounded-full blur-xl opacity-30 animate-pulse" />
                 <div className="relative p-6 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-full border border-orange-500/30">
-                  <FaExclamationTriangle className="w-12 h-12 text-orange-400" />
+                  <AlertTriangle className="w-12 h-12 text-orange-400" />
                 </div>
               </div>
             </div>
@@ -228,7 +219,7 @@ const NotFound = () => {
                   {/* Arrow Icon */}
                   <div className="flex justify-center mt-6">
                     <div className="w-8 h-8 rounded-full bg-gradient-to-r from-gray-700/50 to-gray-600/50 flex items-center justify-center group-hover:bg-gradient-to-r group-hover:from-pink-500/20 group-hover:to-violet-600/20 transition-all duration-300">
-                      <FaArrowLeft className="w-3 h-3 text-gray-400 group-hover:text-pink-400 transform rotate-180 group-hover:translate-x-1 transition-all duration-300" />
+                      <ArrowLeft className="w-3 h-3 text-gray-400 group-hover:text-pink-400 transform rotate-180 group-hover:translate-x-1 transition-all duration-300" />
                     </div>
                   </div>
 
@@ -250,11 +241,11 @@ const NotFound = () => {
             }`}
           >
             <div className="inline-flex items-center space-x-4 px-8 py-4 bg-gradient-to-r from-pink-500/10 to-violet-600/10 rounded-full border border-pink-500/20 backdrop-blur-sm">
-              <FaRocket className="w-5 h-5 text-pink-400 animate-bounce" />
+              <Rocket className="w-5 h-5 text-pink-400 animate-bounce" />
               <span className="text-gray-300 font-medium">
                 Let's get you back on track to explore amazing things!
               </span>
-              <FaCode className="w-5 h-5 text-violet-400 animate-pulse" />
+              <Code className="w-5 h-5 text-violet-400 animate-pulse" />
             </div>
           </div>
         </div>

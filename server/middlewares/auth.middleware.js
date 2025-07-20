@@ -39,7 +39,7 @@ const authorize = (roles) => {
     if (!roles.includes(req.admin?.role)) {
       return res
         .status(403)
-        .json({ message: "Accès interdit : privilèges insuffisants." });
+        .json({ message: "Access denied: insufficient privileges." });
     }
     next();
   };

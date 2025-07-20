@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { FaCode, FaServer, FaTools } from "react-icons/fa";
+import { Code, Server, Wrench } from "lucide-react";
+
 import FloatingParticles from "../components/styles/FloatingParticles";
 import AnimatedBackgroundElements from "../components/styles/AnimatedBackgroundElements";
 
@@ -75,7 +76,7 @@ const ServerError = () => {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-orange-500 rounded-full blur-xl opacity-30 animate-pulse" />
                 <div className="relative p-6 bg-gradient-to-r from-red-500/20 to-orange-500/20 rounded-full border border-red-500/30">
-                  <FaServer className="w-12 h-12 text-red-400" />
+                  <Server className="w-12 h-12 text-red-400" />
                 </div>
               </div>
             </div>
@@ -143,11 +144,11 @@ const ServerError = () => {
             }`}
           >
             <div className="inline-flex items-center space-x-4 px-8 py-4 bg-gradient-to-r from-red-500/10 to-orange-600/10 rounded-full border border-red-500/20 backdrop-blur-sm">
-              <FaTools className="w-5 h-5 text-red-400 animate-bounce" />
+              <Wrench className="w-5 h-5 text-red-400 animate-bounce" />
               <span className="text-gray-300 font-medium">
                 I'm fixing this right now - thanks for your patience!
               </span>
-              <FaCode className="w-5 h-5 text-orange-400 animate-pulse" />
+              <Code className="w-5 h-5 text-orange-400 animate-pulse" />
             </div>
           </div>
         </div>

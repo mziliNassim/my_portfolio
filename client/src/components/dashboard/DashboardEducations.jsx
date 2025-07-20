@@ -62,7 +62,6 @@ const DashboardEducations = ({ educations, loadingEducations }) => {
       );
       setEducations(educations.filter((e) => e._id !== educationId));
     } catch (error) {
-      console.error("Error deleting education:", error);
       toast.error(error.response?.data?.message || error.message, {
         description: new Date().toUTCString(),
         action: { label: "✖️" },

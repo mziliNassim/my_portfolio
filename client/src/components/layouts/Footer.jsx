@@ -1,25 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-import { HiSparkles } from "react-icons/hi";
-import { BsBrowserChrome } from "react-icons/bs";
-import { PiReadCvLogoDuotone } from "react-icons/pi";
-import {
-  FaGithub,
-  FaLinkedin,
-  FaTwitter,
-  FaInstagram,
-  FaFacebook,
-  FaEnvelope,
-  FaPhone,
-  FaMapMarkerAlt,
-  FaHeart,
-  FaCode,
-  FaRocket,
-  FaCopyright,
-  FaDiscord,
-} from "react-icons/fa";
-import { FaLinkedinIn, FaSquareInstagram } from "react-icons/fa6";
+import { Sparkles, Globe, FileText, Github } from "lucide-react";
+import { Twitter, Instagram, Facebook, Mail } from "lucide-react";
+import { MapPin, Heart, Code, Rocket, Linkedin } from "lucide-react";
+import { MessageCircleMore, Copyright, Phone } from "lucide-react";
 
 const Footer = ({ personalData }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -32,7 +17,7 @@ const Footer = ({ personalData }) => {
       id: `linkedin-${Date.now()}`,
       desc: `linkedin.com/in/mzilinassim/`,
       title: "LinkedIn",
-      Icon: FaLinkedinIn,
+      Icon: Linkedin,
       url: personalData?.linkedIn,
       color: "#0077b5",
       hover: "hover:text-blue-400",
@@ -41,7 +26,7 @@ const Footer = ({ personalData }) => {
       id: `github-${Date.now()}`,
       desc: `github.com/mziliNassim/`,
       title: "github",
-      Icon: FaGithub,
+      Icon: Github,
       url: "https://github.com/mziliNassim",
       color: "#16181f",
       hover: "hover:text-gray-300",
@@ -50,7 +35,7 @@ const Footer = ({ personalData }) => {
       id: `Instagram-${Date.now()}`,
       desc: `instagram.com/nassim__dev/`,
       title: "Instagram",
-      Icon: FaSquareInstagram,
+      Icon: Instagram,
       url: personalData?.instagram,
       color: "#b60cbc",
       hover: "hover:text-pink-400",
@@ -59,7 +44,7 @@ const Footer = ({ personalData }) => {
       id: `mail-${Date.now()}`,
       desc: `mzilinassim@gmail.com`,
       title: "Email",
-      Icon: FaEnvelope,
+      Icon: Mail,
       url: "mailto:mzilinassim@gmail.com",
       color: "#5f98d1",
       hover: "hover:text-green-400",
@@ -68,7 +53,7 @@ const Footer = ({ personalData }) => {
       id: `cv-${Date.now()}`,
       desc: `https://nassim.online/mycv`,
       title: "Resume - CV",
-      Icon: PiReadCvLogoDuotone,
+      Icon: FileText,
       url: personalData?.fullResume,
       color: "#363636",
       hover: "",
@@ -77,7 +62,7 @@ const Footer = ({ personalData }) => {
       id: `portfolio-${Date.now()}`,
       desc: `https://nassim.online/`,
       title: "Portfolio",
-      Icon: BsBrowserChrome,
+      Icon: Globe,
       url: personalData?.Website,
       color: "#1b1b31",
       hover: "",
@@ -86,7 +71,7 @@ const Footer = ({ personalData }) => {
       id: `twitter-${Date.now()}`,
       desc: `twitter.com/nassim__dev`,
       title: "Twitter",
-      Icon: FaTwitter,
+      Icon: Twitter,
       url: personalData?.twitter,
       color: "#1DA1F2",
       hover: "hover:text-cyan-400",
@@ -95,16 +80,16 @@ const Footer = ({ personalData }) => {
       id: `fb-${Date.now()}`,
       desc: `facebook.com/mziliNassim/`,
       title: "Facebook",
-      Icon: FaFacebook,
+      Icon: Facebook,
       url: personalData?.facebook,
-      color: "#1877F2", // Facebook's brand color
+      color: "#1877F2",
       hover: "hover:text-blue-500",
     },
     {
       id: `discord-${Date.now()}`,
       desc: `discord.com/invite/wkaYHKT7`,
       title: "discord",
-      Icon: FaDiscord,
+      Icon: MessageCircleMore,
       url: "https://discord.com/users/668786277448941599",
       color: "#5a26ce",
       hover: "",
@@ -171,7 +156,7 @@ const Footer = ({ personalData }) => {
               }}
             >
               {i % 3 === 0 ? (
-                <HiSparkles className="w-2 h-2 text-pink-400/30" />
+                <Sparkles className="w-2 h-2 text-pink-400/30" />
               ) : (
                 <div className="w-1 h-1 bg-cyan-400/20 rounded-full" />
               )}
@@ -210,13 +195,13 @@ const Footer = ({ personalData }) => {
                 <div className="space-y-3 text-center md:text-left ">
                   {personalData?.address && (
                     <div className="flex items-center justify-center space-x-3 text-gray-400 hover:text-pink-400 transition-colors">
-                      <FaMapMarkerAlt className="w-4 h-4" />
+                      <MapPin className="w-4 h-4" />
                       <span>{personalData.address}</span>
                     </div>
                   )}
 
                   <div className="flex items-center justify-center md:justify-start text-center md:text-left  space-x-3 text-gray-400 hover:text-pink-400 transition-colors">
-                    <FaEnvelope className="w-4 h-4" />
+                    <Mail className="w-4 h-4" />
                     <a
                       href={`mailto:${personalData.email}`}
                       className="hover:underline"
@@ -225,7 +210,7 @@ const Footer = ({ personalData }) => {
                     </a>
                   </div>
                   <div className="flex items-center justify-center md:justify-start text-center md:text-left space-x-3 text-gray-400 hover:text-pink-400 transition-colors">
-                    <FaPhone className="w-4 h-4" />
+                    <Phone className="w-4 h-4" />
                     <span>{personalData.tele}</span>
                   </div>
                 </div>
@@ -255,7 +240,7 @@ const Footer = ({ personalData }) => {
                   location?.pathname !== "/links" && (
                     <div className="space-y-6">
                       <h4 className="text-xl font-bold text-white flex items-center space-x-2">
-                        <FaRocket className="w-5 h-5 text-pink-400" />
+                        <Rocket className="w-5 h-5 text-pink-400" />
                         <span>Quick Links</span>
                       </h4>
                       <ul className="space-y-3">
@@ -278,7 +263,7 @@ const Footer = ({ personalData }) => {
                 {/* Routes */}
                 <div className="space-y-6">
                   <h4 className="text-xl font-bold text-white flex items-center space-x-2">
-                    <FaCode className="w-5 h-5 text-violet-400" />
+                    <Code className="w-5 h-5 text-violet-400" />
                     <span>Routes</span>
                   </h4>
                   <ul className="space-y-3">
@@ -312,16 +297,16 @@ const Footer = ({ personalData }) => {
             >
               {/* Copyright */}
               <div className="flex items-center space-x-2 text-gray-400">
-                <FaCopyright className="w-4 h-4" />
+                <Copyright className="w-4 h-4" />
                 <span>{currentYear} . All rights reserved.</span>
               </div>
 
               {/* Made with Love */}
               <div className="flex items-center space-x-2 text-gray-400">
                 <span>Made with</span>
-                <FaHeart className="w-4 h-4 text-red-400 animate-pulse" />
+                <Heart className="w-4 h-4 text-red-400 animate-pulse" />
                 <span>and</span>
-                <FaCode className="w-4 h-4 text-pink-400" />
+                <Code className="w-4 h-4 text-pink-400" />
                 <span>
                   by{" "}
                   <a href={personalData.Website} className="underline italic">

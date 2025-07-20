@@ -54,18 +54,23 @@ const DashboardInfos = ({ infos, setInfos, loadingNassimInfo }) => {
   const handleSave = async () => {
     try {
       setLoadingSave(true);
-      setInfos({ ...tempInfos });
+      if (admin?.data?.role === "admin") setInfos({ ...tempInfos });
       const response = await axios.put(
         `${import.meta.env.VITE_SERVER_URI}/api/nassim/`,
-        tempInfos
+        tempInfos,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${admin?.token}`,
+          },
+        }
       );
-      console.log(" handleSave ~ response:", response);
       toast.success(response.data.message || "success !", {
         description: new Date().toUTCString(),
         action: { label: "✖️" },
       });
     } catch (error) {
-      toast.error(error.message, {
+      toast.error(error?.response?.data?.message || error.message, {
         description: new Date().toUTCString(),
         action: { label: "✖️" },
       });

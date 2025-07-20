@@ -11,8 +11,13 @@ const { deleteProject } = require("../controllers/projects.controller");
 
 router.get("/", getProjects);
 router.get("/:id", getProjectById);
-router.post("/", authenticate, authorize(["admin"]), addProject);
-router.put("/:id", authenticate, authorize(["admin"]), updateProject);
-router.delete("/:id", authenticate, authorize(["admin"]), deleteProject);
+router.post("/", authenticate, authorize(["admin", "tester"]), addProject);
+router.put("/:id", authenticate, authorize(["admin", "tester"]), updateProject);
+router.delete(
+  "/:id",
+  authenticate,
+  authorize(["admin", "tester"]),
+  deleteProject
+);
 
 module.exports = router;
