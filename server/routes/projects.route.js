@@ -1,19 +1,18 @@
 const { Router } = require("express");
-
-const {
-  getProjects,
-  getProjectById,
-  addProject,
-  updateProject,
-  deleteProject,
-} = require("../controllers/projects.controller");
-
 const router = Router();
+
+const { authenticate, authorize } = require("../middlewares/auth.middleware");
+
+const { getProjects } = require("../controllers/projects.controller");
+const { getProjectById } = require("../controllers/projects.controller");
+const { addProject } = require("../controllers/projects.controller");
+const { updateProject } = require("../controllers/projects.controller");
+const { deleteProject } = require("../controllers/projects.controller");
 
 router.get("/", getProjects);
 router.get("/:id", getProjectById);
-router.post("/", addProject);
-router.put("/:id", updateProject);
-router.delete("/:id", deleteProject);
+router.post("/", authenticate, authorize(["admin"]), addProject);
+router.put("/:id", authenticate, authorize(["admin"]), updateProject);
+router.delete("/:id", authenticate, authorize(["admin"]), deleteProject);
 
 module.exports = router;

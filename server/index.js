@@ -12,7 +12,7 @@ app.use(cors());
 
 // Routes
 app.get("/test", (req, res) => {
-  res.send("https://nassim.online");
+  res.json({ website: "https://nassim.online" });
 });
 app.get("/", (req, res) => {
   res.redirect("https://nassim.online");

@@ -1,12 +1,12 @@
 const { Router } = require("express");
-const {
-  getPersonalData,
-  updatePersonalData,
-} = require("../controllers/nassim.controller");
-
 const router = Router();
 
+const { authenticate, authorize } = require("../middlewares/auth.middleware");
+
+const { getPersonalData } = require("../controllers/nassim.controller");
+const { updatePersonalData } = require("../controllers/nassim.controller");
+
 router.get("/", getPersonalData);
-router.put("/", updatePersonalData);
+router.put("/", authenticate, authorize(["admin"]), updatePersonalData);
 
 module.exports = router;

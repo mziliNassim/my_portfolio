@@ -1,12 +1,9 @@
 const { Router } = require("express");
-
-const { signin, createAdmin } = require("../controllers/auth.controller.js");
-const {
-  authenticate,
-  authorize,
-} = require("../middlewares/auth.middleware.js");
-
 const router = Router();
+
+const { authenticate, authorize } = require("../middlewares/auth.middleware");
+
+const { signin, createAdmin } = require("../controllers/auth.controller");
 
 router.post("/", signin);
 router.post("/create-admin", authenticate, authorize(["admin"]), createAdmin);

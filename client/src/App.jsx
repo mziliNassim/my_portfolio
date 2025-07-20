@@ -30,10 +30,13 @@ import SignIn from "./components/dashboard/SignIn.jsx";
 import Loading from "./components/styles/Loading.jsx";
 
 import { clearAdmin, setAdmin } from "./features/adminSlice.js";
+import ServerError from "./pages/ServerError.jsx";
 
 const App = () => {
   const { admin } = useSelector((state) => state.admin);
   const [theme] = useState("dark");
+
+  const [serverError, setServerError] = useState(false);
 
   const [loadingNassimInfo, setLoadingNassimInfo] = useState(true);
   const [loadingExperiences, setLoadingExperiences] = useState(true);
@@ -68,6 +71,7 @@ const App = () => {
         { device, currentMonth }
       );
     } catch (error) {
+      if (!error.response) setServerError(true);
       toast.error(error?.response?.data?.message || error.message, {
         description: new Date().toUTCString(),
         action: { label: "✖️" },
@@ -84,6 +88,7 @@ const App = () => {
       );
       setInfos(response.data);
     } catch (error) {
+      if (!error.response) setServerError(true);
       toast.error(error?.response?.data?.message || error.message, {
         description: new Date().toUTCString(),
         action: { label: "✖️" },
@@ -102,6 +107,7 @@ const App = () => {
       );
       setExperiences(response.data.reverse());
     } catch (error) {
+      if (!error.response) setServerError(true);
       toast.error(error?.response?.data?.message || error.message, {
         description: new Date().toUTCString(),
         action: { label: "✖️" },
@@ -120,6 +126,7 @@ const App = () => {
       );
       setProjects(response.data.reverse());
     } catch (error) {
+      if (!error.response) setServerError(true);
       toast.error(error?.response?.data?.message || error.message, {
         description: new Date().toUTCString(),
         action: { label: "✖️" },
@@ -138,6 +145,7 @@ const App = () => {
       );
       setEducations(response.data.reverse());
     } catch (error) {
+      if (!error.response) setServerError(true);
       toast.error(error?.response?.data?.message || error.message, {
         description: new Date().toUTCString(),
         action: { label: "✖️" },
@@ -156,6 +164,7 @@ const App = () => {
       );
       setStats(response.data);
     } catch (error) {
+      if (!error.response) setServerError(true);
       toast.error(error?.response?.data?.message || error.message, {
         description: new Date().toUTCString(),
         action: { label: "✖️" },
@@ -192,6 +201,14 @@ const App = () => {
         <Toaster theme={theme} />
         <Loading size="md" />
       </div>
+    );
+
+  if (serverError)
+    return (
+      <>
+        <ServerError />
+        <Toaster theme={theme} />
+      </>
     );
 
   return (
