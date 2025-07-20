@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -23,9 +23,10 @@ import ProjectSettings from "./projects/ProjectSettings.jsx";
 import Loading from "../styles/Loading";
 import { scrollToTop, compressToBase64 } from "../../utils/helpers";
 
-const DashboardEditProject = () => {
+const DashboardEditProject = ({ projects, setProjects }) => {
   const { id } = useParams();
   const { admin } = useSelector((state) => state.admin);
+
   const [activeTab, setActiveTab] = useState("basic");
   const [projectData, setProjectData] = useState({
     name: "",
@@ -44,6 +45,8 @@ const DashboardEditProject = () => {
   const [newTool, setNewTool] = useState("");
   const [imageCompressing, setImageCompressing] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     scrollToTop();
@@ -65,7 +68,6 @@ const DashboardEditProject = () => {
           },
         }
       );
-      console.log("🚀 ~ fetchProject ~ response.data:", response.data);
       setProjectData({
         ...response.data,
         collabWith:
@@ -74,7 +76,6 @@ const DashboardEditProject = () => {
             : [],
       });
     } catch (error) {
-      console.error("Error fetching project:", error);
       toast.error(error.response?.data?.message || error.message, {
         description: new Date().toUTCString(),
         action: { label: "✖️" },
@@ -194,7 +195,6 @@ const DashboardEditProject = () => {
         action: { label: "✖️" },
       });
     } catch (error) {
-      console.error("Error compressing image:", error);
       toast.error("Error processing image", {
         description: "Please try again with a different image",
         action: { label: "✖️" },
@@ -222,8 +222,14 @@ const DashboardEditProject = () => {
         description: new Date().toUTCString(),
         action: { label: "✖️" },
       });
+
+      // Update the project in the state
+      const updatedProjects = projects.map((project) =>
+        project._id === id ? { ...project, ...projectData } : project
+      );
+      setProjects(updatedProjects);
+      navigate(`/admin/dashboard/projects`);
     } catch (error) {
-      console.error("Error updating project:", error);
       toast.error(error.response?.data?.message || error.message, {
         description: new Date().toUTCString(),
         action: { label: "✖️" },

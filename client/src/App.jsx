@@ -16,13 +16,14 @@ import NotFound from "./pages/NotFound.jsx";
 import Cv from "./pages/Cv";
 
 import DashboardInfos from "./components/dashboard/DashboardInfos.jsx";
+
 import DashboardProjects from "./components/dashboard/DashboardProjects.jsx";
+import DashboardAddProjects from "./components/dashboard/DashboardAddProjects.jsx";
+import DashboardEditProject from "./components/dashboard/DashboardEditProject.jsx";
+
 import DashboardExperiences from "./components/dashboard/DashboardExperiences.jsx";
 import DashboardEducations from "./components/dashboard/DashboardEducations.jsx";
 import DashboardAnalytics from "./components/dashboard/DashboardAnalytics.jsx";
-
-import DashboardAddProjects from "./components/dashboard/DashboardAddProjects.jsx";
-import DashboardEditProject from "./components/dashboard/DashboardEditProject.jsx";
 
 import SignIn from "./components/dashboard/SignIn.jsx";
 
@@ -75,6 +76,26 @@ const App = () => {
         description: new Date().toUTCString(),
         action: { label: "✖️" },
       });
+    }
+  };
+
+  const isValidToken = async (token) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_URI}/api/auth/verify-token`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      // toast.success("Token is valid");
+      return response.status === 200 && response.data.valid;
+    } catch (error) {
+      // toast.error("Token is invalid or expired");
+      return false;
     }
   };
 
@@ -176,7 +197,10 @@ const App = () => {
   useEffect(() => {
     // check admin localStorage
     const adminStorage = JSON.parse(localStorage.getItem("admin"));
-    if (adminStorage) dispatch(setAdmin(adminStorage));
+
+    // Check if the token is expired
+    if (adminStorage && isValidToken(adminStorage?.token))
+      dispatch(setAdmin(adminStorage));
     else dispatch(clearAdmin());
 
     // Fetch API
@@ -274,7 +298,12 @@ const App = () => {
               />
               <Route
                 path="edit-project/:id"
-                element={<DashboardEditProject />}
+                element={
+                  <DashboardEditProject
+                    projects={projects}
+                    setProjects={setProjects}
+                  />
+                }
               />
 
               {/* Experiences */}

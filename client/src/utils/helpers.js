@@ -33,7 +33,6 @@ export const compressToBase64 = async (file, maxWidth = 600, quality = 0.6) => {
       reader.readAsDataURL(compressedFile);
     });
   } catch (error) {
-    console.error("Error compressing image:", error);
     throw error;
   }
 };

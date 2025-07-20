@@ -12,6 +12,35 @@ const createAuthToken = (admin) => {
   );
 };
 
+// Vérifie le token d'authentification
+const verifyToken = (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({
+        valid: false,
+        message: "Accès non autorisé : token manquant.",
+      });
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err)
+        return res
+          .status(401)
+          .json({ valid: false, message: "Token invalide ou expiré." });
+
+      return res.status(200).json({ valid: true, admin: decoded });
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ valid: false, message: "Erreur interne du serveur." });
+  }
+};
+
 // Vérifie que l'utilisateur est authentifié
 const authenticate = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -45,4 +74,4 @@ const authorize = (roles) => {
   };
 };
 
-module.exports = { createAuthToken, authenticate, authorize };
+module.exports = { createAuthToken, authenticate, authorize, verifyToken };
