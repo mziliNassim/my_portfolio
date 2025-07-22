@@ -1,4 +1,5 @@
 const Nassim = require("../models/Nassim");
+const Activitie = require("../models/Activitie");
 
 const getPersonalData = async (req, res) => {
   try {
@@ -21,6 +22,14 @@ const updatePersonalData = async (req, res) => {
       if (!updatedData) {
         return res.status(404).json({ message: "Profile not found!" });
       }
+
+      const activities = {
+        action: "Profile updated by admin : " + req.admin.username,
+        type: "update",
+      };
+
+      await Activitie.create(activities);
+
       return res.status(200).json({
         ...updatedData,
         message: "Profile update successfuly!",

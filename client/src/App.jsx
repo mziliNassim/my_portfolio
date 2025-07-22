@@ -12,8 +12,10 @@ import Portfolio from "./pages/Portfolio.jsx";
 import Projects from "./components/portfolio/Projects.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Links from "./pages/Links.jsx";
-import NotFound from "./pages/NotFound.jsx";
 import Cv from "./pages/Cv";
+
+import NotFound from "./pages/NotFound.jsx";
+import ServerError from "./pages/ServerError.jsx";
 
 import DashboardInfos from "./components/dashboard/DashboardInfos.jsx";
 
@@ -36,12 +38,12 @@ import SignIn from "./components/dashboard/SignIn.jsx";
 import Loading from "./components/styles/Loading.jsx";
 
 import { clearAdmin, setAdmin } from "./features/adminSlice.js";
-import ServerError from "./pages/ServerError.jsx";
+import { clearStats, setStats } from "./features/statsSlice.js";
 
 const App = () => {
   const { admin } = useSelector((state) => state.admin);
-  const [theme] = useState("dark");
 
+  const [theme] = useState("dark");
   const [serverError, setServerError] = useState(false);
 
   const [loadingNassimInfo, setLoadingNassimInfo] = useState(true);
@@ -54,7 +56,7 @@ const App = () => {
   const [experiences, setExperiences] = useState([]);
   const [projects, setProjects] = useState([]);
   const [educations, setEducations] = useState([]);
-  const [stats, setStats] = useState({});
+  // const [stats, setStats] = useState({});
 
   const dispatch = useDispatch();
 
@@ -189,9 +191,10 @@ const App = () => {
       const response = await axios.get(
         `${import.meta.env.VITE_SERVER_URI}/api/stats`
       );
-      setStats(response.data);
+      dispatch(setStats(response.data));
     } catch (error) {
       if (!error.response) setServerError(true);
+      dispatch(clearStats());
       toast.error(error?.response?.data?.message || error.message, {
         description: new Date().toUTCString(),
         action: { label: "✖️" },
@@ -383,12 +386,7 @@ const App = () => {
               {/* Analytics */}
               <Route
                 path="analytics"
-                element={
-                  <DashboardAnalytics
-                    stats={stats}
-                    loadingStats={loadingStats}
-                  />
-                }
+                element={<DashboardAnalytics loadingStats={loadingStats} />}
               />
             </Route>
           </Route>

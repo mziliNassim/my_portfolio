@@ -2,10 +2,10 @@ const Activitie = require("../models/Activitie");
 
 const getActivities = async (req, res) => {
   try {
-    const activities = await Activitie.find().sort({ createdAt: -1 });
-    res.status(200).json(activities);
+    const activities = await Activitie.find().sort({ createdAt: -1 }).limit(5);
+    return res.status(200).json(activities);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
@@ -16,20 +16,21 @@ const addActivitie = async (req, res) => {
     const newActivitie = new Activitie({ action, time, type });
     await newActivitie.save();
 
-    res.status(201).json(newActivitie);
+    return res.status(201).json(newActivitie);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    return res.status(400).json({ message: error.message });
   }
 };
+
 const deleteActivitie = async (req, res) => {
   try {
     const deleted = await Activitie.findByIdAndDelete(req.params.id);
     if (!deleted) {
       return res.status(404).json({ message: "Activitie not found" });
     }
-    res.status(200).json({ message: "Activitie deleted" });
+    return res.status(200).json({ message: "Activitie deleted" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 

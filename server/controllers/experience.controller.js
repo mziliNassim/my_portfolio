@@ -1,3 +1,4 @@
+const Activitie = require("../models/Activitie");
 const Experience = require("../models/Experience");
 
 const getExperiences = async (req, res) => {
@@ -24,6 +25,13 @@ const addExperience = async (req, res) => {
     if (req.admin.role === "admin") {
       const newExperience = new Experience(req.body);
       const saved = await newExperience.save();
+
+      const activities = {
+        action: "Experience added by admin : " + req.admin.username,
+        type: "experience",
+      };
+      await Activitie.create(activities);
+
       return res.status(201).json(saved);
     } else if (req.admin.role === "tester") {
       return res.status(200).json({
@@ -47,6 +55,13 @@ const updateExperience = async (req, res) => {
         }
       );
       if (!updated) return res.status(404).json({ message: "Not found" });
+
+      const activities = {
+        action: "Experience updates by admin : " + req.admin.username,
+        type: "experience",
+      };
+      await Activitie.create(activities);
+
       return res.status(200).json(updated);
     } else if (req.admin.role === "tester") {
       return res.status(200).json({
@@ -63,6 +78,13 @@ const deleteExperience = async (req, res) => {
     if (req.admin.role === "admin") {
       const deleted = await Experience.findByIdAndDelete(req.params.id);
       if (!deleted) return res.status(404).json({ message: "Not found" });
+
+      const activities = {
+        action: "Experience delete by admin : " + req.admin.username,
+        type: "experience",
+      };
+      await Activitie.create(activities);
+
       return res.status(200).json({ message: "Deleted successfully" });
     } else if (req.admin.role === "tester") {
       return res.status(200).json({

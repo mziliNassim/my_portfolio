@@ -25,7 +25,7 @@ export const managementLinks = [
     icon: FolderOpen,
     gradient: "from-[#16f2b3] to-cyan-400",
     glowColor: "[#16f2b3]/30",
-    count: 12,
+    count: 8,
   },
   {
     id: "experiences",
@@ -35,7 +35,7 @@ export const managementLinks = [
     icon: Briefcase,
     gradient: "from-violet-500 to-purple-600",
     glowColor: "violet-500/30",
-    count: 8,
+    count: 1,
   },
   {
     id: "educations",
@@ -45,7 +45,7 @@ export const managementLinks = [
     icon: GraduationCap,
     gradient: "from-green-500 to-emerald-500",
     glowColor: "green-500/30",
-    count: 4,
+    count: 5,
   },
   {
     id: "analytics",

@@ -2,6 +2,7 @@ const Stats = require("../models/Stats");
 
 const getstats = async (req, res) => {
   try {
+    // only 10 last documents
     const data = await Stats.findOne();
     if (!data) return res.status(404).json({ message: "Stats not found!" });
     return res.status(200).json(data);

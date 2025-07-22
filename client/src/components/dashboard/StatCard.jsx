@@ -28,7 +28,7 @@ const StatCard = ({ title, value, icon: Icon, color, growth, delay }) => {
         <div className="space-y-2">
           <p className="text-gray-400 text-sm font-medium">{title}</p>
           <p className="text-3xl font-bold text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:bg-clip-text group-hover:from-pink-400 group-hover:to-violet-400 transition-all duration-300">
-            {value.toLocaleString()}
+            {value?.toLocaleString()}
           </p>
         </div>
 

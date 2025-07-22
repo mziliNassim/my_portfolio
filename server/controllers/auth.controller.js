@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const Admin = require("../models/Admin");
 const { createAuthToken } = require("../middlewares/auth.middleware");
+const Activitie = require("../models/Activitie");
 
 const signin = async (req, res) => {
   const { username, password } = req.body;
@@ -52,6 +53,13 @@ const createAdmin = async (req, res) => {
 
     // Generate JWT token
     const token = createAuthToken(newAdmin);
+
+    const activities = {
+      action: "New admin created by : " + req.admin.username,
+      type: "Admin",
+    };
+
+    await Activitie.create(activities);
 
     // Return success response
     return res.status(201).json({

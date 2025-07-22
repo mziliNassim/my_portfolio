@@ -1,3 +1,4 @@
+const Activitie = require("../models/Activitie");
 const Project = require("../models/Project");
 
 const getProjects = async (req, res) => {
@@ -24,6 +25,13 @@ const addProject = async (req, res) => {
     if (req.admin.role === "admin") {
       const newProject = new Project(req.body);
       const savedProject = await newProject.save();
+
+      const activities = {
+        action: "Project Added by admin : " + req.admin.username,
+        type: "project",
+      };
+      await Activitie.create(activities);
+
       return res.status(201).json(savedProject);
     } else if (req.admin.role === "tester") {
       return res.status(200).json({
@@ -51,6 +59,12 @@ const updateProject = async (req, res) => {
       if (!updatedProject)
         return res.status(404).json({ message: "Project not found" });
 
+      const activities = {
+        action: "Project updated by admin : " + req.admin.username,
+        type: "project",
+      };
+      await Activitie.create(activities);
+
       return res.status(200).json({ updatedProject });
     } else if (req.admin.role === "tester") {
       return res.status(200).json({
@@ -68,6 +82,13 @@ const deleteProject = async (req, res) => {
       const deletedProject = await Project.findByIdAndDelete(req.params.id);
       if (!deletedProject)
         return res.status(404).json({ message: "Project not found" });
+
+      const activities = {
+        action: "Project deleted by admin : " + req.admin.username,
+        type: "project",
+      };
+      await Activitie.create(activities);
+
       return res.status(200).json({ message: "Project deleted successfully" });
     } else if (req.admin.role === "tester") {
       return res.status(200).json({
