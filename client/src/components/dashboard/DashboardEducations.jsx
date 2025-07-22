@@ -3,24 +3,10 @@ import { toast } from "sonner";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {
-  GraduationCap,
-  Plus,
-  Search,
-  Clock,
-  CheckCircle,
-  Edit,
-  Trash2,
-  Calendar,
-  MapPin,
-  Award,
-  BookOpen,
-  Target,
-  Users,
-  School,
-  Trophy,
-  FileText,
-} from "lucide-react";
+
+import { GraduationCap, Plus, Search, Clock } from "lucide-react";
+import { Edit, Trash2, Calendar, MapPin, Award } from "lucide-react";
+import { Target, School, Trophy, BookOpen, CheckCircle } from "lucide-react";
 
 import DashboardSideBar from "./DashboardSideBar.jsx";
 import DashboardHeader from "./DashboardHeader.jsx";
@@ -31,7 +17,11 @@ import Loading from "../styles/Loading.jsx";
 
 import { scrollToTop } from "../../utils/helpers.js";
 
-const DashboardEducations = ({ educations, loadingEducations }) => {
+const DashboardEducations = ({
+  educations,
+  setEducations,
+  loadingEducations,
+}) => {
   const { admin } = useSelector((state) => state.admin);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
@@ -51,7 +41,13 @@ const DashboardEducations = ({ educations, loadingEducations }) => {
       return;
     try {
       const response = await axios.delete(
-        `${import.meta.env.VITE_SERVER_URI}/api/educations/${educationId}`
+        `${import.meta.env.VITE_SERVER_URI}/api/educations/${educationId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${admin?.token}`,
+          },
+        }
       );
       toast.success(
         response.data.message || "Education deleted successfully!",
@@ -60,7 +56,8 @@ const DashboardEducations = ({ educations, loadingEducations }) => {
           action: { label: "✖️" },
         }
       );
-      setEducations(educations.filter((e) => e._id !== educationId));
+      if (admin.data.role === "admin")
+        setEducations(educations?.filter((e) => e._id !== educationId));
     } catch (error) {
       toast.error(error.response?.data?.message || error.message, {
         description: new Date().toUTCString(),
@@ -70,12 +67,14 @@ const DashboardEducations = ({ educations, loadingEducations }) => {
   };
 
   // Filter educations
-  const filteredEducations = educations.filter((education) => {
+  const filteredEducations = educations?.filter((education) => {
     const matchesSearch =
-      education.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      education.institution.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      education.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      education.description.toLowerCase().includes(searchTerm.toLowerCase());
+      education.title?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+      education.institution
+        ?.toLowerCase()
+        .includes(searchTerm?.toLowerCase()) ||
+      education.city?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+      education.description?.toLowerCase().includes(searchTerm?.toLowerCase());
 
     const matchesStatus =
       filterStatus === "all" || education.status === filterStatus;
@@ -85,21 +84,21 @@ const DashboardEducations = ({ educations, loadingEducations }) => {
   });
 
   // Get unique education types and statuses for filters
-  const educationTypes = [...new Set(educations.map((edu) => edu.type))];
-  const educationStatuses = [...new Set(educations.map((edu) => edu.status))];
+  const educationTypes = [...new Set(educations?.map((edu) => edu.type))];
+  const educationStatuses = [...new Set(educations?.map((edu) => edu.status))];
 
   // Calculate stats
-  const totalEducations = educations.length;
-  const completedEducations = educations.filter(
+  const totalEducations = educations?.length;
+  const completedEducations = educations?.filter(
     (edu) => edu.status === "Completed"
   ).length;
-  const progressEducations = educations.filter(
+  const progressEducations = educations?.filter(
     (edu) => edu.status === "Progress"
   ).length;
-  const certifiedEducations = educations.filter(
+  const certifiedEducations = educations?.filter(
     (edu) => edu.status === "Certified"
   ).length;
-  const degreeEducations = educations.filter(
+  const degreeEducations = educations?.filter(
     (edu) => edu.type === "Degree"
   ).length;
 
@@ -134,8 +133,10 @@ const DashboardEducations = ({ educations, loadingEducations }) => {
     <section className="min-h-screen relative bg-gradient-to-br from-[#0d1224] via-[#1a1a2e] to-[#271c54] py-20 pt-20 pb-8 lg:py-16 lg:pt-28">
       <AnimatedBackgroundElements />
       <FloatingParticles />
+
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <DashboardHeader />
+
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <DashboardSideBar />
 
@@ -180,7 +181,7 @@ const DashboardEducations = ({ educations, loadingEducations }) => {
                     className="px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white focus:border-blue-500/50 focus:outline-none transition-colors"
                   >
                     <option value="all">All Status</option>
-                    {educationStatuses.map((status) => (
+                    {educationStatuses?.map((status) => (
                       <option key={status} value={status}>
                         {status}
                       </option>
@@ -192,7 +193,7 @@ const DashboardEducations = ({ educations, loadingEducations }) => {
                     className="px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white focus:border-blue-500/50 focus:outline-none transition-colors"
                   >
                     <option value="all">All Types</option>
-                    {educationTypes.map((type) => (
+                    {educationTypes?.map((type) => (
                       <option key={type} value={type}>
                         {type}
                       </option>
@@ -263,7 +264,7 @@ const DashboardEducations = ({ educations, loadingEducations }) => {
               ) : (
                 <>
                   <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-                    {filteredEducations.map((education, i) => (
+                    {filteredEducations?.map((education, i) => (
                       <div
                         key={education._id}
                         className="bg-slate-800/30 backdrop-blur-sm border border-slate-700/50 rounded-lg p-6 hover:border-slate-600/50 transition-all duration-200 group"
@@ -350,7 +351,7 @@ const DashboardEducations = ({ educations, loadingEducations }) => {
                                 </span>
                               </div>
                               <div className="grid grid-cols-1 gap-2">
-                                {education.achievements.map(
+                                {education.achievements?.map(
                                   (achievement, index) => (
                                     <div
                                       key={index}
@@ -369,7 +370,7 @@ const DashboardEducations = ({ educations, loadingEducations }) => {
                       </div>
                     ))}
                   </div>
-                  {filteredEducations.length === 0 && (
+                  {filteredEducations?.length === 0 && (
                     <div className="text-center py-12">
                       <div className="w-16 h-16 bg-slate-700/50 rounded-full flex items-center justify-center mx-auto mb-4">
                         <GraduationCap className="w-8 h-8 text-slate-400" />

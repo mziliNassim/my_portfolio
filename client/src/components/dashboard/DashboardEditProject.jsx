@@ -20,6 +20,8 @@ import ProjectCollaborators from "./projects/ProjectCollaborators";
 import ProjectMedia from "./projects/ProjectMedia.jsx";
 import ProjectSettings from "./projects/ProjectSettings.jsx";
 
+import DashboardNotFoundUpdate from "./parts/DashboardNotFoundUpdate.jsx";
+
 import Loading from "../styles/Loading";
 
 import { scrollToTop, compressToBase64 } from "../../utils/helpers";
@@ -367,38 +369,7 @@ const DashboardEditProject = ({ projects, setProjects }) => {
                 </div>
               </div>
             ) : (
-              <div className="backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 rounded-3xl border border-white/20 shadow-2xl overflow-hidden">
-                <DashboardFormHeader
-                  title="Project Not Found"
-                  description="The project you're looking for doesn't exist or may have been removed"
-                />
-
-                <div className="p-8 text-center">
-                  <div className="max-w-md mx-auto">
-                    <div className="flex justify-center mb-4">
-                      <AlertCircle
-                        className="h-16 w-16 text-rose-500"
-                        strokeWidth={1.5}
-                      />
-                    </div>
-                    <h3 className="text-xl font-bold text-white mb-2">
-                      Project Not Found
-                    </h3>
-                    <p className="text-slate-300 mb-6">
-                      The project with ID #{id} could not be found. It may have
-                      been deleted or you might not have permission to access
-                      it.
-                    </p>
-                    <Link
-                      to="/admin/dashboard/projects"
-                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
-                    >
-                      <ArrowLeft className="w-4 h-4 mr-2" />
-                      Back to Projects
-                    </Link>
-                  </div>
-                </div>
-              </div>
+              <DashboardNotFoundUpdate type="project" id={id} />
             )}
           </div>
         </div>

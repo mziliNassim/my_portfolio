@@ -26,6 +26,9 @@ import DashboardAddExperience from "./components/dashboard/DashboardAddExperienc
 import DashboardEditExperience from "./components/dashboard/DashboardEditExperience.jsx";
 
 import DashboardEducations from "./components/dashboard/DashboardEducations.jsx";
+import DashboardAddEducation from "./components/dashboard/DashboardAddEducation.jsx";
+import DashboardEditEducation from "./components/dashboard/DashboardEditEducation.jsx";
+
 import DashboardAnalytics from "./components/dashboard/DashboardAnalytics.jsx";
 
 import SignIn from "./components/dashboard/SignIn.jsx";
@@ -298,13 +301,19 @@ const App = () => {
               />
               <Route
                 path="add-project"
-                element={<DashboardAddProjects setProjects={setProjects} />}
+                element={
+                  <DashboardAddProjects
+                    projects={projects}
+                    setProjects={setProjects}
+                  />
+                }
               />
               <Route
                 path="edit-project/:id"
                 element={
                   <DashboardEditProject
                     projects={projects}
+                    experiences={experiences}
                     setProjects={setProjects}
                   />
                 }
@@ -324,7 +333,10 @@ const App = () => {
               <Route
                 path="add-experience"
                 element={
-                  <DashboardAddExperience setExperiences={setExperiences} />
+                  <DashboardAddExperience
+                    experiences={experiences}
+                    setExperiences={setExperiences}
+                  />
                 }
               />
               <Route
@@ -343,7 +355,27 @@ const App = () => {
                 element={
                   <DashboardEducations
                     educations={educations}
+                    setEducations={setEducations}
                     loadingEducations={loadingEducations}
+                  />
+                }
+              />
+              <Route
+                path="add-education"
+                element={
+                  <DashboardAddEducation
+                    educations={educations}
+                    setEducations={setEducations}
+                    loadingEducations={loadingEducations}
+                  />
+                }
+              />
+              <Route
+                path="edit-education/:id"
+                element={
+                  <DashboardEditEducation
+                    educations={educations}
+                    setEducations={setEducations}
                   />
                 }
               />

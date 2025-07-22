@@ -27,6 +27,8 @@ import ExperienceDetails from "./experiences/ExperienceDetails.jsx";
 import ExperienceGeneral from "./experiences/ExperienceGeneral.jsx";
 import ExperienceTimeline from "./experiences/ExperienceTimeline.jsx";
 
+import DashboardNotFoundUpdate from "./parts/DashboardNotFoundUpdate.jsx";
+
 import Loading from "../styles/Loading";
 
 import { scrollToTop, compressToBase64 } from "../../utils/helpers";
@@ -213,12 +215,14 @@ const DashboardEditExperience = ({ experiences, setExperiences }) => {
       );
 
       // Update the experience in the state
-      const updatedExperiences = experiences.map((experience) =>
-        experience._id === id
-          ? { ...experience, ...experienceData }
-          : experience
-      );
-      if (admin.data.role == "admin") setExperiences(updatedExperiences);
+      if (admin.data.role == "admin") {
+        const updatedExperiences = experiences.map((experience) =>
+          experience._id === id
+            ? { ...experience, ...experienceData }
+            : experience
+        );
+        setExperiences(updatedExperiences);
+      }
       navigate(`/admin/dashboard/experiences`);
     } catch (error) {
       toast.error(error.response?.data?.message || error.message, {
@@ -417,37 +421,7 @@ const DashboardEditExperience = ({ experiences, setExperiences }) => {
                 </div>
               </div>
             ) : (
-              <div className="backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 rounded-3xl border border-white/20 shadow-2xl overflow-hidden">
-                <DashboardFormHeader
-                  title="Experience Not Found"
-                  description="The experience you're looking for doesn't exist or may have been removed"
-                />
-                <div className="p-8 text-center">
-                  <div className="max-w-md mx-auto">
-                    <div className="flex justify-center mb-4">
-                      <AlertCircle
-                        className="h-16 w-16 text-rose-500"
-                        strokeWidth={1.5}
-                      />
-                    </div>
-                    <h3 className="text-xl font-bold text-white mb-2">
-                      Experience Not Found
-                    </h3>
-                    <p className="text-slate-300 mb-6">
-                      The experience with ID #{id} could not be found. It may
-                      have been deleted or you might not have permission to
-                      access it.
-                    </p>
-                    <Link
-                      to="/admin/dashboard/experiences"
-                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
-                    >
-                      <ArrowLeft className="w-4 h-4 mr-2" />
-                      Back to experiences
-                    </Link>
-                  </div>
-                </div>
-              </div>
+              <DashboardNotFoundUpdate type="experience" id={id} />
             )}
           </div>
         </div>

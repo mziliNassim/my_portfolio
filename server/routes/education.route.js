@@ -11,8 +11,18 @@ const { deleteEducation } = require("../controllers/education.controller");
 
 router.get("/", getEducations);
 router.get("/:id", getEducationById);
-router.post("/", authenticate, authorize(["admin"]), addEducation);
-router.put("/:id", authenticate, authorize(["admin"]), updateEducation);
-router.delete("/:id", authenticate, authorize(["admin"]), deleteEducation);
+router.post("/", authenticate, authorize(["admin", "tester"]), addEducation);
+router.put(
+  "/:id",
+  authenticate,
+  authorize(["admin", "tester"]),
+  updateEducation
+);
+router.delete(
+  "/:id",
+  authenticate,
+  authorize(["admin", "tester"]),
+  deleteEducation
+);
 
 module.exports = router;

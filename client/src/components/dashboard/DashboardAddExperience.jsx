@@ -23,6 +23,7 @@ import { experinecTabs as tabs } from "../../utils/tabs.js";
 
 const DashboardAddExperience = ({ setExperiences }) => {
   const { admin } = useSelector((state) => state.admin);
+
   const [activeTab, setActiveTab] = useState("general");
   const [experienceData, setExperienceData] = useState({
     role: "",

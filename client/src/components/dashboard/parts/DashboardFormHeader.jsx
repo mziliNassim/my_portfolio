@@ -9,7 +9,7 @@ const DashboardFormHeader = ({ title, description }) => (
           <Rocket className="w-6 h-6 text-white" />
         </div>
         <div>
-          <h2 className="text-2xl font-bold text-white">{title}</h2>
+          <h2 className="text-2xl font-bold text-white capitalize">{title}</h2>
           <p className="text-slate-300">{description}</p>
         </div>
       </div>
