@@ -11,8 +11,18 @@ const { deleteExperience } = require("../controllers/experience.controller");
 
 router.get("/", getExperiences);
 router.get("/:id", getExperiencesById);
-router.post("/", authenticate, authorize(["admin"]), addExperience);
-router.put("/:id", authenticate, authorize(["admin"]), updateExperience);
-router.delete("/:id", authenticate, authorize(["admin"]), deleteExperience);
+router.post("/", authenticate, authorize(["admin", "tester"]), addExperience);
+router.put(
+  "/:id",
+  authenticate,
+  authorize(["admin", "tester"]),
+  updateExperience
+);
+router.delete(
+  "/:id",
+  authenticate,
+  authorize(["admin", "tester"]),
+  deleteExperience
+);
 
 module.exports = router;

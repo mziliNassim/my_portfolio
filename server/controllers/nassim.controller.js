@@ -4,7 +4,7 @@ const getPersonalData = async (req, res) => {
   try {
     const data = await Nassim.findOne();
     if (!data) return res.status(404).json({ message: "Profile not found!" });
-    res.json(data);
+    res.status(200).json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

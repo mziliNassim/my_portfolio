@@ -3,7 +3,7 @@ const Activitie = require("../models/Activitie");
 const getActivities = async (req, res) => {
   try {
     const activities = await Activitie.find().sort({ createdAt: -1 });
-    res.json(activities);
+    res.status(200).json(activities);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -27,7 +27,7 @@ const deleteActivitie = async (req, res) => {
     if (!deleted) {
       return res.status(404).json({ message: "Activitie not found" });
     }
-    res.json({ message: "Activitie deleted" });
+    res.status(200).json({ message: "Activitie deleted" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

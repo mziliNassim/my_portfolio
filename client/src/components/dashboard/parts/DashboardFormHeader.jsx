@@ -1,6 +1,6 @@
 import { Rocket } from "lucide-react";
 
-const ProjectFormHeader = ({ title, description }) => (
+const DashboardFormHeader = ({ title, description }) => (
   <div className="relative bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-pink-600/20 p-8 border-b border-white/10">
     <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10"></div>
     <div className="relative z-10">
@@ -17,4 +17,4 @@ const ProjectFormHeader = ({ title, description }) => (
   </div>
 );
 
-export default ProjectFormHeader;
+export default DashboardFormHeader;

@@ -15,7 +15,11 @@ import Loading from "../styles/Loading.jsx";
 
 import { scrollToTop } from "../../utils/helpers.js";
 
-const DashboardExperiences = ({ experiences, loadingExperiences }) => {
+const DashboardExperiences = ({
+  experiences,
+  setExperiences,
+  loadingExperiences,
+}) => {
   const { admin } = useSelector((state) => state.admin);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("all");
@@ -34,7 +38,13 @@ const DashboardExperiences = ({ experiences, loadingExperiences }) => {
       return;
     try {
       const response = await axios.delete(
-        `${import.meta.env.VITE_SERVER_URI}/api/experiences/${experienceId}`
+        `${import.meta.env.VITE_SERVER_URI}/api/experiences/${experienceId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${admin.token}`,
+          },
+        }
       );
       toast.success(
         response.data.message || "Experience deleted successfully!",
@@ -43,7 +53,8 @@ const DashboardExperiences = ({ experiences, loadingExperiences }) => {
           action: { label: "✖️" },
         }
       );
-      setExperiences(experiences.filter((exp) => exp._id !== experienceId));
+      if (admin.data?.role == "admin")
+        setExperiences(experiences.filter((exp) => exp._id !== experienceId));
     } catch (error) {
       toast.error(error.response?.data?.message || error.message, {
         description: new Date().toUTCString(),
@@ -55,11 +66,11 @@ const DashboardExperiences = ({ experiences, loadingExperiences }) => {
   // Filter experiences
   const filteredExperiences = experiences.filter((experience) => {
     const matchesSearch =
-      experience.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      experience.company.name
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase()) ||
-      experience.description.toLowerCase().includes(searchTerm.toLowerCase());
+      experience.role?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      experience.company?.name
+        ?.toLowerCase()
+        .includes(searchTerm?.toLowerCase()) ||
+      experience.description?.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesType = filterType === "all" || experience.type === filterType;
 
@@ -127,8 +138,8 @@ const DashboardExperiences = ({ experiences, loadingExperiences }) => {
                     className="px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-lg text-white focus:border-blue-500/50 focus:outline-none transition-colors"
                   >
                     <option value="all">All Types</option>
-                    {experienceTypes.map((type) => (
-                      <option key={type} value={type}>
+                    {experienceTypes.map((type, i) => (
+                      <option key={i} value={type}>
                         {type}
                       </option>
                     ))}

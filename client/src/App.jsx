@@ -22,6 +22,9 @@ import DashboardAddProjects from "./components/dashboard/DashboardAddProjects.js
 import DashboardEditProject from "./components/dashboard/DashboardEditProject.jsx";
 
 import DashboardExperiences from "./components/dashboard/DashboardExperiences.jsx";
+import DashboardAddExperience from "./components/dashboard/DashboardAddExperience.jsx";
+import DashboardEditExperience from "./components/dashboard/DashboardEditExperience.jsx";
+
 import DashboardEducations from "./components/dashboard/DashboardEducations.jsx";
 import DashboardAnalytics from "./components/dashboard/DashboardAnalytics.jsx";
 
@@ -95,6 +98,7 @@ const App = () => {
       return response.status === 200 && response.data.valid;
     } catch (error) {
       // toast.error("Token is invalid or expired");
+      if (!error.response) setServerError(true);
       return false;
     }
   };
@@ -311,8 +315,24 @@ const App = () => {
                 path="experiences"
                 element={
                   <DashboardExperiences
+                    setExperiences={setExperiences}
                     experiences={experiences}
                     loadingExperiences={loadingExperiences}
+                  />
+                }
+              />
+              <Route
+                path="add-experience"
+                element={
+                  <DashboardAddExperience setExperiences={setExperiences} />
+                }
+              />
+              <Route
+                path="edit-experience/:id"
+                element={
+                  <DashboardEditExperience
+                    experiences={experiences}
+                    setExperiences={setExperiences}
                   />
                 }
               />

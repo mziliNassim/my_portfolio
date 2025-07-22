@@ -12,10 +12,10 @@ app.use(cors());
 
 // Routes
 app.get("/test", (req, res) => {
-  res.json({ website: "https://nassim.online" });
+  res.status(200).json({ website: "https://nassim.online" });
 });
 app.get("/", (req, res) => {
-  res.redirect("https://nassim.online");
+  res.status(200).redirect("https://nassim.online");
 });
 
 app.use("/api/auth", require("./routes/auth.route"));

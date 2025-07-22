@@ -3,8 +3,7 @@ import { toast } from "sonner";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Code, Rocket, Settings } from "lucide-react";
-import { ArrowLeft, Image, Users } from "lucide-react";
+import { Rocket, ArrowLeft } from "lucide-react";
 
 import DashboardSideBar from "./DashboardSideBar.jsx";
 import DashboardHeader from "./DashboardHeader.jsx";
@@ -14,13 +13,14 @@ import ProjectCollaborators from "./projects/ProjectCollaborators";
 import ProjectMedia from "./projects/ProjectMedia.jsx";
 import ProjectSettings from "./projects/ProjectSettings.jsx";
 
-import ProjectFormHeader from "./projects/ProjectFormHeader.jsx";
-import ProjectFormTabs from "./projects/ProjectFormTabs.jsx";
+import DashboardFormHeader from "./parts/DashboardFormHeader.jsx";
+import DashboardFormTabs from "./parts/DashboardFormTabs.jsx";
 
 import FloatingParticles from "../styles/FloatingParticles.jsx";
 import AnimatedBackgroundElements from "../styles/AnimatedBackgroundElements.jsx";
 
 import { scrollToTop, compressToBase64 } from "../../utils/helpers";
+import { projectTabs as tabs } from "../../utils/tabs.js";
 
 const DashboardAddProjects = ({ setProjects }) => {
   const { admin } = useSelector((state) => state.admin);
@@ -217,13 +217,6 @@ const DashboardAddProjects = ({ setProjects }) => {
     }
   };
 
-  const tabs = [
-    { id: "basic", label: "Basic Info", icon: Code },
-    { id: "collaborators", label: "Collaborators", icon: Users },
-    { id: "media", label: "Media", icon: Image },
-    { id: "settings", label: "Settings", icon: Settings },
-  ];
-
   const renderTabContent = () => {
     switch (activeTab) {
       case "basic":
@@ -311,15 +304,16 @@ const DashboardAddProjects = ({ setProjects }) => {
             <div className="relative">
               <div className="backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 rounded-3xl border border-white/20 shadow-2xl overflow-hidden">
                 {/* Form Header with Gradient */}
-                <ProjectFormHeader
+                <DashboardFormHeader
                   title="Create New Project"
                   description="Bring your ideas to life"
                 />
 
                 {/* Tabs */}
-                <ProjectFormTabs
+                <DashboardFormTabs
                   activeTab={activeTab}
                   setActiveTab={setActiveTab}
+                  tabs={tabs}
                 />
 
                 {/* Form Content */}
@@ -331,7 +325,7 @@ const DashboardAddProjects = ({ setProjects }) => {
                     <button
                       onClick={addProject}
                       disabled={loadingProject}
-                      className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-xl hover:shadow-2xl flex items-center space-x-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                      className="px-8 py-4 cursor-pointer bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-xl hover:shadow-2xl flex items-center space-x-2 disabled:opacity-70 disabled:cursor-not-allowed"
                     >
                       {loadingProject ? (
                         <>
