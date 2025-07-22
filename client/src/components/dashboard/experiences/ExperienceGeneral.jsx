@@ -10,9 +10,21 @@ const ExperienceGeneral = ({
   logoCompressing,
   handleLogoUpload,
 }) => {
+  const experienceTypes = [
+    "Full-time",
+    "Part-time",
+    "Contract",
+    "Internship",
+    "Freelance",
+    "Stage PFE",
+  ];
+
+  const timeTypes = ["Full-time", "Part-time"];
+
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Role */}
         <div>
           <label className="block text-sm font-medium text-slate-300 mb-2">
             Role *
@@ -25,6 +37,8 @@ const ExperienceGeneral = ({
             placeholder="e.g. Senior Full Stack Developer"
           />
         </div>
+
+        {/* Company Name */}
         <div>
           <label className="block text-sm font-medium text-slate-300 mb-2">
             Company Name *
@@ -40,6 +54,7 @@ const ExperienceGeneral = ({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Company Website */}
         <div>
           <label className="block text-sm font-medium text-slate-300 mb-2">
             Company Website/LinkedIn
@@ -52,6 +67,8 @@ const ExperienceGeneral = ({
             placeholder="https://www.linkedin.com/company/example"
           />
         </div>
+
+        {/* Experience Type */}
         <div>
           <label className="block text-sm font-medium text-slate-300 mb-2">
             Experience Type
@@ -61,17 +78,17 @@ const ExperienceGeneral = ({
             onChange={(e) => handleInputChange("type", e.target.value)}
             className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
-            <option value="Full-time">Full-time</option>
-            <option value="Part-time">Part-time</option>
-            <option value="Contract">Contract</option>
-            <option value="Internship">Internship</option>
-            <option value="Freelance">Freelance</option>
-            <option value="Stage PFE">Stage PFE</option>
+            {experienceTypes.map((type, i) => (
+              <option key={i} className="text-black" value={type}>
+                {type}
+              </option>
+            ))}
           </select>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Time Type */}
         <div>
           <label className="block text-sm font-medium text-slate-300 mb-2">
             Time Type
@@ -81,8 +98,11 @@ const ExperienceGeneral = ({
             onChange={(e) => handleInputChange("timeType", e.target.value)}
             className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
-            <option value="Full-time">Full-time</option>
-            <option value="Part-time">Part-time</option>
+            {timeTypes.map((type, i) => (
+              <option key={i} className="text-black" value={type}>
+                {type}
+              </option>
+            ))}
           </select>
         </div>
         <div>

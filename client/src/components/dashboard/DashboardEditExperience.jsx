@@ -218,7 +218,7 @@ const DashboardEditExperience = ({ experiences, setExperiences }) => {
           ? { ...experience, ...experienceData }
           : experience
       );
-      setExperiences(updatedExperiences);
+      if (admin.data.role == "admin") setExperiences(updatedExperiences);
       navigate(`/admin/dashboard/experiences`);
     } catch (error) {
       toast.error(error.response?.data?.message || error.message, {
@@ -398,7 +398,7 @@ const DashboardEditExperience = ({ experiences, setExperiences }) => {
                       <button
                         onClick={updateExperience}
                         disabled={loadingExperience}
-                        className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-xl hover:shadow-2xl flex items-center space-x-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                        className="px-8 py-4 cursor-pointer bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-xl hover:shadow-2xl flex items-center space-x-2 disabled:opacity-70 disabled:cursor-not-allowed"
                       >
                         {loadingExperience ? (
                           <>
