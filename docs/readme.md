@@ -5,7 +5,7 @@ A modern, full-stack portfolio website built with React and Node.js, featuring a
 ## 🌐 Live Demo / Routes
 
 - **index route / Website:** [https://nassim.online](https://nassim.online)
-- **Links route :** [https://nassim.online/links](https://nassim.online/links)
+- **Contacts Links route :** [https://nassim.online/links](https://nassim.online/links)
 - **All Projects route :** [https://nassim.online/cv](https://nassim.online/projects)
 - **cv route :** [https://nassim.online/cv](https://nassim.online/cv)
 - **dashboard route :** [https://nassim.online/admin/dashboard](https://nassim.online/admin/dashboard)
@@ -22,14 +22,14 @@ _Modern and responsive homepage with animated hero section_
 ![Admin Dashboard](./images/dashboard.png)
 _Comprehensive admin panel for content management_
 
-### Mobile Responsive
+<!-- ### Mobile Responsive
 
 <div align="center">
   <img src="./images/mobile-home.png" alt="Mobile Homepage" width="300"/>
   <img src="./images/mobile-links.png" alt="Mobile links" width="300"/>
 </div>
 
-_Fully responsive design optimized for all devices_
+_Fully responsive design optimized for all devices_ -->
 
 ## ✨ Features
 
