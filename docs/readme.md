@@ -2,10 +2,11 @@
 
 A modern, full-stack portfolio website built with React and Node.js, featuring a comprehensive dashboard for content management and analytics.
 
-## 🌐 Live Demo
+## 🌐 Live Demo / Routes
 
 - **index route / Website:** [https://nassim.online](https://nassim.online)
 - **Links route :** [https://nassim.online/links](https://nassim.online/links)
+- **All Projects route :** [https://nassim.online/cv](https://nassim.online/projects)
 - **cv route :** [https://nassim.online/cv](https://nassim.online/cv)
 - **dashboard route :** [https://nassim.online/admin/dashboard](https://nassim.online/admin/dashboard)
 
@@ -13,29 +14,19 @@ A modern, full-stack portfolio website built with React and Node.js, featuring a
 
 ### Homepage
 
-![Homepage Preview](./docs/images/homepage.png)
+![Homepage Preview](./images/homepage.png)
 _Modern and responsive homepage with animated hero section_
-
-### Portfolio Projects Section
-
-![Projects Section](./docs/images/projects.png)
-_Interactive projects showcase with filtering capabilities_
 
 ### Admin Dashboard
 
-![Admin Dashboard](./docs/images/dashboard.png)
+![Admin Dashboard](./images/dashboard.png)
 _Comprehensive admin panel for content management_
-
-### Analytics Dashboard
-
-![Analytics](./docs/images/analytics.png)
-_Real-time visitor statistics and analytics charts_
 
 ### Mobile Responsive
 
 <div align="center">
-  <img src="./docs/images/mobile-home.png" alt="Mobile Homepage" width="300"/>
-  <img src="./docs/images/mobile-links.png" alt="Mobile links" width="300"/>
+  <img src="./images/mobile-home.png" alt="Mobile Homepage" width="300"/>
+  <img src="./images/mobile-links.png" alt="Mobile links" width="300"/>
 </div>
 
 _Fully responsive design optimized for all devices_
